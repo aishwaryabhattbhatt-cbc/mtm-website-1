@@ -32,7 +32,7 @@ export function initProductsBoard(defaultId = "18") {
         const lang = document.documentElement.lang || "en";
         if (cta) {
           const finalSlug = slug || id;
-          cta.href = `/mtm-website/${lang}/products/${finalSlug}`;
+          cta.href = `/mtm-website-1/${lang}/products/${finalSlug}`;
         }
         const icon = card.querySelector(".product-icon-img");
         const heroSrc = card.getAttribute("data-hero-img");
@@ -41,7 +41,7 @@ export function initProductsBoard(defaultId = "18") {
         card.classList.toggle("is-active", isActive);
   
         if (icon) {
-          icon.src = `/mtm-website/icons/Products/${id}-${isActive ? "active" : "inactive"}.svg`;
+          icon.src = `/mtm-website-1/icons/Products/${id}-${isActive ? "active" : "inactive"}.svg`;
         }
   
         if (isActive) {

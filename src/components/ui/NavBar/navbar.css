@@ -90,8 +90,8 @@
     display: inline-block;
     flex-shrink: 0;
     background-color: currentColor;
-    mask: url('/mtm-website/language.svg') no-repeat center / contain;
-    -webkit-mask: url('/mtm-website/language.svg') no-repeat center / contain;
+    mask: url('/mtm-website-1/language.svg') no-repeat center / contain;
+    -webkit-mask: url('/mtm-website-1/language.svg') no-repeat center / contain;
   }
 
   .lang-toggle:hover {

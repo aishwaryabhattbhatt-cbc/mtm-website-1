@@ -99,8 +99,8 @@
     background-color: currentColor;
   
     /* arrow icon */
-    mask: url("/mtm-website/arrow_forward.svg") no-repeat center / contain;
-    -webkit-mask: url("/mtm-website/arrow_forward.svg") no-repeat center / contain;
+    mask: url("/mtm-website-1/arrow_forward.svg") no-repeat center / contain;
+    -webkit-mask: url("/mtm-website-1/arrow_forward.svg") no-repeat center / contain;
   
     transition: transform 150ms ease;
   }

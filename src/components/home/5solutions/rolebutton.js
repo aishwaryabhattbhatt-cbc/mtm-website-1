@@ -18,13 +18,13 @@ export function initSolutionsBoard(solutionsData, defaultId = "media") {
         btn.classList.toggle("is-active", isActive);
   
         if (img) {
-          img.src = `/mtm-website/icons/Solutions/${id}-${isActive ? "active" : "inactive"}.svg`;
+          img.src = `/mtm-website-1/icons/Solutions/${id}-${isActive ? "active" : "inactive"}.svg`;
         }
       });
   
       description.textContent = data.description;
       cta.textContent = data.ctaLabel;
-      cta.href = `/mtm-website/${document.documentElement.lang || "en"}/solutions/${data.id}`;
+      cta.href = `/mtm-website-1/${document.documentElement.lang || "en"}/solutions/${data.id}`;
       clientImg.src = data.clientLogos;
     };
   

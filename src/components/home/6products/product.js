@@ -10,9 +10,9 @@ export const productData = [
     description: "MTM 18+ pioneered media technology monitoring in Canada 25 years ago. Annually surveying over 12,000 Canadians.",
     ctaLabel: "Learn More",
     tools: [
-      { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website/icons/Tools/data-analysis.svg" },
-      { id: "trending", label: "Trending", icon: "/mtm-website/icons/Tools/trending.svg" },
-      { id: "forecasting", label: "Forecasting", icon: "/mtm-website/icons/Tools/forecasting.svg" },
+      { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website-1/icons/Tools/data-analysis.svg" },
+      { id: "trending", label: "Trending", icon: "/mtm-website-1/icons/Tools/trending.svg" },
+      { id: "forecasting", label: "Forecasting", icon: "/mtm-website-1/icons/Tools/forecasting.svg" },
     ]
 
   },
@@ -24,10 +24,10 @@ export const productData = [
     description: "MTM Junior is the first annual youth media survey in Canada. It focuses on the behaviours and activities of Canadians.",
     ctaLabel: "Learn More",
     tools: [
-      { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website/icons/Tools/data-analysis.svg" },
-      { id: "trending", label: "Trending", icon: "/mtm-website/icons/Tools/trending.svg" },
+      { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website-1/icons/Tools/data-analysis.svg" },
+      { id: "trending", label: "Trending", icon: "/mtm-website-1/icons/Tools/trending.svg" },
     ]
-    // clientLogos: "/mtm-website/images/products/junior.png"
+    // clientLogos: "/mtm-website-1/images/products/junior.png"
   },
   {
     id: "NC",
@@ -37,9 +37,9 @@ export const productData = [
     description: "MTM Newcomers is the premier media and tech survey focusing on newcomers in Canada (within 5 years).",
     ctaLabel: "Learn More",
     tools: [
-      { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website/icons/Tools/data-analysis.svg" },
+      { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website-1/icons/Tools/data-analysis.svg" },
       ]
-    // clientLogos: "/mtm-website/images/products/newcomers.png"
+    // clientLogos: "/mtm-website-1/images/products/newcomers.png"
   },
   {
     id: "Census",
@@ -49,13 +49,13 @@ export const productData = [
     description: "Understanding the Canadian population is critical for making smart business decisions.",
     ctaLabel: "Learn More",
     tools: [
-      { id: "snapshot", label: "Snapshot", icon: "/mtm-website/icons/Tools/snapshot.svg" },
-      { id: "drilldown", label: "Drilldown", icon: "/mtm-website/icons/Tools/drilldown.svg" },
-      { id: "explorer", label: "Explorer", icon: "/mtm-website/icons/Tools/explorer.svg" },
-      { id: "charter", label: "Charter", icon: "/mtm-website/icons/Tools/charter.svg" },
-      { id: "compare", label: "Compare", icon: "/mtm-website/icons/Tools/compare.svg" }
+      { id: "snapshot", label: "Snapshot", icon: "/mtm-website-1/icons/Tools/snapshot.svg" },
+      { id: "drilldown", label: "Drilldown", icon: "/mtm-website-1/icons/Tools/drilldown.svg" },
+      { id: "explorer", label: "Explorer", icon: "/mtm-website-1/icons/Tools/explorer.svg" },
+      { id: "charter", label: "Charter", icon: "/mtm-website-1/icons/Tools/charter.svg" },
+      { id: "compare", label: "Compare", icon: "/mtm-website-1/icons/Tools/compare.svg" }
       ]
-    // clientLogos: "/mtm-website/images/products/census.png"
+    // clientLogos: "/mtm-website-1/images/products/census.png"
   },
 ];
 
