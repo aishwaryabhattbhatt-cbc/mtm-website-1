@@ -1,0 +1,28 @@
+---
+// filepath: src/components/home/5 solutions/RoleButton.astro
+import "./rolebutton.css";
+// src/components/ui/RoleButton.astro
+const { id, label, isActive } = Astro.props;
+
+// Change these strings manually if your folder structure moves
+const iconFolder = "/mtm-website/icons/Solutions";
+const state = isActive ? 'active' : 'inactive';
+const initialIcon = `${iconFolder}/${id}-${state}.svg`;
+---
+
+<button 
+  class={`role-btn ${isActive ? 'is-active' : ''}`} 
+  data-role-id={id}
+>
+  <div class="role-icon-wrapper">
+    <img 
+      src={initialIcon} 
+      alt={`${label} icon`} 
+      class="role-icon-img" 
+    />
+  </div>
+  <span class="button-l">{label}</span>
+</button>
+
+
+

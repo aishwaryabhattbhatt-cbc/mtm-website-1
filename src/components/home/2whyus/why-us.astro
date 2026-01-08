@@ -1,0 +1,43 @@
+---
+// src/components/home/WhyUs/WhyUs.astro
+
+// 1. DATA: Edit your text here
+const heading = "Why Leading Organizations Trust Us";
+const description = "We deliver strategic advantages with our data-driven insights into Canadian media habits. Our detailed reports, powered by cutting-edge tools, are known for their actionable intelligence, ensuring leaders remain at the forefront of industry trends.";
+
+// 2. STYLES: Import the local CSS
+import './why-us.css';
+---
+
+<section class="why-us">
+  <div class="why-us-inner">
+    <div class="why-us-stage">
+      
+      <div class="why-us-image">
+        <img
+          src="/mtm-website/Home-WhyUsImage.png"
+          alt="Why MTM helps you make better decisions"
+          class="why-us-image-img"
+        />
+      </div>
+
+      <div class="why-us-text panel-top">
+        <h2 class="h2">{heading}</h2>
+        <p class="body-m">
+          {description}
+        </p>
+      </div>
+      
+      <div class="why-us-imagebox panel-left">
+        <img src="/mtm-website/left-whyus.svg" alt="" class="whyus-side-img" />
+      </div>
+      
+      <div class="why-us-imagebox panel-right">
+        <img src="/mtm-website/right-whyus.svg" alt="" class="whyus-side-img" />
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<script src="./scroll-whyus.js"></script>

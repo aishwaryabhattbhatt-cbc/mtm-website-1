@@ -1,0 +1,80 @@
+---
+/* src/components/home/5-solutions/solutions.astro */
+import './solutions.css';
+import RoleButton from '../../home/5 solutions/RoleButton.astro';
+import { solutionsData } from './solutions.js'; // Import data for HTML
+
+const titleHighlight = "Solutions";
+const titleBase = " for Every Decision Maker";
+const description = "Every role has different priorities. Explore solutions by your role to help you find the MTM insights and products that support your specific decision-making needs.";
+
+const activeRole = solutionsData.find(role => role.id === "media") || solutionsData[0];
+
+---
+
+<section class="section-solutions">
+  <div class="page-inner solutions-container">
+    
+    {/* Header Block */}
+<div class="solutions-header">
+    <h2 class="h2">
+      <span class="hl-text highlight-2">{titleHighlight}</span>{titleBase}
+    </h2>
+    
+    <p class="body-m solutions-desc">
+      {description}
+    </p>
+</div>
+
+    {/* New Solutions Roles Block */}
+    <div class="solutions-roles">
+      
+        {/* 1. Roles Block */}
+          <div class="role-buttons">
+            {solutionsData.map((role) => (
+            <RoleButton
+            id={role.id}
+            label={role.label}
+            icon={role.icon}
+            isActive={role.id === "media"} // 'Media' is default active
+            />
+            ))}
+            </div>
+            
+        {/* 2. Text + Button Block */}
+        <div class="board-cta">
+            <p class="body-l role-description"> 
+                {activeRole.description}
+              </p>
+            
+              {/* Tertiary Button: Uses your standardized button component logic */}
+              <a href={activeRole.href} class="btn-tertiary button-l">
+                {activeRole.ctaLabel}
+              </a>
+        </div>
+  </div>
+
+  {/* 3. Clients Block */}
+  <div class="board-clients">
+    <div class="logo-strip">
+        <img 
+        src={activeRole.clientLogos}
+        alt="Trusted Clients" 
+        id="client-logo-image"
+        class="client-image"
+        />
+    </div>
+    </div>
+</div>
+
+</section>
+
+
+<script>
+    // Import the starter function
+    import { startSolutions } from './solutions.js';
+    
+    // Run it when the page loads in the browser
+    startSolutions();
+  </script>
+  

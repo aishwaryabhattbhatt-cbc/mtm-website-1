@@ -1,0 +1,63 @@
+---
+/* src/components/ui/Percentage/percentage.astro */
+import "./percentage.css";
+
+const {
+  percent = 75,
+  size = 96, // px
+  stroke = 10, // px
+  ariaLabel = "Percentage",
+} = Astro.props;
+
+const pct = Math.max(0, Math.min(100, Number(percent) || 0));
+
+// SVG circle math
+const half = size / 2;
+const radius = (size - stroke) / 2;
+const circumference = 2 * Math.PI * radius;
+const dashOffset = circumference * (1 - pct / 100);
+---
+
+<div
+  class="percentage"
+  style={`--pct-size:${size}px;`}
+  aria-label={ariaLabel}
+>
+  <svg
+    class="percentage__svg"
+    width={size}
+    height={size}
+    viewBox={`0 0 100 100`}
+    aria-label={`${percent}%`}
+    role="img"
+    aria-hidden="true"
+  >
+    <!-- Background ring (always 100%) -->
+    <circle
+      class="percentage__ring percentage__ring--bg"
+      cx={half}
+      cy={half}
+      r={radius}
+      fill="none"
+      stroke-width={stroke}
+      stroke-dasharray={circumference}
+      stroke-dashoffset="0"
+    />
+
+    <!-- Foreground ring (progress) -->
+    <circle
+      class="percentage__ring percentage__ring--fg"
+      cx={half}
+      cy={half}
+      r={radius}
+      fill="none"
+      stroke-width={stroke}
+      stroke-dasharray={circumference}
+      stroke-dashoffset={dashOffset}
+      stroke-linecap="round"
+    />
+  </svg>
+
+  <div class="percentage__text body s" aria-hidden="true">{pct}%
+  </div>
+</div>

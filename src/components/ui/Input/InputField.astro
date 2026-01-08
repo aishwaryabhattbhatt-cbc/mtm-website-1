@@ -1,0 +1,52 @@
+---
+import "./input-field.css";
+
+const {
+  id,
+  name,
+  label = "Label",
+  placeholder = "",
+  type = "text",
+  value = "",
+  required = false,
+  disabled = false,
+  errorText = "",
+} = Astro.props;
+---
+
+<div class={`input-field ${errorText ? "has-error" : ""}`}>
+  <div class="input-wrap">
+   
+    <label class="input-label body-s" for={id}>
+      {label}{required ? <span class="input-required" aria-hidden="true"> *</span> : null}
+    </label>
+
+    <input
+      class="input-control input-text"
+      id={id}
+      name={name ?? id}
+      type={type}
+      placeholder="Eg: johndoe@workmail.com"
+      value={value}
+      required={required}
+      disabled={disabled}
+      aria-invalid={errorText ? "true" : "false"}
+    />
+
+    
+  </div>
+
+  {/* Error only (hidden when no error) */}
+  <div class={`input-error-slot ${errorText ? "" : "is-hidden"}`} aria-live="polite">
+    <svg class="input-error-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20Zm1 14h-2v-2h2v2Zm0-4h-2V6h2v6Z"/>
+    </svg>
+    <span class="body-s">{errorText}</span>
+  </div>
+
+  {/* Default helper (always visible unless error) */}
+  <div class={`input-helper ${errorText ? "is-hidden" : ""}`} aria-live="polite">
+    <span class="body-s">Enter a valid work email</span>
+  </div>
+</div>
+

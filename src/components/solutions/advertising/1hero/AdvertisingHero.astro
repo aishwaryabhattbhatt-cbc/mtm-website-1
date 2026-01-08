@@ -1,0 +1,40 @@
+---
+// 1. DATA
+const titleHighlight = "Media & Tech";
+const titleBase = "insights for data driven decisions";
+const subtitle = "Unlock a clearer understanding of how Canadians consume media and adopt new technologies. MTM turns complex datasets into actionable insights so you can plan confidently and stay ahead of change.";
+const primaryBtn = "Request A Demo";
+const secondaryBtn = "Explore More";
+
+// 2. STYLES
+import './advertising-hero.css';
+import './advertising-hero-animation.css';
+import '../../../ui/HighlightText/highlight-text.css';
+---
+
+<section class="hero">
+  <div class="page-inner hero-grid">
+    <div class="hero-left">
+      <h1 class="h1">
+        <span class="hl-text highlight-1">
+          {titleHighlight}
+        </span>
+        <span class="hero-title-base">{titleBase}</span>
+      </h1>
+
+      <p class="body-m">{subtitle}</p>
+      
+      <div class="hero-actions">
+        <button class="btn btn-primary button-l">{primaryBtn}</button>
+        <button class="btn btn-secondary button-l">{secondaryBtn}</button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-visual" data-hero-scene></div>
+    </div>
+  </div>
+</section>
+
+<script src="./scene.js"></script>
+<script src="./main.js"></script>

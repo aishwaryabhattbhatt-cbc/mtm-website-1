@@ -1,0 +1,41 @@
+---
+/* src/components/home/7-about-news/about-news.astro */
+import "./about-news.css";
+
+const cards = [
+  {
+    title: "About the MTM",
+    descLines: [
+      "Learn about Media Technology Monitor, including our mission, team, and values."],
+    ctaLabel: "LEARN MORE",
+    href: "#",
+  },
+  {
+    title: "In the News Room",
+    descLines: [
+      "Stay informed with press releases, articles, and interviews featuring MTM data."],
+    ctaLabel: "LEARN MORE",
+    href: "#",
+  },
+];
+---
+
+<section class="section-about-news">
+  <div class="page-inner about-news-grid">
+    {cards.map((card) => (
+      <div class="about-news-card">
+        <h4 class="h4">{card.title}</h4>
+
+        <div class="about-news-body body-m">
+          {card.descLines.map((line) => (
+            <p>{line}</p>
+          ))}
+        </div>
+
+        <a class="btn-tertiary button-l about-news-cta" href={card.href}>
+          {card.ctaLabel}
+        </a>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,67 @@
+---
+/* src/components/home/5-solutions/solutions.astro */
+import './product.css';
+
+import ProductCards from '../../home/6 products/ProductCards.astro';
+import { productData } from './product.js'; // Import data for HTML
+
+import Tools from "../../home/6 products/tools.astro";
+
+
+const titleHighlight = "Products";
+const titleBase = " built on MTM Data";
+const description = "Explore MTM’s suite of products designed to turn audience data into actionable insights for strategy, planning, and decision-making. Our products empower you to make informed choices that drive success.";
+
+const activeRole = productData.find(role => role.id === "18") || productData[0];
+
+---
+
+<section class="section-products">
+  <div class="page-inner products-container">
+    {/* Header Block */}
+    <div class="products-header">
+      <h2 class="h2">
+        <span class="hl-text highlight-2">{titleHighlight}</span>{titleBase}
+      </h2>
+
+      <p class="products-desc body-m">{description}</p>
+    </div>
+
+
+    <div class="products-stage">
+    {/* Product Image Block */}
+    <div class="products-hero-image">
+      <img
+        id="products-hero-img"
+        src="/mtm-website/images/products/18-hero.png"
+        alt=""
+      />
+    </div>
+
+    {/* Product Types Block */}
+    <div class="product-types">
+      {productData.map((role) => (
+        <ProductCards
+          id={role.id}
+          label={role.label}
+          subtitle={role.subtitle}
+          description={role.description}
+          ctaLabel={role.ctaLabel}
+          isActive={role.id === "18"}
+          heroImage={`/mtm-website/images/products/${role.id}-hero.png`}
+          tools={role.tools}
+        />
+      ))}
+    </div>
+
+    {/* Tools Block */}
+    <Tools />
+  </div>
+  </div>
+</section>
+
+<script type="module">
+  import { startProducts } from '/src/components/home/6 products/product.js';
+  startProducts();
+</script>
+  

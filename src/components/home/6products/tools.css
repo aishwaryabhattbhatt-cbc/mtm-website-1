@@ -1,0 +1,51 @@
+/* src/components/home/6-products/tools.css */
+
+/* blue box */
+.tools-panel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* match product grid */
+    padding: var(--space-24) var(--space-24);
+    gap: var(--stack-gap);
+    width: 100%;
+    border-radius: var(--radius-20);
+    background: var(--color-blue-light-4);
+  }
+  
+  /* content row */
+  .tools-content {
+    grid-column: 1 / 4; /* spans col 1-3 */
+    display: flex;
+    justify-content: flex-start; /* left align */    align-items: center;
+    width: 100%;
+    gap: var(--space-32); 
+    padding-left: var(--gap-small);
+  }
+
+  /* tools block */
+  .tools-items {
+    display: flex;
+    align-items: center;
+    gap: var(--space-56); 
+    font
+  }
+  
+  /* tertiary button block */
+    .tools-cta {
+    grid-column: 4 / 5; /* col 4 */
+    align-items: center;
+    width: 100%;
+    }
+  
+  /* tool item */
+  .tool-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-12);
+  }
+  
+  .tool-icon {
+    width: var(--icon-size-l);
+    height: var(--icon-size-l);
+    object-fit: contain;
+  }
+  

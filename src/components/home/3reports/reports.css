@@ -1,0 +1,119 @@
+.reports {
+  position: relative;
+  width: 100%; /* Ensure the section spans the full width */
+  background: var(--color-white);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding-block: var(--section-padding);
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr); /* Use the responsive grid */
+  column-gap: var(--gutter);
+  width: 100%;
+  
+}
+
+.reports-image {
+  grid-column: span 12; /* Span all 12 columns */
+  height: 50vh; /* Adjust height as needed */
+  border-radius: 24px; /* Rounded corners */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reports-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the container */
+  object-position: center;
+}
+
+.reports-placeholder {
+  grid-column: span 12; /* Span all 12 columns */
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  border-radius: 12px; /* Optional: Rounded corners */
+  margin-bottom: 24px; /* Add spacing below the placeholder */
+  /* background-color removed from here */
+}
+
+/* New child blocks inside .reports-placeholder */
+.reports-left {
+  grid-column: span 8;
+  box-sizing: border-box;
+}
+
+/* add spacing: 16px between h2 and the next content, 24px between that content and a tertiary button */
+.reports-left h2 + * {
+  margin-top: 16px;
+}
+
+/* common patterns for a tertiary button that follows the body/content */
+.reports-left h2 + * + button,
+.reports-left h2 + * + [class*="btn"],
+.reports-left h2 + * + .btn,
+.reports-left h2 + * + .btn--tertiary,
+.reports-left h2 + * + .tertiary {
+  margin-top: 32px;
+}
+
+.reports-gap {
+  grid-column: span 1; /* empty spacer column */
+  /* intentionally no background so it acts as gap */
+}
+
+.reports-right {
+  grid-column: span 3;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  opacity: 0;              /* start hidden */
+  transform: translateY(10px);
+}
+
+.reports-right--visible {
+  animation: reportsRightFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes reportsRightFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reports-footer {
+  grid-column: 2 / span 10;
+  /* Remove height: 300px; so the image isn't squashed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  
+  /* Keep these for the parallax/animation effect you have going */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.reports-stat-img {
+  width: 100%;       /* Fills the grid span */
+  height: auto;      /* Keeps the image proportions correct */
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reports-footer {
+    transform: none !important;
+  }
+}

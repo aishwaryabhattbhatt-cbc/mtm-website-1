@@ -1,0 +1,20 @@
+---
+import "./tools.css";
+
+const title = "Tools";
+const ctaLabel = "EXPLORE TOOLS";
+const ctaHref = "#tools";
+---
+
+<div class="tools-panel" id="products-tools">
+  <div class="tools-content">
+    <h4 class="body-l tools-title">{title}</h4>
+
+    <!-- JS will inject tool-item elements here -->
+    <div class="tools-items" id="tools-items"></div>
+  </div>
+
+  <div class="tools-cta">
+    <a class="btn-tertiary button-l" href={ctaHref}>{ctaLabel}</a>
+  </div>
+</div>

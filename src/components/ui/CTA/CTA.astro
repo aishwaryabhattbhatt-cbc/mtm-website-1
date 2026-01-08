@@ -1,0 +1,29 @@
+---
+/* src/components/ui/CTA/CTA.astro */
+import "./cta.css";
+import InputField from "../Input/InputField.astro";
+
+
+
+const {
+  title2 = "Ready to Get Started? Request a Demo Now.",
+  ctaLabel = "Request a Demo",
+  ctaHref = "#"
+} = Astro.props;
+---
+
+<section class="cta-section">
+  <div class="cta-box">
+    <div class="cta-titles"> 
+    <h4 class="h4">{title2}</h4>
+    </div>
+   
+    <div class="cta-form">
+        <InputField id="email" label="Email" type="email" required />
+      </div>
+    <a href={ctaHref} class="btn btn-primary button-l">
+      {ctaLabel}
+    </a>
+    </div>
+  </div>
+</section>

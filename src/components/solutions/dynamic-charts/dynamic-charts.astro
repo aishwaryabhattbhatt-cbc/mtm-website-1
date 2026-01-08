@@ -1,0 +1,57 @@
+---
+import "./dynamic-charts.css";
+
+const {
+  title = "",
+  leftImage = "",
+  rightImage = "",
+  leftImageAlt = "",
+  rightImageAlt = "",
+  metrics = [],
+} = Astro.props;
+---
+
+<section class="section-dynamic-charts">
+  {/* Header */}
+
+  <div class="page-inner">
+    {/* 2-column block */}
+    <div class="dynamic-charts-grid">
+      <div class="dynamic-charts-left">
+        <h2 class="h2">{title}</h2>
+        {leftImage && (
+          <img src={leftImage} alt={leftImageAlt} class="dynamic-chart-image" />
+        )}
+
+      <div class="dynamic-charts-left-metrics">
+        {metrics.map((item) => (
+          <div class="dynamic-charts-metric">
+              {item.type === "component" ? (
+              <div class="dynamic-charts-metric-icon">
+                <item.component {...(item.componentProps ?? {})} />
+              </div>
+                  ) : (
+                    <img
+                      src={item.icon}
+                      alt=""
+                      class="dynamic-charts-metric-icon"
+                      aria-hidden="true"
+                    />
+                  )}
+            <p class="body-m dynamic-charts-metric-text">
+              {item.text}
+            </p>
+          </div>
+        ))}
+      </div>
+      </div>
+
+      <div class="dynamic-charts-right">
+        {rightImage && (
+          <img src={rightImage} alt={rightImageAlt} class="dynamic-chart-image" />
+        )}
+      </div>
+    </div>
+
+  </div>
+</section>

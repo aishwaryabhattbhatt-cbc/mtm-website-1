@@ -1,0 +1,60 @@
+/* src/styles/layout.css */
+
+/* ===============================
+   PAGE CONTAINER (real layout grid)
+   =============================== */
+
+   /* Page wrapper: consistent gutters */
+.page {
+    width: 100%;
+    padding-left: var(--page-margin);
+    padding-right: var(--page-margin);
+  }
+  
+  /* Constrained inner container */
+  .page-inner {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+   .section {
+    width: 100%;
+    padding-block: var(--space-120, 120px);
+  }
+
+  
+  /* Optional: full-width section background + inner grid */
+  .section-full {
+    width: 100%;
+  }
+  
+  
+  /* ===============================
+     GRID SPAN HELPERS (optional)
+     =============================== */
+  .col-span-12 { grid-column: span 12; }
+  .col-span-8  { grid-column: span 8; }
+  .col-span-6  { grid-column: span 6; }
+  .col-span-4  { grid-column: span 4; }
+  .col-span-3  { grid-column: span 3; }
+  
+  /* Tablet: 6-column grid => ensure spans don’t overflow */
+  @media (max-width: 1024px) {
+    .col-span-12 { grid-column: span 6; }
+    .col-span-8  { grid-column: span 6; }
+    .col-span-6  { grid-column: span 6; }
+    .col-span-4  { grid-column: span 6; }
+    .col-span-3  { grid-column: span 3; }
+  }
+  
+  /* Mobile: 4-column grid => stack spans */
+  @media (max-width: 600px) {
+    .col-span-12 { grid-column: span 4; }
+    .col-span-8  { grid-column: span 4; }
+    .col-span-6  { grid-column: span 4; }
+    .col-span-4  { grid-column: span 4; }
+    .col-span-3  { grid-column: span 4; }
+  }
+  

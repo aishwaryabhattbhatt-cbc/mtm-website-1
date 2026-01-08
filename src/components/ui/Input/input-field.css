@@ -1,0 +1,143 @@
+/* src/components/ui/InputField/input-field.css */
+
+.input-field {
+  width: 100%;
+}
+
+/* div 1 */
+.input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 12px;
+
+  border-radius: var(--radius-8);
+  border: 1.5px solid var(--color-grey-4);
+  background: var(--color-white);
+
+  /* FIX 1: stop parent text-align:center from affecting label + input */
+  text-align: left;
+}
+
+/* div 1.1 */
+.input-label {
+  color: var(--color-grey-2);
+  align-self: flex-start; /* extra safety */
+}
+
+.input-required {
+  color: var(--primary);
+}
+
+/* div 1.2 */
+.input-text {
+  width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  line-height: 1.4;
+  color: var(--color-black);
+
+  /* FIX 2: ensure no UA “blue” background shows */
+  background: transparent;
+  text-align: left;
+}
+
+.input-text:focus {
+  outline: none;
+}
+
+/* keep neutral on focus */
+.input-box:focus-within {
+  border-color: var(--color-grey-4);
+  box-shadow: none;
+}
+
+/* Optional: selection color (won’t remove Chrome autofill) */
+.input-text::selection {
+  background: rgba(0, 0, 0, 0.12);
+  color: inherit;
+}
+
+/* FIX 2 (real fix): kill Chrome autofill blue */
+.input-text:-webkit-autofill,
+.input-text:-webkit-autofill:hover,
+.input-text:-webkit-autofill:focus,
+.input-text:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--color-black);
+  -webkit-box-shadow: 0 0 0 1000px var(--color-white) inset;
+  box-shadow: 0 0 0 1000px var(--color-white) inset;
+  transition: background-color 9999s ease-out;
+}
+
+/* error state */
+.input-field.has-error .input-box {
+  border-color: var(--color-red, #d92d20);
+}
+
+/* reserve space so layout doesn't jump */
+.input-error-slot {
+  min-height: 20px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-red, #d92d20);
+
+  /* also resist parent centering */
+  text-align: left;
+}
+
+.input-error-slot.is-hidden {
+  visibility: hidden;
+}
+
+.input-error-icon {
+  flex: 0 0 auto;
+}
+
+/* helper base */
+.input-helper {
+  margin-top: 6px;
+  margin-left: 12px; /* align with input text */
+  display: flex;
+  align-items: center;
+}
+
+/* default (idle) message */
+.input-helper-text {
+  color: var(--color-grey-3);
+}
+
+/* error state overrides */
+.input-field.has-error .input-helper-text {
+  color: var(--color-red, #d92d20);
+}
+
+
+/* success state overrides */
+.input-error-slot,
+.input-helper {
+  margin-top: 6px;
+  min-height: 18px; /* keeps layout stable */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-helper {
+  color: var(--color-grey-3);
+}
+
+.input-error-slot {
+  color: var(--color-red, #d92d20);
+}
+
+.input-error-icon {
+  flex: 0 0 auto;
+}
+
+.is-hidden {
+  display: none;
+}

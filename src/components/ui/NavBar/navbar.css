@@ -1,0 +1,258 @@
+/* ============================
+   NAVIGATION BAR COMPONENT
+   ============================ */
+
+/* Outer fixed bar */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background-color: var(--bg);
+    border-bottom: 2px solid var(--primary);
+    z-index: var(--z-nav);
+    padding-left: var(--page-margin);
+    padding-right: var(--page-margin);
+  
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Inner container aligned to page margin */
+  .nav-inner {
+    width: calc(100% - (2 * var(--page-margin))); /* uses your 48px side margins */
+    margin: 0 auto;
+    height: 100%;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* LEFT block | RIGHT block */
+  }
+  
+  /* ============================
+     LEFT SIDE: LOGO + MENU
+     ============================ */
+  
+  .nav-main {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-large); /* spacing between logo and menu */
+  }
+  
+  /* Logo image */
+  .nav-logo-img {
+    height: var( --icon-size-xl);
+    width: auto;
+    display: block;
+  }
+  
+  /* Menu container */
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs); /* spacing between menu buttons */
+  }
+  
+  /* Because menu buttons use .btn-menu from buttons.css,
+     no styling needed here for button appearance */
+  
+  /* ============================
+     RIGHT SIDE: CTA + LANGUAGE
+     ============================ */
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-medium); /* spacing between secondary, primary, lang toggle */
+  }
+  
+  /* ---------------- LANGUAGE TOGGLE ---------------- */
+
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-xxs); /* Gap between icon and text */
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    height: var(--button-height);
+    transition: color 150ms ease, opacity 150ms ease;
+    text-decoration: none; /* Removes the underline */
+
+  }
+
+  .lang-toggle .lang-icon {
+    width: var(--icon-size-s);
+    height: var(--icon-size-s);
+    display: inline-block;
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask: url('/mtm-website/language.svg') no-repeat center / contain;
+    -webkit-mask: url('/mtm-website/language.svg') no-repeat center / contain;
+  }
+
+  .lang-toggle:hover {
+    color: var(--primary-hover); 
+  }
+  
+  .lang-toggle:active {
+    color: var(--primary);
+  }
+
+  .lang-toggle.is-active {
+    color: var(--primary);
+  }
+
+  /* Language toggle group */
+  .lang-toggle-group {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-small); /* small spacing between FR and EN */
+  }
+  
+
+  /* ============================
+     DROPDOWN MENU STYLES
+     ============================ */
+
+/* keep for hover targeting */
+.nav-item {
+  position: relative;
+}
+
+/* Shared dropdown container */
+.nav-dropdown {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  width: 100vw;
+  background: #fff;
+  padding: var(--page-margin) 40px;
+  box-shadow: 0 4px 4px rgba(27, 28, 29, 0.07);
+  z-index: calc(var(--z-nav) - 1);
+
+  /* hidden by default (JS toggles) */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
+}
+
+.nav-dropdown.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 0s;
+}
+
+/* Always respect the HTML hidden attribute */
+.nav-dropdown [hidden] {
+  display: none !important;
+}
+
+/* Dropdown inner wrapper stays aligned to the page content width */
+.nav-dropdown-inner {
+  width: 100%;
+}
+
+/* Grid wrapper per panel */
+.nav-cards {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Column variants */
+.nav-cards--5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.nav-cards--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Card layout: 3 rows */
+.nav-card {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 8px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Nav dropdown card hover: label turns blue */
+.nav-card:hover .nav-card-label,
+.nav-card:focus-visible .nav-card-label {
+  color: var(--primary);
+}
+
+.nav-card:hover .nav-card-desc,
+.nav-card:focus-visible .nav-card-desc {
+  color: var(--color-blue-dark-1);
+}
+
+/* Icon sizing */
+.nav-card-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Make sure link never goes purple */
+.nav-card:visited {
+  color: inherit;
+}
+
+
+  /* ============================
+     RESPONSIVE 
+     ============================ */
+  
+/* ============================
+   TABLET NAV BAR ADJUSTMENTS
+   ============================ */
+   @media (max-width: 1024px) {
+
+    /* reduce spacing on left block (logo + menu) */
+    .nav-main {
+      gap: var(--space-12);            /* was 48px */
+    }
+  
+    /* reduce spacing between menu buttons */
+    .nav-menu {
+      gap: var(--space-0);             /* was 24px */
+    }
+  
+    /* spacing on right block (CTA + lang toggle) */
+    .nav-actions {
+      gap: var(--space-12);            /* was 24px */
+    }
+  
+    /* smaller logo on tablet */
+    .nav-logo-img {
+      height: 30px;         /* was 42px */
+    }
+  
+    /* language toggle only INSIDE nav (optional) */
+    .nav-actions .lang-toggle {
+      font-size: 12px;      /* was 16px */
+    }
+  
+    .nav-actions .lang-toggle .lang-icon {
+      width: 12px;          /* was 14px */
+      height: 12px;
+    }
+  }
+  
+   
+
+
+
+  
+  

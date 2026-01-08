@@ -1,0 +1,32 @@
+/* src/components/ui/CTA/cta.css */
+
+.cta-section {
+    z-index: var(--z-section);      /* Layer 10 */
+    padding-block: var(--section-padding);
+  }
+  
+  .cta-titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--gap-xs);
+  }
+
+  .cta-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--stack-gap);
+  
+    padding: var(--page-margin);
+    border-radius: var(--radius-20);
+    background: var(--color-blue-light-4);
+    text-align: center;
+  }
+
+  .cta-form {
+    width: 40%;
+  }
+  
+ 

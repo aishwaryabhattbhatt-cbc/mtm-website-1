@@ -1,0 +1,111 @@
+/* Footer section – visible above hero */
+.section-footer {                      /* create its own stacking context */
+    z-index: var(--z-section);      /* Layer 10 */
+    padding-bottom: var(--section-padding);  /* keep your vertical spacing */
+}
+
+  /* 7 / 5 split on global 12-col grid */
+  .footer-left {
+    grid-column: span 7;
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-padding);
+  }
+  
+  .footer-left-top {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: var(--space-56);
+    row-gap: var(--gap-large);
+  }
+  
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-xs);
+  }
+  
+  .footer-col-title {
+    font-weight: 600; /* if you want them slightly stronger */
+  }
+  
+  .footer-col-link {
+    text-decoration: none;
+    color: var(--color-grey-1);
+  }
+  
+  .footer-col-link:hover {
+    color: var(--primary);
+  }
+  
+  
+  
+  .footer-left-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+    color: var(--color-grey-2);
+  }
+  
+  
+  
+  /* Right column (5 cols) */
+  .footer-right {
+    grid-column: span 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between; /* top + bottom separated */
+    gap: var(--gap-medium);
+  }
+  
+  /* Right Top block: logo, address, social */
+  .footer-right-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-small);
+  }
+
+
+.footer-logo {
+  height: 48px;                /* tweak as needed */
+  width: auto;
+}
+
+.footer-address {
+  text-align: left;
+  color: var(--color-grey-1);
+}
+
+  /* Right Bottom block placeholder */
+  .footer-right-bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-xs);
+  }
+
+  .footer-link {
+    text-decoration: none;
+    color: var(--color-grey-2);
+  }
+  
+  .footer-link:hover {
+    text-decoration: none;
+  }
+  
+  .footer-link-separator {
+    color: var(--color-grey-2);
+  }
+
+  /* basic responsive: stack on mobile */
+  @media (max-width: 768px) {
+    .footer-left,
+    .footer-right {
+      grid-column: 1 / -1;
+    }
+  }
+  

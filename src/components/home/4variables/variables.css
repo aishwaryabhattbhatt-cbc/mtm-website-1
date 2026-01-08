@@ -1,0 +1,37 @@
+.section-variables {
+    z-index: var(--z-section);
+    padding-bottom: var(--section-padding); /* Bottom padding to match page margins */
+  }
+  
+  .variables-container {
+    display: flex;
+    flex-direction: column;         /* Stack vertically */
+    align-items: center;            /* Center horizontally */
+    text-align: center;
+    gap: var(--stack-gap);
+  }
+
+  .variables-hero-image {
+    width: 100%;
+    height: 60vh; /* Fixed height as requested */
+    border-radius: var(--radius-16); /* Using your radius token */
+    overflow: hidden;
+  }
+  
+  .variables-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills the 550px height without distorting */
+  }
+  
+
+  .variables-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);           /* Tight spacing between lines */
+  }
+  
+  .variables-stack p {
+    color: var(--color-grey-2);     /* Matches your muted design grey */
+    margin: 0;
+  }

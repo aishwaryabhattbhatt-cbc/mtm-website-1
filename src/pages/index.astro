@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/ui/NavBar/nav-bar.astro';
+import Grid from '../components/ui/Grid/grid.astro';
+import HighlightText from '../components/ui/HighlightText/highlight-text.astro';
+import Hero from '../components/home/1hero/hero.astro';
+import WhyUs from '../components/home/2whyus/why-us.astro'; 
+import Reports from '../components/home/3reports/reports.astro';
+import Variables from '../components/home/4variables/variables.astro';
+import Solutions from '../components/home/5solutions/solutions.astro';
+import Products from '../components/home/6products/product.astro';
+import AboutNews from '../components/home/7about-news/about-news.astro';
+import CTA from "../components/ui/CTA/CTA.astro";
+import Subscribe from '../components/ui/Subscribe/subscribe.astro';
+import Footer from '../components/ui/Footer/footer.astro';
+
+---
+<BaseLayout title="MTM | Home">
+  <HighlightText />
+  <Grid />
+  <Navbar />
+  
+  <main class="page">
+    <Hero />
+    <WhyUs />
+    <Reports />
+    <Variables />
+    <Solutions />
+    <Products />
+    <AboutNews />
+    <CTA />
+    <Subscribe />
+    <Footer />
+  </main>
+</BaseLayout>

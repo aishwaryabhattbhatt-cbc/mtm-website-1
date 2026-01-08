@@ -1,0 +1,87 @@
+/* solutions.css */
+
+.section-solutions {
+    z-index: var(--z-section);      /* Layer 10 */
+    padding-block: var(--section-padding); /* Bottom padding to match page margins */
+  }
+  
+  .solutions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-64); /* Common gap between heading block and the future grid */
+
+  }
+  
+  .solutions-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Centers the items horizontally */
+    text-align: center;     /* Centers the text inside those items */
+    gap: var(--gap-small);
+    width: 100%;
+  }
+  
+  .solutions-desc {
+    max-width: 50%;         /* Your requested width */
+    margin-left: auto;      /* Ensures the block stays centered */
+    margin-right: auto;     /* Ensures the block stays centered */
+    color: var(--color-grey-2);
+  }
+  
+  .solutions-roles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--stack-gap); /* Gap between role buttons and description */
+  }
+  
+  .board-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--stack-gap); /* Gap between description and tertiary button */
+    width: 100%;
+  }
+
+  .role-description {
+    max-width: 65%;       /* Limit width for better readability */
+  }
+
+  .role-buttons {
+    display: flex;
+    flex-direction: row;        /* Align buttons side-by-side */
+    justify-content: center;    /* Center the row of buttons */
+    flex-wrap: wrap;            /* Allow wrapping on smaller screens */
+    gap: var(--gap-large);                  /* Your requested 16px gap */
+    width: 100%;
+  }
+
+  /* solutions.css */
+
+.board-clients {
+    width: 100%;
+
+  }
+  
+  .logo-strip {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid var(--color-grey-3); 
+    border-bottom: 1px solid var(--color-grey-3);
+  }
+  
+  .client-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    /* Optional: make logos look unified until hovered */
+    transition: opacity 0.3s ease;
+  }
+  
+  .client-image:hover {
+    opacity: 1;
+  }

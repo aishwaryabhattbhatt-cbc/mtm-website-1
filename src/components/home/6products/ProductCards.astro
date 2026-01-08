@@ -1,0 +1,49 @@
+---
+// filepath: src/components/home/5 solutions/RoleButton.astro
+import "./productcards.css";
+// src/components/ui/RoleButton.astro
+const { id, slug, label, subtitle, isActive, description, ctaLabel, heroImage, tools } = Astro.props;
+
+// Change these strings manually if your folder structure moves
+const iconFolder = "/mtm-website/icons/Products";
+const state = isActive ? 'active' : 'inactive';
+const initialIcon = `${iconFolder}/${id}-${state}.svg`;
+
+---
+
+<div 
+  class="product-role" 
+  data-product-id={id}
+  data-product-slug={slug}
+  data-hero-img={heroImage}
+  data-tools={JSON.stringify(tools)}
+
+>
+<!-- logo -->
+  <!--<div class="product-icon-wrapper">
+    
+    <img 
+      src={initialIcon} 
+      alt={`${label} icon`} 
+      class="product-icon-img" 
+    /> 
+  </div> -->
+
+  <!-- label -->
+  <span class="product-label body-l">{label}</span>
+
+  <!-- subtitle -->
+  <span class="product-subtitle body-m">{subtitle}</span>
+
+  <!-- description -->
+  <p class="product-desc body-s">{description}</p>
+
+  <!-- cta button -->
+  <a href={"#"} class="btn-tertiary button-l product-cta">
+    {ctaLabel}
+  </a>
+
+</div>
+
+
+

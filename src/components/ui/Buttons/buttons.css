@@ -1,0 +1,198 @@
+/* ===========================================
+   BUTTON COMPONENTS
+   =========================================== */
+
+
+/* Button base */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--button-padding);
+    flex-shrink: 0;      /* don’t let parent flex squeeze the button */
+    white-space: nowrap; /* prevent text from wrapping */
+    border-radius: var(--radius-8);
+    border: none;
+    cursor: pointer;
+    transition: background-color 150ms ease,
+                transform 150ms ease,
+                box-shadow 150ms ease;
+  }
+  
+  .btn:focus-visible {
+    outline: 2px solid var(--primary-hover);
+    outline-offset: 2px;
+  }
+  
+  /* ===========================================
+     PRIMARY BUTTON
+     =========================================== */
+  
+  .btn-primary {
+    color: var(--bg);
+    background-color: var(--primary);
+    box-shadow: 0 10px 30px -12px rgba(9, 59, 174, 0.5);
+    min-width: 107px;
+  }
+  
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary.is-hover {
+    background-color: var(--primary-hover);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(1px);
+  }
+  
+  /* ===========================================
+     SECONDARY BUTTON
+     =========================================== */
+  
+  .btn-secondary {
+    color: var(--primary);
+    background-color: var(--bg);
+    border: none;
+    box-shadow: inset 0 0 0 1px var(--primary);
+    min-width: 107px;
+  }
+  
+  .btn-secondary:hover,
+  .btn-secondary:active,
+  .btn-secondary.is-hover {
+    color: var(--primary-hover);
+    box-shadow: inset 0 0 0 1.5px var(--primary-hover);
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(1px);
+  }
+  
+/* ===========================================
+   TERTIARY BUTTON
+   =========================================== */
+
+   .btn-tertiary {
+    color: var(--primary);
+    background: transparent; 
+    height: var(--button-height);
+    min-height: var(--button-height);   
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+    gap: var(--gap-xs);
+    text-decoration: none;
+  }
+  
+  /* Icon AFTER text */
+  .btn-tertiary::after {
+    content: "";
+    width: var(--icon-size-m);
+    height: var(--icon-size-m);
+    flex-shrink: 0;
+  
+    background-color: currentColor;
+  
+    /* arrow icon */
+    mask: url("/mtm-website/arrow_forward.svg") no-repeat center / contain;
+    -webkit-mask: url("/mtm-website/arrow_forward.svg") no-repeat center / contain;
+  
+    transition: transform 150ms ease;
+  }
+  
+  /* hover behavior */
+  .btn-tertiary:hover,
+  .btn-tertiary:active,
+  .btn-tertiary.is-hover {
+    color: var(--primary-hover);
+    gap: var(--space-12);
+  }
+  
+  /* subtle motion on hover (optional but recommended) */
+  .btn-tertiary:hover::after {
+    transform: translateX(2px);
+  }
+  
+  /* Remove underline in all states */
+  .btn-tertiary,
+  .btn-tertiary:link,
+  .btn-tertiary:visited,
+  .btn-tertiary:hover,
+  .btn-tertiary:active {
+    text-decoration: none;
+  }
+  
+
+  
+  /* ===========================================
+     MENU BUTTON
+     =========================================== */
+  
+  .btn-menu {
+    color: var(--text-main);
+    background-color: var(--bg);
+    border: none;
+    gap: var(--gap-xxs); 
+    text-decoration: none; /* Removes the underline */
+    display: flex;         /* Ensures the text and icon stay aligned */
+    align-items: center;
+  }
+  
+  .btn-menu .btn-icon {
+    width: var(--icon-size-m);
+    height: var(--icon-size-m);
+    display: block;
+    transition: transform 600ms ease;
+  }
+  
+  .btn-menu .btn-icon path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    text-decoration: none;
+  }
+  
+  .btn-menu:hover,
+  .btn-menu:active,
+  .btn-menu.is-hover {
+    color: var(--primary);
+  }
+  
+  .btn-menu:hover .btn-icon,
+  .btn-menu:active .btn-icon,
+  .btn-menu.is-hover .btn-icon {
+    transform: rotate(-180deg);
+  }
+
+ 
+  
+  
+  
+
+/* ============================
+   TABLET BUTTON ADJUSTMENTS
+   ============================ */
+   @media (max-width: 1024px) {
+    /* All buttons scale down slightly on tablet */
+    .btn {
+      font-size: 12px;      /* adjust if you want slightly larger */
+      padding: 6px 12px;    /* was 12px 20px */
+      min-width: auto;      /* let width fit content */
+      height: 34px;
+      min-height: 34px;
+    }
+  
+    /* Scale down menu button icon globally */
+    .btn-menu .btn-icon {
+      width: 12px;          /* was 16px */
+      height: 12px;
+    }
+  }
+  

@@ -1,0 +1,64 @@
+/* ============================
+   HERO SECTION
+   ============================ */
+
+  .hero {
+    position: sticky;                     /* Overrides global relative */
+    top: var(--nav-height);               /* sits just under navbar */
+    height: calc(100vh - var(--nav-height));  /* full viewport below nav */
+    display: flex;
+    align-items: center;
+    z-index: var(--z-hero);                   /* below everything */
+  }
+  
+  /* Grid fills the sticky area */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    column-gap: var(--gutter);
+    width: 100%;
+    height: 100%;
+    padding-block: var(--stack-gap); /* vertical only */
+    padding-inline: 0;                     /* no horizontal */
+  }
+  /* Desktop layout */
+  .hero-left {
+    grid-column: span 5;
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+    padding-right: 48px;
+    justify-content: center; 
+    height: 100%; 
+    margin-left: 4px;
+    
+  }
+  
+  .hero-right {
+    grid-column: span 7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+  }
+  
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-medium);
+  }
+  
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;      /* hide anything that spills out */
+
+  }
+  
+  /* canvas should fill the visual container */
+  #mtm-hero-scene {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }

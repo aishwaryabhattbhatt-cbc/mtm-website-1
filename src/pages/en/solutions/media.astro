@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Navbar from "../../../components/ui/NavBar/nav-bar.astro";
+import Grid from '../../../components/ui/Grid/grid.astro';
+import HighlightText from '../../../components/ui/HighlightText/highlight-text.astro';
+import Footer from "../../../components/ui/Footer/footer.astro";
+import Subscribe from '../../../components/ui/Subscribe/subscribe.astro';
+import CTA from "../../../components/ui/CTA/CTA.astro";
+import Faq from "../../../components/solutions/faq/faq.astro";
+import AdvertisingHero from "../../../components/solutions/advertising/1hero/AdvertisingHero.astro";
+import Testimonials from "../../../components/solutions/testimonials/testimonials.astro";
+
+const advertisingTestimonials = {
+
+  title: "What media companies say about us",
+    subtitle: "Broadcasters and networks across Canada use MTM to guide programming, audience strategy, and platform investment decisions.",
+    clientLogos: ["/mtm-website/client-logos/media.svg"],
+    items: [
+      { quote: "MTM has become an essential part of our programming and distribution strategy. The depth of audience data allows us to spot shifts before they appear in ratings, helping our teams adjust ad sales and content planning in real time. It’s not just research, it’s intelligence we can act on.", 
+        role: "Role, Org" }
+  ],
+};
+
+
+const advertisingFAQs = [
+  {
+    question: "How can MTM data support my next campaign pitch?",
+    answer:
+      "MTM helps you validate audience assumptions with data sourced from over 12,000 Canadians annually. Use insights from our DAT and Trending Tools to strengthen your recommendations and back your media plans with credible, defensible numbers.",
+  },
+  {
+    question: "Can I compare audience behaviour across different age groups or regions?",
+    answer:
+      "Yes. The DAT Tool lets you segment data by age, gender, region, and language. You can quickly visualize patterns across MTM 18+, Junior, and Newcomer datasets to tailor your strategy for each target audience.",
+  },
+  {
+    question: "How often is MTM data updated?",
+    answer:
+      "MTM releases new reports and dataset updates twice a year — with additional insights and trend analyses published regularly. This ensures your campaigns are informed by the most current media consumption data in Canada.",
+  },
+  {
+    question: "Can I export charts or visuals for my client presentations?",
+    answer:
+      "Absolutely. You can download charts, graphs, and visual summaries directly from the DAT Tool to include in your decks, ensuring every recommendation you make is supported by real Canadian data.",
+  },
+  {
+    question: "Do you provide support for custom audience or brand-specific insights?",
+    answer:
+      "Yes. Our team can guide you through advanced queries or customized data views during your demo session. Many agencies use this to tailor MTM data for specific client sectors or campaign objectives.",
+  },
+];
+
+---
+
+<BaseLayout title="MTM | Solutions for Advertising">
+  <HighlightText />
+  <Grid />
+  <Navbar />
+
+  <main class="page">
+    <AdvertisingHero />
+    <Testimonials
+      title={advertisingTestimonials.title}
+      subtitle={advertisingTestimonials.subtitle}
+      clientLogos={advertisingTestimonials.clientLogos}
+      items={advertisingTestimonials.items}
+    />
+    <Faq
+      title="Frequently Asked Questions"
+      items={advertisingFAQs}
+    />
+    <CTA />
+    <Subscribe />
+    <Footer />
+  </main>
+
+  
+</BaseLayout>

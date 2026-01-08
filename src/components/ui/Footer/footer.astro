@@ -1,0 +1,165 @@
+---
+import "./footer.css";
+
+/* LEFT top */
+const footerNav = [
+  {
+      title: "Company",
+      links: [
+        { label: "Home", href: "#" },
+        { label: "About Us", href: "#" },
+        { label: "News", href: "#" },
+        { label: "Contact Us", href: "#" },
+      ],
+    },
+
+    {
+      title: "Solutions",
+      links: [
+        { label: "Media", href: "#" },
+        { label: "Advertising", href: "#" },
+        { label: "Industry", href: "#" },
+        { label: "Education", href: "#" },
+        { label: "Govn & NGO", href: "#" },
+      ],
+    },
+  {
+    title: "Products",
+    links: [
+      { label: "MTM 18+", href: "#" },
+      { label: "MTM Junior", href: "#" },
+      { label: "Newcomers", href: "#" },
+      { label: "Census", href: "#" },
+    ],
+  },
+  {
+    title: "Tools",
+    links: [
+      { label: "Data Analysis", href: "#" },
+      { label: "Trending", href: "#" },
+      { label: "Forecasting", href: "#" },
+      { label: "Census Tools", href: "#" },
+    ],
+  },
+  {
+    title: "Insights",
+    links: [
+      { label: "Your Insights", href: "#" },
+    ],
+  }
+
+];
+
+/* LEFT bottom */
+const copyrightText =
+  "© 2025 Media Technology Monitor. All Rights Reserved. A division of CBC/Radio-Canada.";
+
+/* RIGHT top */
+const footerBrand = {
+  logoSrc: "/mtm-website/MTM-CLR.svg",
+  logoAlt: "Media Technology Monitor logo",
+  addressLines: [
+    "Media Technology Monitor,",
+    "181 Queen St, Ottawa, Ontario, K1P1K9",
+    "1-855-898-4999",
+  ],
+  social: [
+    {
+      label: "Visit MTM on LinkedIn",
+      href: "https://www.linkedin.com/company/media-technology-monitor",
+      icon: "/mtm-website/linkedin.svg",
+    },
+  ],
+};
+
+/* RIGHT bottom */
+const footerLegalLinks = [
+  { label: "Site Policies", href: "#" },
+  { label: "Privacy Policy", href: "#" },
+  { label: "Terms and Conditions", href: "#" },
+];
+---
+
+<section class="section-footer">
+  <div class="page-inner">
+    {/* Left column – 7 cols */}
+    <div class="footer-left">
+      <div class="footer-left-top" aria-label="Footer navigation">
+        {footerNav.map((group) => (
+          <div class="footer-col">
+            <p class="body-s text-muted footer-col-title">
+              {group.title}
+            </p>
+      
+            {group.links.map((item) => (
+              <a href={item.href} class="body-s text-muted footer-col-link">
+                {item.label}
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+    
+      <div class="footer-left-bottom">
+        <p class="body-s">
+          {copyrightText}
+        </p>
+      </div>
+    </div>
+
+    {/* Right column – 5 cols */}
+    <div class="footer-right">
+      <div class="footer-right-top">
+        <img
+        src={footerBrand.logoSrc}
+        alt={footerBrand.logoAlt}
+        class="footer-logo"
+      />
+
+
+      <p class="body-m footer-address">
+        {footerBrand.addressLines.map((line) => (
+          <>
+            {line}<br />
+          </>
+        ))}
+      </p>
+
+      <div class="footer-social">
+        {footerBrand.social.map((item) => (
+          <a
+            href={item.href}
+            class="footer-social-link"
+            aria-label={item.label}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src={item.icon}
+              alt=""
+              class="footer-social-icon"
+            />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="footer-right-bottom">
+      {footerLegalLinks.map((item, index) => (
+        <>
+          <a
+            href={item.href}
+            class="body-s footer-link"
+          >
+            {item.label}
+          </a>
+          {index < footerLegalLinks.length - 1 && (
+            <span class="footer-link-separator">|</span>
+          )}
+        </>
+      ))}
+    </div>
+
+    </div>
+  </div>
+</section>

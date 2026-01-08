@@ -1,0 +1,44 @@
+---
+import "./subscribe.css";
+import InputField from "../Input/InputField.astro";
+
+const title = "Subscribe to our Newsletter";
+const desc =
+  "Stay up to date with the latest trends. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed purus eu nibh rhoncus.";
+---
+<section class="section-subscribe">
+    <div class="page-inner">
+      <div class="subscribe-left">
+        <h4 class="h4">{title}</h4>
+        <p class="description body-m">{desc}</p>
+      </div>
+  
+      <div class="subscribe-right">
+            <InputField
+            id="subscribe-email"
+            name="email"
+            label="Email"
+            placeholder="Eg: johndoe@workmail.com"
+            type="email"
+            required
+            />
+
+        <div class="subscribe-actions">
+            <select class="subscribe-select">
+                <option value="" disabled selected>
+                  Select your industry
+                </option>
+                <option value="advertising">Advertising</option>
+                <option value="media">Media</option>
+                <option value="industry">Industry</option>
+                <option value="education">Education</option>
+                <option value="govn">Govn & NGO</option>
+              </select>
+            <a href="#" class="btn btn-primary button-l">
+                SUBMIT
+              </a>
+              </div>
+      </div>
+    </div>
+  </section>
+  

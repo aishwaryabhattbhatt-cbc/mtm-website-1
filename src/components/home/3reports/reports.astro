@@ -1,0 +1,44 @@
+---
+// src/components/home/Reports/Reports.astro
+
+// 1. DATA: Edit your section text here
+const titlePart1 = "Reports that";
+const titleHighlight = "Drive Decisions";
+const description = "Whether you're tracking fast-moving trends, understanding audiences, or making strategic decisions, MTM provides the clear evidence you need. Our reports distill nationwide media and technology behaviour into clear, actionable insights.";
+const buttonText = "explore insights and free reports";
+const statNumber = "70+";
+const statLabel = "Reports every year for <br /> Up-to-date insights";
+// 2. STYLES: Local CSS import
+import './reports.css';
+---
+
+<section class="reports">
+  <div class="reports-grid">
+  <div class="reports-placeholder">
+    <div class="reports-left">
+    <h2 class="h2">{titlePart1} <span class="hl-text highlight-2">{titleHighlight}</span></h2>
+      <p class="body-m">{description}</p>
+      <a class="btn btn-tertiary button-l" href="#" role="button">{buttonText}</a>
+    </div>
+    <div class="reports-gap"></div>
+    <div class="reports-right">
+      <div class="display-title">{statNumber}</div>
+    <div class="body-text">
+    
+    {/* 2. Use set:html to render the break correctly */}
+    <span class="subtitle-text" set:html={statLabel}></span>
+    </div>
+    </div>
+    </div>
+    
+    <div class="reports-image">
+    <img src="/mtm-website/reports 1.png" alt="Reports Section" />
+    </div>
+    <div class="reports-footer">
+    <img src="/mtm-website/report-stats.svg" alt="MTM Statistics" class="reports-stat-img" />
+    </div>
+  </div>
+</section>
+
+<script src="./reports-delay.js"></script>
+<script src="./reports-parallax.js"></script>

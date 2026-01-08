@@ -1,0 +1,24 @@
+---
+// src/components/ui/Grid/Grid.astro
+
+// 1. STYLES: Import the grid-specific CSS
+import './grid-overlay.css';
+import './responsive-grid.css';
+
+// 2. DATA: Configuration for the grid
+const columnCount = 12;
+const showLabel = "Show Grid";
+---
+
+<div class="grid-overlay hidden">
+  <div class="grid-overlay-inner">
+    {/* Use a loop to generate 12 columns automatically */}
+    {Array.from({ length: columnCount }).map((_, i) => (
+      <div class="overlay-col"></div>
+    ))}
+  </div>
+</div>
+
+<button id="toggleGrid" class="toggle-btn">{showLabel}</button>
+
+<script src="./grid-toggle.js"></script>

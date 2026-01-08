@@ -1,0 +1,58 @@
+---
+import "./testimonials.css";
+
+const {
+  title = "Testimonials",
+  subtitle = "",
+  clientLogos = [],
+  items = [],
+  quotesLeftSrc = "/mtm-website/quotes-left.svg",
+  quotesRightSrc = "/mtm-website/quotes-right.svg",
+} = Astro.props;
+---
+
+<section class="section-testimonials">
+    <div class="testimonials-container">
+
+    {/* Header */}
+    <div class="testimonials-header">
+      <h2 class="h2">{title}</h2>
+      <p class="body-l">{subtitle}</p>
+    </div>
+
+    {/* Client Logos Strip */}
+
+   
+    {clientLogos?.length > 0 && (
+        <div class="testimonials-clients page-inner">
+          <div class="logo-strip logo-strip--narrow">
+            {clientLogos.map((logoSrc) => (
+              <img
+                src={logoSrc}
+                alt=""
+                class="client-image"
+                aria-hidden="true"
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+  {/* Quotes */}
+  <div class="testimonials-grid">
+    {items.map((t) => (
+      <div class="testimonial-card">
+        <img src={quotesLeftSrc} alt="" class="quote-icon quote-left" aria-hidden="true" />
+  
+        <div class="testimonial-content">
+          <p class="testimonial-quote body-l">{t.quote}</p>
+          <p class="testimonial-person body-m">- {t.role}</p>
+        </div>
+  
+        <img src={quotesRightSrc} alt="" class="quote-icon quote-right" aria-hidden="true" />
+      </div>
+    ))}
+  </div>
+</div>
+  
+</section>

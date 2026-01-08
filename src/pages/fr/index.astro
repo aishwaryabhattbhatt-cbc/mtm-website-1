@@ -1,0 +1,22 @@
+---
+// filepath: /Users/aishwaryabhattbhatt/Desktop/CBC/Website-v1.5/src/pages/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/ui/NavBar/nav-bar.astro';
+import Grid from '../../components/ui/Grid/grid.astro';
+import HighlightText from '../../components/ui/HighlightText/highlight-text.astro';
+import Hero from '../../components/home/1hero/hero.astro';
+import WhyUs from '../../components/home/2whyus/why-us.astro'; 
+import Reports from '../../components/home/3reports/reports.astro';
+
+---
+<BaseLayout title="MTM | Home">
+  <HighlightText />
+  <Grid />
+  <Navbar />
+  
+  <main class="page">
+    <Hero />
+    <WhyUs />
+    <Reports />
+  </main>
+</BaseLayout>

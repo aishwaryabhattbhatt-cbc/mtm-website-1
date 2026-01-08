@@ -1,0 +1,87 @@
+:root {
+
+  /* --- LAYOUT & GRID --- */
+    --grid-columns:     12;
+    --gutter:           var(--space-24);
+    --page-margin:      var(--space-48);
+    --nav-height:       78px;
+    --button-height:    42px; 
+
+     /* Padding */
+    --section-padding:  var(--space-80);  /* Standard vertical space between sections */
+    --button-padding:   var(--space-12) var(--space-16); /* Top/Bottom | Left/Right */
+
+    /* Gaps */
+    --stack-gap:        var(--space-40);
+    --menu-gap:         var(--space-12);
+
+    --gap-xxs:          var(--space-6); 
+    --gap-xs:           var(--space-12);
+    --gap-small:        var(--space-16);
+    --gap-medium:       var(--space-20);
+    --gap-large:        var(--space-24);
+
+     /* Icons sizes */
+    --icon-size-s:      14px;
+    --icon-size-m:      20px;
+    --icon-size-l:      24px;
+    --icon-size-xl:     36px;
+  
+    /* Primary Actions (Blue) */
+    --primary:           var(--color-blue-main);   
+    --primary-hover:     var(--color-blue-dark-1); 
+
+    /* Secondary Actions (White/Ghost) */
+    --secondary:         var(--color-green);       /* #FFFFFF */
+    --secondary-hover:   var(--color-green-dark-1);/* #F3F6FE (subtle tint) */
+    
+    /* Backgrounds & Text */
+    --bg:                var(--color-white);
+    --text-main:         var(--color-grey-1);      /* #3D3D3D */
+    --text-muted:        var(--color-grey-3);      /* #ADADAD */
+    --overlay-color:    rgba(255, 0, 0, 0.08);
+
+    /* Z Index */
+    --z-hero: 1;         /* Base layer for hero */
+    --z-section: 10;     /* Higher layer for all other home sections */
+    --z-nav: 200;
+  }
+
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  /* --- MAIN LAYOUT GRID (full width) --- */
+  
+  .page {
+    min-height: auto;
+    padding-top: var(--nav-height);
+  }
+  
+  /* REAL GRID */
+  .page-inner {
+    width: calc(100% - (2 * var(--page-margin))); /* 48px margin left/right */
+    margin: 0 auto;
+  
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    column-gap: var(--gutter);
+  }
+
+  /* Global Section Defaults */
+  section {
+    position: relative;
+    width: 100%;
+    background-color: var(--bg);
+    width: 100%;
+  }
+
+
+  .section-divider {
+    width: 100%;
+    border-top: 2px solid var(--primary);
+  }

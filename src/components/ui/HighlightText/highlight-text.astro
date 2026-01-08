@@ -1,0 +1,33 @@
+---
+// src/components/ui/HighlightText/HighlightText.astro
+import './highlight-text.css';
+---
+
+<script>
+  /** * We put the logic directly inside a <script> tag in the .astro file.
+   * Astro will bundle this and ensure it runs safely on the client side.
+   */
+  function setupHighlightObserver() {
+    const highlightEls = document.querySelectorAll('.hl-text');
+    
+    if ('IntersectionObserver' in window && highlightEls.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      highlightEls.forEach(el => observer.observe(el));
+    } else {
+      highlightEls.forEach(el => el.classList.add('is-visible'));
+    }
+  }
+
+  // Run on initial load
+  setupHighlightObserver();
+
+  // If you use View Transitions later, you'd also run it on 'astro:page-load'
+</script>

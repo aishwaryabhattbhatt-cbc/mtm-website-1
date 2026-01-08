@@ -1,0 +1,52 @@
+/* src/components/ui/Role Button/RoleButton.css */
+
+.role-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 12px gap between icon and text [cite: 7] */
+    gap: var(--gap-xs); 
+    /* Vertical/Horizontal padding [cite: 7] */
+    padding: 12px 24px; 
+    background: var(--color-white);
+    /* Light grey border for inactive state [cite: 7] */
+    border: 1.5px solid var(--color-grey-4); 
+    border-radius: var(--radius-8);
+    cursor: pointer;
+    /* Muted grey text for inactive [cite: 7] */
+    color: var(--color-grey-3); 
+    transition: all 0.2s ease;
+    /* Ensure button width is stable [cite: 8] */
+    flex: 0 1 auto;
+    min-width: 160px;
+    white-space: nowrap;
+  }
+  
+  /* The Blue Active State [cite: 9, 10, 11] */
+  .role-btn.is-active {
+    border-color: var(--primary); /* Blue border [cite: 9] */
+    color: var(--primary);        /* Blue text [cite: 10] */
+    /* Subtle blue glow  */
+    box-shadow: 0 4px 12px rgba(22, 89, 243, 0.1); 
+  }
+  
+  /* Hover effect for non-active buttons [cite: 12] */
+  .role-btn:hover:not(.is-active) {
+    border-color: var(--color-blue-dark-1);
+    color: var(--color-blue-dark-1);
+  }
+  
+  .role-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+  }
+  
+  .role-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  

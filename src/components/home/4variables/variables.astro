@@ -1,0 +1,33 @@
+---
+import '../../../styles/typography.css';
+import './variables.css';
+
+const highlightText = "5000+";
+
+// Define the stacked text as variables 
+const stackLine1 = "We could list the topics";
+const stackLine2 = "but frankly there are too";
+const stackLine3 = "many too chose from!";
+---
+
+<section class="section-variables">
+  <div class="page-inner variables-container">
+    <div class="variables-hero-image">
+      <img src="/mtm-website/variables.png" alt="Variables Illustration" />
+    </div>
+
+    <div class="variables-content">
+      <h2 class="h2">Over <span class="hl-text highlight-2">{highlightText}
+        </span>  Variables
+      </h2>
+    </div>
+
+    <div class="variables-stack">
+        <p class="h3">{stackLine1}</p>
+        <p class="h3">{stackLine2}</p>
+        <p class="h3">{stackLine3}</p>
+      </div>
+      
+    </div>
+  </div>
+</section>

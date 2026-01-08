@@ -1,0 +1,106 @@
+---
+import "./faq.css";
+
+const {
+  title = "Frequently Asked Questions",
+  items = [],
+} = Astro.props;
+---
+
+<section class="section-faq">
+    <div class="faq-container">
+    <h2 class="h2">{title}</h2>
+    <div class="page-inner">
+
+      {/* Image */}
+      <div class="faq-left">
+        <img
+        src="/mtm-website/images/solutions/FAQs.png"
+        alt="FAQs Illustration"
+        class="faq-image"
+        aria-hidden="true"
+        />
+      </div>
+
+      {/* Accordian */}
+      <div class="faq-right">
+        <div class="faq-accordion">
+          {items.map((item) => (
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger" type="button">
+                <span class="body-m-bold faq-accordion-text">
+                  {item.question}
+                </span>
+        
+                <svg class="faq-accordion-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 15l6-6 6 6" />
+                </svg>
+              </button>
+        
+              <div class="faq-accordion-content" data-acc-panel>
+                <div class="faq-accordion-content-inner">
+                  <p class="body-m">{item.answer}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<script>
+  const items = Array.from(document.querySelectorAll(".faq-accordion-item"));
+
+  function setExpanded(item, expanded) {
+    const panel = item.querySelector("[data-acc-panel]");
+    const inner = item.querySelector(".faq-accordion-content-inner");
+    if (!panel || !inner) return;
+
+    item.classList.toggle("is-open", expanded);
+
+    if (expanded) {
+      panel.style.height = "0px";
+      panel.offsetHeight;
+      panel.style.height = inner.scrollHeight + "px";
+
+      const onEnd = (e) => {
+        if (e.propertyName !== "height") return;
+        panel.removeEventListener("transitionend", onEnd);
+        if (item.classList.contains("is-open")) panel.style.height = "auto";
+      };
+      panel.addEventListener("transitionend", onEnd);
+    } else {
+      const current = panel.getBoundingClientRect().height;
+      panel.style.height = current + "px";
+      panel.offsetHeight;
+      panel.style.height = "0px";
+    }
+  }
+
+  // init closed
+  items.forEach((item) => {
+    const panel = document.getElementById('your-panel-id');
+if (panel instanceof HTMLElement) {
+  panel.style.height = '0px';
+}
+  });
+
+  // click anywhere, and only one open at a time
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      const isOpen = item.classList.contains("is-open");
+
+      items.forEach((other) => {
+        if (other !== item && other.classList.contains("is-open")) {
+          setExpanded(other, false);
+        }
+      });
+
+      setExpanded(item, !isOpen);
+    });
+  });
+</script>
