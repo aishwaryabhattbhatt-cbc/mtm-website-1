@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   // Replace 'mtm-website' with your actual new GitHub repo name
-  base: '/mtm-website-1/',
+  base: '/mtm-website-1',
   site: 'https://aishwaryabhattbhatt-cbc.github.io',
   i18n: {
     defaultLocale: 'en',

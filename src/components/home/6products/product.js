@@ -1,5 +1,5 @@
 /* src/components/home/5-solutions/solutions.js */
-import { initProductsBoard} from '../6 products/productcards.js';
+import { initProductsBoard} from '../6products/productcards.js';
 
 export const productData = [
   {

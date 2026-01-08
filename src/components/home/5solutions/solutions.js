@@ -1,5 +1,5 @@
 /* src/components/home/5-solutions/solutions.js */
-import { initSolutionsBoard } from '../../home/5 solutions/rolebutton';
+import { initSolutionsBoard } from '../../home/5solutions/rolebutton';
 
 export const solutionsData = [
   {

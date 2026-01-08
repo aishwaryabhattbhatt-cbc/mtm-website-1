@@ -2,10 +2,10 @@
 /* src/components/home/5-solutions/solutions.astro */
 import './product.css';
 
-import ProductCards from '../../home/6 products/ProductCards.astro';
+import ProductCards from '../../home/6products/ProductCards.astro';
 import { productData } from './product.js'; // Import data for HTML
 
-import Tools from "../../home/6 products/tools.astro";
+import Tools from "../../home/6products/tools.astro";
 
 
 const titleHighlight = "Products";
@@ -61,7 +61,7 @@ const activeRole = productData.find(role => role.id === "18") || productData[0];
 </section>
 
 <script type="module">
-  import { startProducts } from '/src/components/home/6 products/product.js';
+  import { startProducts } from '/src/components/home/6products/product.js';
   startProducts();
 </script>
   
