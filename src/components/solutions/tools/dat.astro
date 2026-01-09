@@ -1,0 +1,102 @@
+---
+import "./dat.css";
+import Feature from "../../ui/Feature/feature.astro";
+import { getLangFromUrl, useTranslations } from '../../../i18n/ui.js'; 
+const lang = getLangFromUrl(Astro.url);
+
+const imageSrc = "/mtm-website-1/images/solutions/dat-tool.png";
+const imageAlt = "Data Analysis Tool";
+const title = "Data Analysis Tool";
+const description = "Analyze audience behavior, media consumption, and technology adoption with precision using MTM’s data tools.";
+
+const icon1 = "/mtm-website-1/icons/Tools/DAT/dat-icon-1.svg";
+const feature1 = "Drag and Drop Functionality";
+
+const icon2 = "/mtm-website-1/icons/Tools/DAT/dat-icon-2.svg";
+const feature2 = "Mutliple Output Data Views";
+
+const icon3 = "/mtm-website-1/icons/Tools/DAT/dat-icon-3.svg";
+const feature3 = "Run Multiple Variables";
+
+const icon4 = "/mtm-website-1/icons/Tools/DAT/dat-icon-4.svg";
+const feature4 = "Intuitive Search Option";
+
+const icon5 = "/mtm-website-1/icons/Tools/DAT/dat-icon-5.svg";
+const feature5 = "Custom Presets and Templates";
+
+const icon6 = "/mtm-website-1/icons/Tools/DAT/dat-icon-6.svg";
+const feature6 = "Quick Filtering";
+
+const ctaHref = `/mtm-website-1/${lang}/tools/analysis-tools`;
+
+---
+
+
+---
+
+<section class="section-dat">
+    <div class="dat-container page-inner">
+      <div class="dat-left">
+        {imageSrc && (
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            class="dat-image"
+          />
+        )}
+      </div>
+  
+      <div class="dat-right">
+        <div class="dat-header">
+        <h3 class="h3">{title}</h3>
+        <p class="body-m">
+            {description}
+          </p>
+        </div>
+
+          <div class="dat-features">
+          <div class="dat-features-row">
+          <Feature
+          icon={icon1}
+          title={feature1}
+            />
+
+            <Feature
+            icon={icon2}
+            title={feature2}
+              />
+
+              <Feature
+          icon={icon3}
+          title={feature3}
+            />
+        </div>
+
+        <div class="dat-features-row">
+            <Feature
+            icon={icon4}
+            title={feature4}
+              />
+  
+              <Feature
+              icon={icon5}
+              title={feature5}
+                />
+  
+                <Feature
+            icon={icon6}
+            title={feature6}
+              />
+          </div>
+        </div>
+
+        <a href={ctaHref} class="btn-tertiary button-l">
+            Learn More
+          </a>
+        
+      </div>
+
+
+
+    </div>
+  </section>

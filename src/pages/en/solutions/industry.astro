@@ -11,6 +11,8 @@ import AdvertisingHero from "../../../components/solutions/advertising/1hero/Adv
 import Testimonials from "../../../components/solutions/testimonials/testimonials.astro";
 import DynamicCharts from "../../../components/solutions/dynamic-charts/dynamic-charts.astro";
 import Percentage from "../../../components/ui/Percentage/percentage.astro";
+import Dat from "../../../components/solutions/tools/dat.astro";
+
 
 const dynamicChartsContent = {
   title: "Shifts that Shape the Industry",
@@ -79,6 +81,7 @@ const advertisingFAQs = [
 
   <main class="page">
     <AdvertisingHero />
+    <Dat/>
     <DynamicCharts
       title={dynamicChartsContent.title}
       leftImage={dynamicChartsContent.leftImage}

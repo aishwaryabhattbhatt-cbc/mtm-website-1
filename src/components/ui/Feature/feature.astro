@@ -1,0 +1,15 @@
+---
+import "./feature.css";
+
+const {
+  icon,
+  title,
+} = Astro.props;
+---
+
+<div class="feature">
+  <div class="feature-icon">
+    <img src={icon} alt="" />
+  </div>
+    <p class="body-m">{title}</p>
+</div>

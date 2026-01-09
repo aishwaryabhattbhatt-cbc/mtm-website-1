@@ -1,0 +1,54 @@
+.section-dat {
+    z-index: var(--z-section);
+    padding-block: var(--section-padding);
+  }
+
+  .dat-container {
+    align-items: stretch;
+  }
+  
+  /* Use GLOBAL grid only */
+  .dat-grid {
+    display: contents;
+  }
+  
+  /* Left column */
+  .dat-left {
+    grid-column: span 7;
+  }
+  
+  /* Right column */
+  .dat-right {
+    margin-left: var(--space-24);
+    grid-column: span 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .dat-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+  
+
+  /* Image styling */
+  .dat-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+
+  .dat-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xl);
+  }
+
+  .dat-features-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gap-medium);
+  }
