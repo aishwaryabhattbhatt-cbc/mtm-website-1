@@ -12,6 +12,40 @@ import Testimonials from "../../../components/solutions/testimonials/testimonial
 import DynamicCharts from "../../../components/solutions/dynamic-charts/dynamic-charts.astro";
 import Percentage from "../../../components/ui/Percentage/percentage.astro";
 import Dat from "../../../components/solutions/tools/dat.astro";
+import Benefits from "../../../components/solutions/benefits/benefits.astro";
+
+
+const benefitsContent = {
+  title: "Benefits of MTM",
+  items: [
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-1.svg",
+      title: "Anticipate Shifts",
+      description:
+        "Anticipate shifts in consumer behavior like tracking how streaming adoption is accelerating compared to TV across different age groups.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-2.svg",
+      title: "Monitor Tech Adoption",
+      description: "Stay ahead by monitoring how quickly Canadians adopt emerging tech, from 5G smartphones to VR headsets, using MTM 18+ insights.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-3.svg",
+      title: "Tailor Campaigns",
+      description: " Tailor campaigns more effectively by analyzing newcomer data, such as WhatsApp and TikTok usage among recent immigrants.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-4.svg",
+      title: "Back Major Decisions",
+      description: "Use MTM data to back major decisions, for example comparing rural vs. urban broadband adoption through the Census Tool.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-5.svg",
+      title: "Shape Strategies",
+      description: "Shape strategies using MTM Junior findings, like children’s streaming preferences and device usage patterns.",
+    },
+  ],
+};
 
 
 const dynamicChartsContent = {
@@ -81,6 +115,11 @@ const advertisingFAQs = [
 
   <main class="page">
     <AdvertisingHero />
+    <Benefits
+      title={benefitsContent.title}
+      items={benefitsContent.items}
+    />
+
     <Dat/>
     <DynamicCharts
       title={dynamicChartsContent.title}

@@ -1,0 +1,32 @@
+---
+import "./benefits.css";
+import Benefit from "../../ui/Benefit/benefit.astro";
+
+const {
+  title = "Benefits of MTM Data",
+  items = [],
+} = Astro.props;
+
+// Cap the grid to 3 columns, but avoid empty columns when fewer items exist.
+const cols = Math.max(1, Math.min(6, items.length || 1));
+
+---
+
+<section class="section-benefits">
+    <div class="benefits-card">
+      <h3 class="h3">{title}
+      </h3>
+
+      <div class="benefits-content" style={`--benefits-cols: ${cols};`}>
+        {items.map((benefit) => (
+          <Benefit
+            icon={benefit.icon}
+            title={benefit.title}
+            description={benefit.description}
+          />
+
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

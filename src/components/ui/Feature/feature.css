@@ -1,17 +1,24 @@
 .feature {
+    
     display: flex;
     flex-direction: column;
+    align-items: start;
+    text-align: start;
     gap: var(--gap-small);
   }
   
-  .feature-icon {
-    flex-shrink: 0;
-    width: var(--icon-size-xl);
-    height: var(--icon-size-xl);
-  }
+
   
-  .feature-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  .feature-icon {
+    width: 36px;
+  height: 36px;
+  flex-shrink: 0; 
+
   }
+    .feature-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .feature-title
