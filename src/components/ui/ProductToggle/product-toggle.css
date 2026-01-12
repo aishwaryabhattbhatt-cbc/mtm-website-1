@@ -1,0 +1,28 @@
+.product-toggle {
+    display: inline-flex;
+    gap: 0px;
+    padding: 4px;
+    background: var(--color-grey-4);
+    border-radius: 12px;
+  }
+  
+  .product-toggle__item {
+    padding: 8px 32px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  
+    color: var(--color-grey-2);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .product-toggle__item.is-active {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+  
+  .product-toggle__item:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }

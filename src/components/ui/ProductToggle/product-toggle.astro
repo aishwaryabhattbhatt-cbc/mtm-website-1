@@ -1,0 +1,29 @@
+---
+const {
+  options = ["MTM", "Junior", "Newcomers"],
+  active = "MTM"
+} = Astro.props;
+
+import "./product-toggle.css";
+---
+
+<div class="product-toggle" role="tablist" aria-label="Product selector" data-product-toggle>
+  {options.map((label) => (
+    <button
+      role="tab"
+      type="button"
+      class={`product-toggle__item body-l ${label === active ? "is-active" : ""}`}
+      aria-selected={label === active ? "true" : "false"}
+      data-product-toggle-item
+      data-value={label}
+      tabindex={label === active ? 0 : -1}
+    >
+      {label}
+    </button>
+  ))}
+</div>
+
+<script type="module">
+    import { initProductToggles } from '/src/components/ui/ProductToggle/product-toggle.js';
+    initProductToggles(document);
+  </script>

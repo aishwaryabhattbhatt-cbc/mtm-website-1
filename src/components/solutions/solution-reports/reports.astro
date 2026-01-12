@@ -1,0 +1,43 @@
+---
+// src/components/home/Reports/Reports.astro
+
+import ProductToggle from '../../ui/ProductToggle/product-toggle.astro';
+
+// 1. DATA: Edit your section text here
+const titlePart1 = "Latest from the MTM";
+const description = "Whether you're tracking fast-moving trends, understanding audiences, or making strategic decisions, MTM provides the clear evidence you need. Our reports distill nationwide media and technology behaviour into clear, actionable insights.";
+const buttonText = "Learn More about 18+";
+
+// 2. STYLES: Local CSS import
+import './reports.css';
+---
+
+<section class="section-reports">
+  <div class="reports-container">
+  <div class="reports-header">
+    <h2 class="h2">{titlePart1}</span></h2>
+    <div class="toggle">
+      <ProductToggle />
+
+      <a href="/mtm-website-1/en/insights" class="btn-tertiary button-l">
+        {buttonText}
+      </a>
+    </div>
+  </div>
+    
+    <div class="reports-image">
+    <img src="/mtm-website-1/reports 1.png" alt="Reports Section" />
+    </div>
+
+    <div class="reports-information">
+      <img src="/mtm-website-1/images/solutions/latest-report.svg" alt="Reports Section" />
+    </div>
+
+    <div class="tools">
+      </div>
+  
+
+
+    
+  </div>
+</section>

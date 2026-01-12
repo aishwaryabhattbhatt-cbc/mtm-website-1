@@ -10,6 +10,7 @@
     z-index: var(--z-hero);                   /* below everything */
   }
   
+
   /* Grid fills the sticky area */
   .hero-grid {
       display: grid;
@@ -61,6 +62,10 @@
     height: 100%;
     overflow: hidden;      /* hide anything that spills out */
 
+  }
+
+  .hero-subtitle {
+    width: 60%;
   }
   
   /* canvas should fill the visual container */

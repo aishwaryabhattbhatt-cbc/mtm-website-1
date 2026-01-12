@@ -13,7 +13,7 @@ import DynamicCharts from "../../../components/solutions/dynamic-charts/dynamic-
 import Percentage from "../../../components/ui/Percentage/percentage.astro";
 import Dat from "../../../components/solutions/tools/dat.astro";
 import Benefits from "../../../components/solutions/benefits/benefits.astro";
-
+import Reports from "../../../components/solutions/solution-reports/reports.astro";
 
 const benefitsContent = {
   title: "Benefits of MTM",
@@ -46,8 +46,6 @@ const benefitsContent = {
     },
   ],
 };
-
-
 const dynamicChartsContent = {
   title: "Shifts that Shape the Industry",
 
@@ -68,7 +66,6 @@ const dynamicChartsContent = {
     }
   ]
 };
-
 const advertisingTestimonials = {
   title: "What industries say about us",
     subtitle: "Industry leaders across Canada rely on MTM’s verified insights to guide funding, measure performance, and strengthen accountability across the media ecosystem.",
@@ -78,7 +75,6 @@ const advertisingTestimonials = {
         role: "Role, Org" }
   ],
 };
-
 const advertisingFAQs = [
   {
     question: "How can MTM data support my next campaign pitch?",
@@ -119,7 +115,7 @@ const advertisingFAQs = [
       title={benefitsContent.title}
       items={benefitsContent.items}
     />
-
+    <Reports />
     <Dat/>
     <DynamicCharts
       title={dynamicChartsContent.title}
