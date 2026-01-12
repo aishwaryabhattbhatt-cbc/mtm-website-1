@@ -7,8 +7,48 @@ import Footer from "../../../components/ui/Footer/footer.astro";
 import Subscribe from '../../../components/ui/Subscribe/subscribe.astro';
 import CTA from "../../../components/ui/CTA/CTA.astro";
 import Faq from "../../../components/solutions/faq/faq.astro";
-import AdvertisingHero from "../../../components/solutions/advertising/1hero/AdvertisingHero.astro";
 import Testimonials from "../../../components/solutions/testimonials/testimonials.astro";
+import Hero from "../../../components/solutions/hero/Hero.astro";
+
+const heroScene = {
+  orbits: [
+    { radius: 190, delay: 1 },
+    { radius: 260, delay: 1.5 },
+    { radius: 330, delay: 2 },
+  ],
+  image: "/mtm-website-1/images/solutions/advertising/hero-solution-advertising.webp",
+  maskImage: "/mtm-website-1/images/solutions/advertising/hero-solution-advertising-mask.webp",
+  orbitBlocker: "/mtm-website-1/images/solutions/hero-solution-white-blocker.png",
+  particles: "/mtm-website-1/dots.png",
+  centerOffset: { x: 0, y: 0 },
+
+  icons: [
+    {
+      file: "/mtm-website-1/icons/Artboard 1.svg",
+      orbit: 0, angle: 320, tooltip: "Audio Behavior"
+    },
+    {
+      file: "/mtm-website-1/icons/Artboard 2.svg",
+      orbit: 1, angle: 210, tooltip: "Video Viewing"
+    },
+    {
+      file: "/mtm-website-1/icons/Artboard 3.svg",
+      orbit: 2, angle: 170, tooltip: "Analytics"
+    },
+    {
+      file: "/mtm-website-1/icons/Artboard 4.svg",
+      orbit: 2, angle: 350, tooltip: "Mobile Usage"
+    }
+  ]
+};
+
+const heroContent = {
+solution: "Advertising",
+titleHighlight: "Research",
+titleBase: "your clients can count on for success",
+subtitle:
+  "Power your next big idea with the data Canada’s top agencies rely on. MTM transforms audience insights into clear direction, helping you refine targeting, strengthen client strategies, and win pitches faster.",
+};
 
 const advertisingTestimonials = {
   title: "What ad agencies say about us",
@@ -59,7 +99,12 @@ const advertisingFAQs = [
   <Navbar />
 
   <main class="page">
-    <AdvertisingHero />
+    <Hero 
+      solution={heroContent.solution}
+      titleHighlight={heroContent.titleHighlight}
+      titleBase={heroContent.titleBase}
+      subtitle={heroContent.subtitle}
+      scene={heroScene} />
     <Testimonials
       title={advertisingTestimonials.title}
       subtitle={advertisingTestimonials.subtitle}

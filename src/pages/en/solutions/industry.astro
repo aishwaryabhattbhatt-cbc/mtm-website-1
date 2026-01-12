@@ -7,13 +7,52 @@ import Footer from "../../../components/ui/Footer/footer.astro";
 import Subscribe from '../../../components/ui/Subscribe/subscribe.astro';
 import CTA from "../../../components/ui/CTA/CTA.astro";
 import Faq from "../../../components/solutions/faq/faq.astro";
-import AdvertisingHero from "../../../components/solutions/advertising/1hero/AdvertisingHero.astro";
 import Testimonials from "../../../components/solutions/testimonials/testimonials.astro";
 import DynamicCharts from "../../../components/solutions/dynamic-charts/dynamic-charts.astro";
 import Percentage from "../../../components/ui/Percentage/percentage.astro";
 import Dat from "../../../components/solutions/tools/dat.astro";
 import Benefits from "../../../components/solutions/benefits/benefits.astro";
 import Reports from "../../../components/solutions/solution-reports/reports.astro";
+import Hero from "../../../components/solutions/hero/Hero.astro";
+
+const heroScene = {
+  orbits: [
+    { radius: 190, delay: 1 },
+    { radius: 260, delay: 1.5 },
+    { radius: 330, delay: 2 },
+  ],
+  image: "/mtm-website-1/images/solutions/industry/hero-solution-industry.webp",
+  maskImage: "/mtm-website-1/images/solutions/industry/hero-solution-industry-mask.webp",
+  orbitBlocker: "/mtm-website-1/images/solutions/hero-solution-white-blocker.png",
+  particles: "/mtm-website-1/dots.png",
+  centerOffset: { x: 0, y: 0 },
+
+  icons: [
+    {
+      file: "/mtm-website-1/icons/Artboard 1.svg",
+      orbit: 0, angle: 320, tooltip: "Audio Behavior"
+    },
+    {
+      file: "/mtm-website-1/icons/Artboard 2.svg",
+      orbit: 1, angle: 210, tooltip: "Video Viewing"
+    },
+    {
+      file: "/mtm-website-1/icons/Artboard 3.svg",
+      orbit: 2, angle: 170, tooltip: "Analytics"
+    },
+    {
+      file: "/mtm-website-1/icons/Artboard 4.svg",
+      orbit: 2, angle: 350, tooltip: "Mobile Usage"
+    }
+  ]
+};
+const heroContent = {
+solution: "Industry",
+titleHighlight: "Targeted",
+titleBase: "data-driven decision at your finger tips",
+subtitle:
+  "Unlock a clearer understanding of how Canadians consume media and adopt new technologies. MTM turns complex datasets into actionable insights so you can plan confidently and stay ahead of change.",
+};
 
 const benefitsContent = {
   title: "Benefits of MTM",
@@ -46,6 +85,7 @@ const benefitsContent = {
     },
   ],
 };
+
 const dynamicChartsContent = {
   title: "Shifts that Shape the Industry",
 
@@ -66,6 +106,7 @@ const dynamicChartsContent = {
     }
   ]
 };
+
 const advertisingTestimonials = {
   title: "What industries say about us",
     subtitle: "Industry leaders across Canada rely on MTM’s verified insights to guide funding, measure performance, and strengthen accountability across the media ecosystem.",
@@ -110,7 +151,12 @@ const advertisingFAQs = [
   <Navbar />
 
   <main class="page">
-    <AdvertisingHero />
+    <Hero 
+      solution={heroContent.solution}
+      titleHighlight={heroContent.titleHighlight}
+      titleBase={heroContent.titleBase}
+      subtitle={heroContent.subtitle}
+      scene={heroScene} />
     <Benefits
       title={benefitsContent.title}
       items={benefitsContent.items}

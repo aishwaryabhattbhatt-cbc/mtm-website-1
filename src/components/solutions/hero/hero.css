@@ -38,6 +38,10 @@
   height: auto;
   margin-left: 0;
 }
+
+.subtitle {
+  color: var(--color-grey-2);
+}
   
 .hero-right {
   grid-column: 1 / -1;     /* span full width */

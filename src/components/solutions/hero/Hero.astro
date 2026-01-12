@@ -1,27 +1,38 @@
 ---
 // 1. DATA
-const titleHighlight = "Targeted";
-const titleBase = "data-driven decision at your finger tips";
-const subtitle =
-  "Unlock a clearer understanding of how Canadians consume media and adopt new technologies. MTM turns complex datasets into actionable insights so you can plan confidently and stay ahead of change.";
+const {
+  solution = "",
+  titleHighlight = "",
+  titleBase = "",
+  subtitle = "",
+} = Astro.props;
 const primaryBtn = "Request A Demo";
 const secondaryBtn = "Explore More";
+const { scene } = Astro.props;
 
 // 2. STYLES
-import "./advertising-hero.css";
-import "./advertising-hero-animation.css";
-import "../../../ui/HighlightText/highlight-text.css";
+import "./hero.css";
+import "./hero-animation.css";
+import "../../ui/HighlightText/highlight-text.css";
+
 ---
 
 <section class="hero">
   <div class="page-inner hero-grid">
     <div class="hero-right">
-      <div class="hero-visual" data-hero-scene>
-        <div class="hero-orbits" data-hero-orbits aria-hidden="true"></div>
-      </div>
+      <div class="hero-visual"
+        data-hero-scene
+        data-scene={JSON.stringify(scene)}>
+        <img class="hero-img" data-hero-img alt="" />
+        <div class="hero-orbits" data-hero-orbits>
+          <div class="hero-orbit-blocker"></div>
+        </div>
+        <div class="hero-icons" data-hero-icons></div>
+</div>
     </div>
 
     <div class="hero-left">
+      <span class="subtitle h5">{solution}</span>
       <h1 class="h1">
         <span class="hl-text highlight-1">{titleHighlight}</span>
         <span class="hero-title-base">{titleBase}</span>
@@ -37,5 +48,4 @@ import "../../../ui/HighlightText/highlight-text.css";
   </div>
 </section>
 
-<script src="./scene.js"></script>
 <script src="./main.js"></script>
