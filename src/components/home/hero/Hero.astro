@@ -1,0 +1,51 @@
+---
+// 1. DATA
+const {
+  solution = "",
+  titleHighlight = "",
+  titleBase = "",
+  subtitle = "",
+} = Astro.props;
+const primaryBtn = "Request A Demo";
+const secondaryBtn = "Explore More";
+const { scene } = Astro.props;
+
+// 2. STYLES
+import "./hero.css";
+import "./hero-animation.css";
+import "../../ui/HighlightText/highlight-text.css";
+
+---
+
+<section class="hero">
+  <div class="page-inner hero-grid">
+    <div class="hero-right">
+      <div class="hero-visual"
+        data-hero-scene
+        data-scene={JSON.stringify(scene)}>
+        <img class="hero-img" data-hero-img alt="" />
+        <div class="hero-orbits" data-hero-orbits>
+          <div class="hero-orbit-blocker"></div>
+        </div>
+        <div class="hero-icons" data-hero-icons></div>
+</div>
+    </div>
+
+    <div class="hero-left">
+      <span class="subtitle h5">{solution}</span>
+      <h1 class="h1">
+        <span class="hl-text highlight-1">{titleHighlight}</span>
+        <span class="hero-title-base">{titleBase}</span>
+      </h1>
+
+      <p class="hero-subtitle body-m">{subtitle}</p>
+
+      <div class="hero-actions">
+        <button class="btn btn-primary button-l">{primaryBtn}</button>
+        <button class="btn btn-secondary button-l">{secondaryBtn}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="./main.js"></script>
