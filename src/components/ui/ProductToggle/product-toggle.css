@@ -7,7 +7,7 @@
   }
   
   .product-toggle__item {
-    padding: 8px 32px;
+    padding: 6px 32px;
     border-radius: 8px;
     background: transparent;
     border: none;
@@ -19,7 +19,7 @@
   
   .product-toggle__item.is-active {
     background: var(--color-white);
-    color: var(--color-black);
+    color: var(--color-blue-main);
   }
   
   .product-toggle__item:focus-visible {

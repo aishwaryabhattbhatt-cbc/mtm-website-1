@@ -107,7 +107,7 @@ const dynamicChartsContent = {
   ]
 };
 
-const advertisingTestimonials = {
+const testimonials = {
   title: "What industries say about us",
     subtitle: "Industry leaders across Canada rely on MTM’s verified insights to guide funding, measure performance, and strengthen accountability across the media ecosystem.",
     clientLogos: ["/mtm-website-1/client-logos/industry.svg"],
@@ -116,7 +116,7 @@ const advertisingTestimonials = {
         role: "Role, Org" }
   ],
 };
-const advertisingFAQs = [
+const faqs = [
   {
     question: "How can MTM data support my next campaign pitch?",
     answer:
@@ -170,14 +170,14 @@ const advertisingFAQs = [
       metrics={dynamicChartsContent.metrics}
     />
     <Testimonials
-      title={advertisingTestimonials.title}
-      subtitle={advertisingTestimonials.subtitle}
-      clientLogos={advertisingTestimonials.clientLogos}
-      items={advertisingTestimonials.items}
+      title={testimonials.title}
+      subtitle={testimonials.subtitle}
+      clientLogos={testimonials.clientLogos}
+      items={testimonials.items}
     />
     <Faq
       title="Frequently Asked Questions"
-      items={advertisingFAQs}
+      items={faqs}
     />
     <CTA />
     <Subscribe />

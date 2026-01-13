@@ -33,6 +33,7 @@
     gap: var(--gap-small);
   }
 
+
   /* the “frame” */
 .dynamic-charts-metric-icon {
     width: 56px;          /* match your icon size */
@@ -43,6 +44,15 @@
     place-items: center;
     background: var(--color-blue-light-4);
     border-radius: var(--radius-full);
+  }
+
+  .dynamic-charts-percentage {
+    width: 56px;          /* match your icon size */
+    height: 56px;
+    flex: 0 0 56px;
+    display: grid;
+    align-items: center;
+    place-items: center;
   }
   
   /* if the metric is an <img> icon */

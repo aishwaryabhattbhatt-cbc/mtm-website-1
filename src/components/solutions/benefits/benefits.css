@@ -16,7 +16,8 @@
   .benefits-content {
     display: grid;
     grid-template-columns: repeat(var(--benefits-cols, 3), minmax(0, 1fr));
-    gap: var(--gap-medium);
+    row-gap: var(--gap-medium);
+    column-gap: var(--stack-gap);
     width: 100%;
   }
 

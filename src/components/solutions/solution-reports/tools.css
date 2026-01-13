@@ -1,0 +1,53 @@
+/* src/components/home/6-products/tools.css */
+
+/* blue box */
+.tools-panel {
+    display: flex;
+    justify-content: space-between; /* Pushes content to left and CTA to right */
+    align-items: center;
+    padding-left: var(--stack-gap);
+    padding-right: var(--stack-gap);
+    padding-block: var(--space-16);
+    gap: var(--stack-gap);
+    width: 100%;
+    border-radius: var(--radius-20);
+    background: var(--color-blue-light-4);
+  }
+  
+  /* content row */
+  .tools-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-32); 
+    flex: 1; /* Allows this section to grow and take up available space */
+  }
+
+  /* tools block */
+  .tools-items {
+    display: flex;
+    flex-wrap: wrap; /* Allows icons to drop to next line if there are many */
+    align-items: center;
+    gap: var(--space-40); /* Adjusted gap for better horizontal spacing */
+  
+  }
+  
+  /* tertiary button block */
+    .tools-cta {
+      display: flex;
+      align-items: center;
+      white-space: nowrap; /* Prevents button text from wrapping */
+  }
+
+  /* tool item */
+  .tool-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-12);
+  }
+  
+  .tool-icon {
+    width: var(--icon-size-l);
+    height: var(--icon-size-l);
+    object-fit: contain;
+  }
+  

@@ -1,0 +1,36 @@
+---
+// src/components/home/Reports/report-info.astro
+import "./reportinfo.css";
+import Percentage from "../../ui/Percentage/percentage.astro";
+
+---
+
+<div class="report-info-container">
+    <div class="report-info-grid" id="report-info-grid">
+      <div class="info-col1">
+        <span class="h5 report-tag">LATEST REPORT</span>
+        <h3 class="h4" id="report-name"></h3> 
+        <div class="report-cta">
+            <a href="#" id="report-link" class="btn-tertiary button-l"></a>
+          </div>
+      </div>
+      <div class="info-col">
+
+        <div class="info-percentage-container">
+            <div id="percentage-root">
+               <Percentage percent={50} size={60} stroke={6} />
+            </div>
+          </div>
+
+        <p class="body-m-bold" id="info-title-2"></p>
+        <p class="body-m" id="info-desc-2"></p>
+      </div>
+      <div class="info-col">
+        <div class="info-icon-container">
+            <img src="" alt="icon" id="info-icon" class="info-column-icon" />
+          </div>
+        <p class="body-m-bold" id="info-title-3"></p>
+        <p class="body-m" id="info-desc-3"></p>
+      </div>
+    </div>
+</div>

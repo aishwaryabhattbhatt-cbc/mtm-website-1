@@ -1,40 +1,35 @@
 /* src/components/ui/Percentage/percentage.css */
 
-.percentage {
-    position: relative;
-    display: inline-grid;
-    place-items: center;
-  }
-  
-  .percentage__svg {
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg); /* start progress at 12 o'clock */
-  }
-  
-  .percentage__ring {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .percentage__ring--bg {
-    stroke: var(--color-grey-4);
-  }
-  
-  .percentage__ring--fg {
-    stroke: var(--primary);
-    transition: stroke-dashoffset 300ms ease;
-  }
-  
-  .percentage__text {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    line-height: 1;
-    color: var(--primary);
-    font-family: inherit;
-  }
- 
- 
+.percentage-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pct-size);
+  height: var(--pct-size);
+}
+
+.percentage__svg {
+  transform: rotate(-90deg); /* Starts progress at the top (12 o'clock) */
+  display: block;
+}
+
+.percentage__ring--bg {
+  stroke: var(--color-grey-4); /* Background circle color */
+}
+
+.percentage__ring--fg {
+  stroke: var(--color-blue-main); /* Progress circle color */
+  transition: stroke-dashoffset 0.4s ease-out;
+}
+
+.percentage__text {
+  position: absolute;
+  font-family: Inter;
+  font-weight: 700;
+  /* Font size automatically scales slightly based on container size */
+  font-size: calc(var(--pct-size) * 0.26); 
+  color: var(--color-blue-main);
+  line-height: 1;
+  pointer-events: none;
+}

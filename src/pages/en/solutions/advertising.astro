@@ -8,7 +8,12 @@ import Subscribe from '../../../components/ui/Subscribe/subscribe.astro';
 import CTA from "../../../components/ui/CTA/CTA.astro";
 import Faq from "../../../components/solutions/faq/faq.astro";
 import Testimonials from "../../../components/solutions/testimonials/testimonials.astro";
+import DynamicCharts from "../../../components/solutions/dynamic-charts/dynamic-charts.astro";
+import Percentage from "../../../components/ui/Percentage/percentage.astro";
+import Benefits from "../../../components/solutions/benefits/benefits.astro";
+import Reports from "../../../components/solutions/solution-reports/reports.astro";
 import Hero from "../../../components/solutions/hero/Hero.astro";
+
 
 const heroScene = {
   orbits: [
@@ -50,7 +55,63 @@ subtitle:
   "Power your next big idea with the data Canada’s top agencies rely on. MTM transforms audience insights into clear direction, helping you refine targeting, strengthen client strategies, and win pitches faster.",
 };
 
-const advertisingTestimonials = {
+const benefitsContent = {
+  title: "Benefits of MTM",
+  items: [
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-1.svg",
+      title: "Anticipate Shifts",
+      description:
+        "Anticipate shifts in consumer behavior like tracking how streaming adoption is accelerating compared to TV across different age groups.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-2.svg",
+      title: "Monitor Tech Adoption",
+      description: "Stay ahead by monitoring how quickly Canadians adopt emerging tech, from 5G smartphones to VR headsets, using MTM 18+ insights.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-3.svg",
+      title: "Tailor Campaigns",
+      description: " Tailor campaigns more effectively by analyzing newcomer data, such as WhatsApp and TikTok usage among recent immigrants.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-4.svg",
+      title: "Back Major Decisions",
+      description: "Use MTM data to back major decisions, for example comparing rural vs. urban broadband adoption through the Census Tool.",
+    },
+    {
+      icon: "/mtm-website-1/icons/Industry/benefit-5.svg",
+      title: "Shape Strategies",
+      description: "Shape strategies using MTM Junior findings, like children’s streaming preferences and device usage patterns.",
+    },
+  ],
+};
+const dynamicChartsContent = {
+  title: "Shifts that Shape the Industry",
+
+  leftImage: "/mtm-website-1/images/solutions/industry/dynamic-charts-left.png",
+  rightImage: "/mtm-website-1/images/solutions/industry/dynamic-charts-right.png",
+
+  metrics: [
+    {
+      type: "component",
+      component: Percentage,
+      componentProps: { 
+        percent: 75, 
+        size: 56, // Matches .dynamic-charts-metric-icon width/height
+        stroke: 6 
+      },
+    text: "Audience adoption of connected platforms is accelerating."
+  },
+    {
+      type: "icon",
+      icon: "/mtm-website-1/images/solutions/industry/icon.svg",
+      text: "Traditional media still plays a role, but its share is steadily declining."
+    }
+  ]
+};
+
+const testimonials = {
   title: "What ad agencies say about us",
   subtitle: "Agencies across Canada use MTM to power data-backed storytelling, from strategy to execution.",
   clientLogos: ["/mtm-website-1/client-logos/advertising.svg"],
@@ -62,8 +123,7 @@ const advertisingTestimonials = {
   ],
 };
 
-
-const advertisingFAQs = [
+const faqs = [
   {
     question: "How can MTM data support my next campaign pitch?",
     answer:
@@ -105,20 +165,32 @@ const advertisingFAQs = [
       titleBase={heroContent.titleBase}
       subtitle={heroContent.subtitle}
       scene={heroScene} />
+    <Benefits
+      title={benefitsContent.title}
+      items={benefitsContent.items}
+    />
+    <Reports />
+    <DynamicCharts
+      title={dynamicChartsContent.title}
+      leftImage={dynamicChartsContent.leftImage}
+      rightImage={dynamicChartsContent.rightImage}
+      metrics={dynamicChartsContent.metrics}
+    />
     <Testimonials
-      title={advertisingTestimonials.title}
-      subtitle={advertisingTestimonials.subtitle}
-      clientLogos={advertisingTestimonials.clientLogos}
-      items={advertisingTestimonials.items}
+      title={testimonials.title}
+      subtitle={testimonials.subtitle}
+      clientLogos={testimonials.clientLogos}
+      items={testimonials.items}
     />
     <Faq
       title="Frequently Asked Questions"
-      items={advertisingFAQs}
+      items={faqs}
     />
     <CTA />
     <Subscribe />
     <Footer />
   </main>
+
 
   
 </BaseLayout>
