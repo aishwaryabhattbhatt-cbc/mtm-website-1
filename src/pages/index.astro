@@ -13,6 +13,86 @@ import AboutNews from '../components/home/7about-news/about-news.astro';
 import CTA from "../components/ui/CTA/CTA.astro";
 import Subscribe from '../components/ui/Subscribe/subscribe.astro';
 import Footer from '../components/ui/Footer/footer.astro';
+import Papa from 'papaparse';
+
+// Hardcoded assets for the hero scene
+const heroScene = {
+  image: "/mtm-website-1/images/home/hero-woman-asian.webp",
+  maskImage: "/mtm-website-1/images/home/hero-woman-asian-mask.webp",
+  orbitBlocker: "/mtm-website-1/images/home/white-mask.png",
+  
+  centerOffset: { x: 0, y: 0 }, 
+  orbits: [
+    { radius: 190, delay: 1 },
+    { radius: 260, delay: 1.5 },
+    { radius: 330, delay: 2 },
+  ],
+  icons: [
+    { file: "/mtm-website-1/icons/home/hero/icon-1.svg", orbit: 0, angle: 320, tooltip: "Audio Behavior" },
+    { file: "/mtm-website-1/icons/home/hero/icon-2.svg", orbit: 1, angle: 210, tooltip: "Video Viewing" },
+    { file: "/mtm-website-1/icons/home/hero/icon-3.svg", orbit: 2, angle: 170, tooltip: "Analytics" },
+    { file: "/mtm-website-1/icons/home/hero/icon-4.svg", orbit: 2, angle: 350, tooltip: "Mobile Usage" }
+  ]
+};
+
+// 1. Replace this with your "Published to Web" CSV URL
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rIvS3zuXP7if7TPShcpPwWU9Hn7ROXTRo9L47iZ0ezoLg8H-GYZTveEw7fAHDMn5A0iT/pub?gid=1604665094&single=true&output=csv";
+
+const response = await fetch(SHEET_URL);
+const csvData = await response.text();
+
+// 2. Parsing logic
+const parsed = Papa.parse(csvData, { 
+  header: false, 
+  skipEmptyLines: true 
+});
+
+const rawData = Object.fromEntries(
+  parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
+);
+
+// 3. Why us Animation Coordinate Map
+const whyUsPanelConfig = {
+  F1: {
+    top:   { x: 50, y: 60 },  // Clustered start
+    left:  { x: 40, y: 60 },
+    right: { x: 60, y: 60 }
+  },
+  F2: { 
+    top:   { x: 50, y: 20 },  // Above the card
+    left:  { x: 15, y: 60 },  // Dead vertical center, 35% from midline
+    right: { x: 85, y: 60 }   // Dead vertical center, 35% from midline
+  }
+};
+
+const whyUsContent = {
+  // Main Visual
+  mainImage: "/mtm-website-1/Home-WhyUsImage.png",
+
+  // Section Titles
+  problemTitle: "PROBLEMS FACED",
+  solutionTitle: "HOW WE SOLVE THEM",
+  
+  // Problems List
+  problems: [
+    { text: rawData["why_us_prob_1"], icon: "/mtm-website-1/icons/home/why-us/problem-1.svg" },
+    { text: rawData["why_us_prob_2"], icon: "/mtm-website-1/icons/home/why-us/problem-2.svg" },
+    { text: rawData["why_us_prob_3"], icon: "/mtm-website-1/icons/home/why-us/problem-3.svg" }
+  ],
+  
+  // Solutions List
+  solutions: [
+    { text: rawData["why_us_sol_1"], icon: "/mtm-website-1/icons/home/why-us/solution-1.svg" },
+    { text: rawData["why_us_sol_2"], icon: "/mtm-website-1/icons/home/why-us/solution-2.svg" },
+    { text: rawData["why_us_sol_3"], icon: "/mtm-website-1/icons/home/why-us/solution-3.svg" }
+  ]
+};
+
+const reportsScene = {
+  mainImage: "/mtm-website-1/reports 1.png",
+  footerSvg: "/mtm-website-1/report-stats.svg"
+};
+
 
 
 ---
@@ -22,9 +102,27 @@ import Footer from '../components/ui/Footer/footer.astro';
   <Navbar />
   
   <main class="page">
-    <Hero />
-    <WhyUs />
-    <Reports />
+    <Hero 
+      titleHighlight={rawData["home_titlehighlight"]}
+      titleBase={rawData["home_titlebase"]}
+      subtitle={rawData["home_subtitle"]}
+      scene={heroScene} 
+    />
+    <WhyUs 
+      heading={rawData["why_us_title"]}
+      description={rawData["why_us_desc"]}
+      panelPositions={whyUsPanelConfig}
+      content={whyUsContent} 
+    />
+    <Reports 
+      titleBase={rawData["reports_titlebase"]}
+      titleHighlight={rawData["reports_titlehighlight"]}
+      description={rawData["reports_desc"]}
+      buttonText={rawData["reports_btn"]}
+      statNumber={rawData["reports_stat_num"]}
+      statLabel={rawData["reports_stat_label"]}
+      scene={reportsScene}
+    />
     <Variables />
     <Solutions />
     <Products />

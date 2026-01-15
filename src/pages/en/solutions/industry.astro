@@ -23,7 +23,7 @@ const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rI
 const response = await fetch(SHEET_URL);
 const csvData = await response.text();
 
-// 2. Parsing logic [cite: 6, 7, 24]
+// 2. Parsing logic 
 const parsed = Papa.parse(csvData, { 
   header: false, 
   skipEmptyLines: true 
@@ -108,7 +108,6 @@ const heroScene = {
   image: "/mtm-website-1/images/solutions/industry/hero-solution-industry.webp",
   maskImage: "/mtm-website-1/images/solutions/industry/hero-solution-industry-mask.webp",
   orbitBlocker: "/mtm-website-1/images/solutions/hero-solution-white-blocker.png",
-  particles: "/mtm-website-1/dots.png",
   centerOffset: { x: 0, y: 0 },
 
   icons: [

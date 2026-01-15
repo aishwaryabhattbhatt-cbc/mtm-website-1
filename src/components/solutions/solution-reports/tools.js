@@ -3,7 +3,6 @@ export const productData = [
   {
     id: "MTM",
     slug: "mtm18",
-    reportImage: "/mtm-website-1/images/solutions/latest-reports/reports-mtm.png",
     tools: [
       { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website-1/icons/Tools/data-analysis.svg" },
       { id: "trending", label: "Trending", icon: "/mtm-website-1/icons/Tools/trending.svg" },
@@ -14,7 +13,6 @@ export const productData = [
   {
     id: "Junior",
     slug: "juniors",
-    reportImage: "/mtm-website-1/images/solutions/latest-reports/reports-junior.png",
     tools: [
       { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website-1/icons/Tools/data-analysis.svg" },
       { id: "trending", label: "Trending", icon: "/mtm-website-1/icons/Tools/trending.svg" },
@@ -24,7 +22,6 @@ export const productData = [
   {
     id: "Newcomers",
     slug: "newcomers",
-    reportImage: "/mtm-website-1/images/solutions/latest-reports/reports-newcomers.png",
     tools: [
       { id: "data-analysis", label: "Data Analysis", icon: "/mtm-website-1/icons/Tools/data-analysis.svg" },
       ]
@@ -50,12 +47,5 @@ export function updateReportsUI(productId) {
       `;
       toolsContainer.appendChild(item);
     });
-  }
-
-  // 2. Update Hero/Report Image
-  const reportImg = document.querySelector('.reports-image img');
-  if (reportImg) {
-    reportImg.src = product.reportImage;
-    reportImg.alt = `${product.id} Report Image`;
   }
 }

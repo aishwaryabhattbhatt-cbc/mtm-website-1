@@ -11,20 +11,20 @@
    ========================= */
 
 
-   .hero-visual {
+  .hero-visual {
     position: relative;
     width: 100%;
     max-width: 1800px;
     height: auto;
-    overflow: hidden;      /* hide anything that spills out */
+    overflow: hidden;       /* hide anything that spills out */
   }
 
  /* 3) HERO IMAGE (above blocker) */
   .hero-img {
     width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    height: 100%;
+    object-fit: cover;
+    display: block;
     z-index: 2;
   
     opacity: 0;
@@ -147,10 +147,6 @@
     --icon-scale: 1.5;
   }
 
-
-.hero-icon:hover {
-  --icon-scale: 1.5;
-}
 
   
 /* CIRCULAR ORBIT ANIMATION (Rotation Method) */

@@ -1,73 +1,133 @@
 
-  .hero-img {
-    position: absolute;        /* ⬅ important: removes it from flow and lets it fill */
-    inset: 0;                  /* top:0; right:0; bottom:0; left:0 */
-    width: 100%;
-    height: 100%;
-  
-    object-fit: cover;         /* ⬅ fills container, cropping if needed */
-    object-position: center;   /* center the part of the image that shows */
-  
-    z-index: 10;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity .6s ease, transform .6s ease;
-  }
-  
+  /* =========================
+   HERO VISUAL LAYERS
+   Order (bottom → top):
+   1) Orbits
+   2) White blocker
+   3) Hero image
+   4) Icons
+   5) Tooltip
+   ========================= */
 
-  .hero-particles {
-    position: absolute;
-    inset: 0;              /* top:0; right:0; bottom:0; left:0 */
-    width: 100%;
-    height: 100%;          /* match .hero's height */
-    object-fit: cover;     /* keep aspect ratio, crop if needed */
-    opacity: 0;
-    transition: opacity .6s ease .4s;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-/* ORBITS */
-.orbit {
-    position: absolute;
-    z-index: 2;      /* behind image */
-    border-radius: 50%;
-    border: 2px solid var(--primary);
-    /* transform: scale(0.6); */
-    opacity: 0;
-    transition: transform .5s ease, opacity .5s ease;
-  }
-  
-/* ICONS */
-.hero-icon {
-    position: absolute;
-    z-index: 30;   /* above EVERYTHING */
-    width: 52px;
-    height: 52px;
-    opacity: 0;
-    --icon-scale: 0.9;              /* base scale */
-    transition: 
-    --icon-scale 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease;
-    
-    /* 🛠️ MODIFIED ANIMATION PROPERTIES 🛠️ */
-    animation-name: float;
-    animation-timing-function: linear; /* Use linear for smooth rotation */
-    animation-iteration-count: infinite;
+.hero-visual {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
 
-    /* Fix for centering and scale consistency (must be on base element) */
-    transform: translate(-50%, -50%) scale(var(--icon-scale)); 
-    
-    /* Blurring fixes for SVG (re-added) */
-    image-rendering: crisp-edges;
-    image-rendering: -webkit-optimize-contrast;
+/* 1. THE PERSON (Top Layer) */
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 2; /* Sit on the very top [cite: 17, 19] */
+  
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero-img.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. THE ORBIT CONTAINER (Base Layer) */
+.hero-orbits {
+  position: absolute;
+  inset: 0;
+  z-index: 3; /* Sit behind the person [cite: 17] */
+  pointer-events: none;
+  
+  -webkit-mask-image: linear-gradient(#fff 0 0);
+  mask-image: linear-gradient(#fff 0 0);
+
+
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  mask-repeat: no-repeat, no-repeat;
+
+  -webkit-mask-position: 0 0, center;
+  mask-position: 0 0, center;
+
+  -webkit-mask-size: 100% 100%, cover;
+  mask-size: 100% 100%, cover;
+
+     /* Exclude the silhouette (so it becomes a “hole”) */
+     -webkit-mask-composite: xor;
+     mask-composite: exclude;
+ 
+     /* Ensure we use the mask’s luminance/alpha consistently */
+     -webkit-mask-mode: match-source;
+     mask-mode: match-source;
+  
 
 }
 
-  
-  .hero-icon:hover {
-    --icon-scale: 1.5;
-  }
+/* 3. THE BLOCKER (Middle Layer - sits inside orbits container) */
+.hero-orbits .hero-orbit-blocker {
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* Sit ABOVE the rings but BELOW the person [cite: 20] */
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.hero-orbits .orbit {
+  z-index: 1;
+}
+
+/* 4. THE RINGS */
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  /* transform: scale(0.6); */
+  opacity: 0;
+  transition: transform .5s ease, opacity .5s ease;
+}
+
+
+/* 5. THE ICONS */
+.hero-icons {
+  position: absolute;
+  inset: 0;
+  z-index: 4; /* Sit on top of the person [cite: 14, 17] */
+  pointer-events: none;
+}
+     
+/* Individual icon */
+.hero-icon {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+
+  opacity: 0;
+  pointer-events: auto; /* allow hover */
+  z-index: 1; /* within hero-icons layer */
+
+  --icon-scale: 0.9;
+  transform: translate(-50%, -50%) scale(var(--icon-scale));
+
+  transition:
+    opacity 0.35s ease,
+    --icon-scale 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  animation-name: float;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  /* SVG sharpness */
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.hero-icon:hover {
+  --icon-scale: 1.5;
+}
   
 /* CIRCULAR ORBIT ANIMATION (Rotation Method) */
 @keyframes float {

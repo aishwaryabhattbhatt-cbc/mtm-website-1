@@ -2,35 +2,124 @@
 // src/components/home/Reports/report-info.astro
 import "./reportinfo.css";
 import Percentage from "../../ui/Percentage/percentage.astro";
+import Papa from 'papaparse';
+
+// 1. Fetch data at build-time
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rIvS3zuXP7if7TPShcpPwWU9Hn7ROXTRo9L47iZ0ezoLg8H-GYZTveEw7fAHDMn5A0iT/pub?gid=1805402128&single=true&output=csv";
+
+const response = await fetch(SHEET_URL);
+const csvData = await response.text();
+
+const parsed = Papa.parse(csvData, { 
+  skipEmptyLines: true 
+});
+
+const rawData = {};
+parsed.data.forEach(([key, value]) => {
+  if (key) rawData[key.trim().toLowerCase()] = value?.trim();
+});
+
+// 2. Map the data for the client-side script
+const reportData = [
+  {
+    id: "MTM",
+    reportName: rawData["mtm_reportname"],
+    reportImage: rawData["mtm_reportimage"], // Added hero image to CSV mapping
+    percentage: parseInt(rawData["mtm_col1_percentage"]) || 0,
+    col1Title: rawData["mtm_col1_title"],
+    col1Desc: rawData["mtm_col1_desc"],
+    col2Icon: rawData["mtm_col2_icon"],
+    col2Title: rawData["mtm_col2_title"],
+    col2Desc: rawData["mtm_col2_desc"],
+  },
+  {
+    id: "Junior",
+    reportName: rawData["juniors_reportname"],
+    reportImage: rawData["juniors_reportimage"],
+    percentage: parseInt(rawData["juniors_col1_percentage"]) || 0,
+    col1Title: rawData["juniors_col1_title"],
+    col1Desc: rawData["juniors_col1_desc"],
+    col2Icon: rawData["juniors_col2_icon"],
+    col2Title: rawData["juniors_col2_title"],
+    col2Desc: rawData["juniors_col2_desc"],
+  },
+  {
+    id: "Newcomers",
+    reportName: rawData["newcomers_reportname"],
+    reportImage: rawData["newcomers_reportimage"],
+    percentage: parseInt(rawData["newcomers_col1_percentage"]) || 0,
+    col1Title: rawData["newcomers_col1_title"],
+    col1Desc: rawData["newcomers_col1_desc"],
+    col2Icon: rawData["newcomers_col2_icon"],
+    col2Title: rawData["newcomers_col2_title"],
+    col2Desc: rawData["newcomers_col2_desc"],
+  }
+];
+
+// Set the default product to show on load
+const defaultProduct = reportData[0];
 
 ---
 
-<div class="report-info-container">
-    <div class="report-info-grid" id="report-info-grid">
-      <div class="info-col1">
-        <span class="h5 report-tag">LATEST REPORT</span>
-        <h3 class="h4" id="report-name"></h3> 
-        <div class="report-cta">
-            <a href="#" id="report-link" class="btn-tertiary button-l"></a>
-          </div>
-      </div>
-      <div class="info-col">
-
-        <div class="info-percentage-container">
-            <div id="percentage-root">
-               <Percentage percent={50} size={60} stroke={6} />
-            </div>
-          </div>
-
-        <p class="body-m-bold" id="info-title-2"></p>
-        <p class="body-m" id="info-desc-2"></p>
-      </div>
-      <div class="info-col">
-        <div class="info-icon-container">
-            <img src="" alt="icon" id="info-icon" class="info-column-icon" />
-          </div>
-        <p class="body-m-bold" id="info-title-3"></p>
-        <p class="body-m" id="info-desc-3"></p>
+<div class="report-info-container" id="report-info-root">
+  <div class="report-info-grid">
+    <div class="info-col1">
+      <span class="h5 report-tag">LATEST REPORT</span>
+      <h3 class="h4" id="report-name">{defaultProduct.reportName}</h3> 
+      <div class="report-cta">
+          <a href="#" id="report-link" class="btn-tertiary button-l">READ FULL REPORT</a>
       </div>
     </div>
+    
+    <div class="info-col">
+      <div class="info-percentage-container">
+          <div id="percentage-root">
+             <Percentage percent={defaultProduct.percentage} size={60} stroke={6} />
+          </div>
+      </div>
+      <p class="body-m-bold" id="info-title-2">{defaultProduct.col1Title}</p>
+      <p class="body-m" id="info-desc-2">{defaultProduct.col1Desc}</p>
+    </div>
+
+    <div class="info-col">
+      <div class="info-icon-container">
+        <img 
+        src={defaultProduct.col2Icon} 
+        alt="icon" 
+        id="info-icon" 
+        class="info-column-icon" 
+      />
+      </div>
+      <p class="body-m-bold" id="info-title-3">{defaultProduct.col2Title}</p>
+      <p class="body-m" id="info-desc-3">{defaultProduct.col2Desc}</p>
+    </div>
+  </div>
 </div>
+
+<script is:inline define:vars={{ reportData }}>
+  window.reportData = reportData;
+</script>
+
+<script>
+  import { updateReportInfo } from './reportinfo.js';
+
+  const handleUpdate = (id: string) => {
+    // FIX: Access via bracket notation to bypass "Property does not exist"
+    const data = (window as any).reportData; 
+    
+    if (data) {
+      updateReportInfo(id, data);
+    }
+  };
+
+  // FIX: Cast 'event' to 'CustomEvent' to access 'detail'
+  document.addEventListener('productToggle:change', (event: Event) => {
+    const customEvent = event as CustomEvent;
+    const selectedId = customEvent.detail.value;
+    handleUpdate(selectedId);
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    handleUpdate("MTM");
+  });
+</script>

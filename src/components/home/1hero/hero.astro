@@ -1,12 +1,10 @@
 ---
 // 1. DATA
-const titleHighlight = "Media & Tech";
-const titleBase = "insights for data driven decisions";
-const subtitle = "Unlock a clearer understanding of how Canadians consume media and adopt new technologies. MTM turns complex datasets into actionable insights so you can plan confidently and stay ahead of change.";
+const { titleHighlight, titleBase, subtitle, scene } = Astro.props;
 const primaryBtn = "Request A Demo";
 const secondaryBtn = "Explore More";
 
-// 2. STYLES
+// 2. Import
 import './hero.css';
 import './hero-animation.css';
 import '../../ui/HighlightText/highlight-text.css';
@@ -16,13 +14,11 @@ import '../../ui/HighlightText/highlight-text.css';
   <div class="page-inner hero-grid">
     <div class="hero-left">
       <h1 class="h1">
-        <span class="hl-text highlight-1">
-          {titleHighlight}
-        </span>
+        <span class="hl-text highlight-1">{titleHighlight}</span>
         <span class="hero-title-base">{titleBase}</span>
       </h1>
 
-      <p class="body-m">{subtitle}</p>
+      <p class="body-l subtitle">{subtitle}</p>
       
       <div class="hero-actions">
         <button class="btn btn-primary button-l">{primaryBtn}</button>
@@ -31,10 +27,20 @@ import '../../ui/HighlightText/highlight-text.css';
     </div>
 
     <div class="hero-right">
-      <div class="hero-visual" data-hero-scene></div>
+      <div class="hero-visual" 
+           data-hero-scene 
+           data-scene={JSON.stringify(scene)}>
+        
+        <img class="hero-img" data-hero-img alt="" />
+        
+        <div class="hero-orbits" data-hero-orbits>
+          <div class="hero-orbit-blocker"></div>
+        </div>
+        
+        <div class="hero-icons" data-hero-icons></div>
+      </div>
     </div>
   </div>
 </section>
 
-<script src="./scene.js"></script>
 <script src="./main.js"></script>

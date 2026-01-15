@@ -1,38 +1,24 @@
-// scroll-whyus.js
-// Scroll-driven scene for the "Why Us" section.
-// Grey box: Frame 1 full -> Frame 3 smaller.
-// Panels: Frame 1 -> Frame 3.
-
 (function () {
-  const section    = document.querySelector('.why-us');
-  const imageBox   = document.querySelector('.why-us-image');
-  const topPanel   = document.querySelector('.panel-top');
-  const leftPanel  = document.querySelector('.panel-left');
+  const stage = document.querySelector('[data-whyus-scene]');
+  const section = document.querySelector('.why-us');
+  const imageBox = document.querySelector('.why-us-image');
+  const topPanel = document.querySelector('.panel-top');
+  const leftPanel = document.querySelector('.panel-left');
   const rightPanel = document.querySelector('.panel-right');
 
-  if (!section || !imageBox || !topPanel || !leftPanel || !rightPanel) return;
+  if (!stage || !section || !imageBox || !topPanel || !leftPanel || !rightPanel) return;
+
+  // 1. READ DYNAMIC DATA FROM ASTRO ATTRIBUTE
+  const sceneData = JSON.parse(stage.getAttribute('data-whyus-scene'));
+  const F1 = sceneData.F1;
+  const F2 = sceneData.F2; // Renamed from F3
 
   const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
   const lerp  = (a, b, t) => a + (b - a) * t;
 
-  // ---------- FRAME 1 ----------
-  const F1 = {
-    top:  { x: 50, y: 60 },  // top panel, centered upper
-    left: { x: 40, y: 70 },  // bottom-left
-    right:{ x: 60, y: 70 }   // bottom-right
-  };
-
-  // ---------- FRAME 3 ----------
-  const F3 = {
-    top:  { x: 50, y: 22 },  // above card
-    left: { x: 15, y: 60 },  // left of card
-    right:{ x: 85, y: 60 }   // right of card
-  };
-
-  // ---------- IMAGE FRAME POSITIONS ----------
-  // Only vertical offset for the whole image card.
-  const IMG_F1 = { y: 0   };  // no shift in Frame 1
-  const IMG_F3 = { y: 60  };  // final shift down in Frame 3 (px)
+  // 2. IMAGE FRAME POSITIONS (Vertical offset)
+  const IMG_F1 = { y: 0 };  
+  const IMG_F2 = { y: 60 }; 
 
   function setPanelPos(el, pos) {
     el.style.left = pos.x + '%';
@@ -59,47 +45,39 @@
   function updateOnScroll() {
     const rect = section.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
-
-    const sectionHeight   = section.offsetHeight;
+    const sectionHeight = section.offsetHeight;
     const totalScrollable = sectionHeight - viewportHeight;
+    
     if (totalScrollable <= 0) return;
 
-    // 0 → 1 as we scroll through the Why Us section (raw)
     const sectionScroll = clamp(-rect.top, 0, totalScrollable);
-    const raw = sectionScroll / totalScrollable;   // 0 → 1
+    const raw = sectionScroll / totalScrollable; 
 
-    // We want:
-    // - 0 → holdStart of scroll: play full F1 → F3 animation 0 → 1
-    // - holdStart → 1: keep t fixed at 1 (hold final frame)
-    const holdStart = 0.8;  // 80% scroll used for animation
-    let t;
-    if (raw < holdStart) {
-      t = raw / holdStart;   // scales 0..holdStart → 0..1
-    } else {
-      t = 1;                 // last 20% of scroll → stay in F3
-    }
+    const holdStart = 0.8; 
+    let t = raw < holdStart ? raw / holdStart : 1;
 
-    // ---- PANELS: direct F1 → F3 interpolation ----
-    const frameNow = interpFrames(F1, F3, t);
+    // ---- PANELS: Interpolate between F1 and F2 ----
+    const frameNow = interpFrames(F1, F2, t);
 
     setPanelPos(topPanel,  frameNow.top);
     setPanelPos(leftPanel, frameNow.left);
-    setPanelPos(rightPanel,frameNow.right);
+    setPanelPos(rightPanel, frameNow.right);
 
-    // ---- IMAGE BOX: scale + vertical position direct F1 → F3 ----
-    const scaleF1 = 1.0;   // full frame
-    const scaleF3 = 0.45;  // final card
 
-    const imgScale = lerp(scaleF1, scaleF3, t);
-    const imgY     = lerp(IMG_F1.y, IMG_F3.y, t);
+
+    // ---- IMAGE BOX: scale starts at 0.8 (20% padding) ----
+    const scaleF1 = 0.8;   
+    const scaleF2 = 0.45;  
+
+    const imgScale = lerp(scaleF1, scaleF2, t);
+    const imgY     = lerp(IMG_F1.y, IMG_F2.y, t);
 
     imageBox.style.transform = `translateY(${imgY}px) scale(${imgScale})`;
 
-    // ---- CORNER RADIUS: F1 → F3 ----
-    const radiusF1 = 0;    // sharp corners when fullscreen
-    const radiusF3 = 24;   // final rounding
-
-    const radius = lerp(radiusF1, radiusF3, t);
+    // ---- CORNER RADIUS ----
+    const radiusF1 = 12; // Starts slightly rounded since it's not full screen
+    const radiusF2 = 24; 
+    const radius = lerp(radiusF1, radiusF2, t);
     imageBox.style.borderRadius = radius + 'px';
   }
 

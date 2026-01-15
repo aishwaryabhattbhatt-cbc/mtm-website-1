@@ -1,145 +1,153 @@
-// main.js
-import { scenes } from "./scene.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Find the hero visual container
   const container = document.querySelector("[data-hero-scene]");
-  if (!container) {
-    console.warn("No [data-hero-scene] container found");
-    return; // stop if hero isn't on this page
+  if (!container) return;
+
+  const raw = container.getAttribute("data-scene");
+  if (!raw) return;
+
+  let scene;
+  try {
+    scene = JSON.parse(raw);
+  } catch {
+    return;
   }
 
-  const scene = scenes[0];
   buildScene(container, scene);
 });
 
 function buildScene(container, scene) {
-  // 1. IMAGE
-  const img = document.createElement("img");
-  img.src = scene.image;
-  img.className = "hero-img";
-  container.appendChild(img);
+  // 1) Hero image
+  const img = container.querySelector("[data-hero-img]");
+  if (img && scene.image) img.src = scene.image;
 
-  // 2. PARTICLES (dots)
-  if (scene.particles) {
-    const particles = document.createElement("img");
-    particles.src = scene.particles;
-    particles.className = "hero-particles";
-    container.appendChild(particles);
+  // 2) Orbit layer + mask
+  const orbitLayer = container.querySelector("[data-hero-orbits]");
+  if (!orbitLayer) return;
+
+  // Apply mask via JS so each page can pass a different maskImage
+  if (scene.maskImage) {
+    orbitLayer.style.webkitMaskImage = `linear-gradient(#fff 0 0), url(${scene.maskImage})`;
+    orbitLayer.style.maskImage = `linear-gradient(#fff 0 0), url(${scene.maskImage})`;
+
+    orbitLayer.style.webkitMaskRepeat = "no-repeat, no-repeat";
+    orbitLayer.style.maskRepeat = "no-repeat, no-repeat";
+
+    orbitLayer.style.webkitMaskPosition = "0 0, center";
+    orbitLayer.style.maskPosition = "0 0, center";
+
+    orbitLayer.style.webkitMaskSize = "100% 100%, cover";
+    orbitLayer.style.maskSize = "100% 100%, cover";
+
+    // Best-effort: webkit uses xor, standard uses exclude
+    orbitLayer.style.webkitMaskComposite = "xor";
+    orbitLayer.style.maskComposite = "exclude";
   }
 
-  // Figure out when the last orbit finishes
-  const orbitAnimDuration = 0.5; // must match .orbit transition time in CSS
-  const maxOrbitDelay = scene.orbits.reduce(
-    (max, o) => Math.max(max, o.delay),
-    0
-  );
+  // 3) White blocker image (must live inside orbit layer, above orbits)
+  const blocker = container.querySelector(".hero-orbit-blocker");
+  if (blocker && scene.orbitBlocker) {
+    blocker.style.backgroundImage = `url(${scene.orbitBlocker})`;
+  }
+
+  // 4) Build orbit rings
+  const orbits = Array.isArray(scene.orbits) ? scene.orbits : [];
+  const centerOffset = scene.centerOffset || { x: 0, y: 0 };
+  const offsetX = centerOffset.x || 0;
+  const offsetY = centerOffset.y || 0;
+
+  // Clear any existing rings/icons (hot reload safety)
+  orbitLayer.querySelectorAll(".orbit").forEach((n) => n.remove());
+
+  const iconsLayer = container.querySelector("[data-hero-icons]");
+  if (iconsLayer) iconsLayer.querySelectorAll(".hero-icon").forEach((n) => n.remove());
+
+  let maxOrbitDelay = 0;
+  orbits.forEach((orbit) => {
+    const div = document.createElement("div");
+    div.className = "orbit";
+
+    const radius = Number(orbit.radius) || 0;
+    const delay = Number(orbit.delay) || 0;
+    maxOrbitDelay = Math.max(maxOrbitDelay, delay);
+
+    div.style.width = `${radius * 2}px`;
+    div.style.height = `${radius * 2}px`;
+    div.style.transitionDelay = `${delay}s`;
+    div.style.left = `calc(50% + ${offsetX}px)`;
+    div.style.top = `calc(50% + ${offsetY}px)`;
+    div.style.transform = "translate(-50%, -50%) scale(0.6)";
+
+    orbitLayer.appendChild(div);
+  });
+
+  // 5) Build icons (NOT masked)
+  const iconData = Array.isArray(scene.icons) ? scene.icons : [];
+  if (iconsLayer && iconData.length) {
+    iconData.forEach((ic) => {
+      const icon = document.createElement("img");
+      icon.src = ic.file;
+      icon.className = "hero-icon";
+      icon.dataset.tooltip = ic.tooltip || "";
+      icon.dataset.angle = String(ic.angle ?? 0);
+
+      const orbitCfg = orbits[ic.orbit] || orbits[0];
+      const radius = orbitCfg ? Number(orbitCfg.radius) || 0 : 0;
+
+      const angleDeg = Number(ic.angle) || 0;
+      const angleRad = (angleDeg * Math.PI) / 180;
+      const x = Math.cos(angleRad) * radius;
+      const y = Math.sin(angleRad) * radius;
+
+      icon.style.left = `calc(50% + ${offsetX}px + ${x}px)`;
+      icon.style.top = `calc(50% + ${offsetY}px + ${y}px)`;
+
+      // Gentle randomization
+      const randomDuration = (Math.random() * (5.5 - 3.5) + 3.5).toFixed(2);
+      const randomDelay = (Math.random() * 4).toFixed(2);
+      const randomDirection = Math.random() < 0.5 ? "normal" : "reverse";
+
+      icon.style.animationDuration = `${randomDuration}s`;
+      icon.style.animationDelay = `-${randomDelay}s`;
+      icon.style.animationDirection = randomDirection;
+
+      iconsLayer.appendChild(icon);
+    });
+
+    setupTooltip(container);
+  }
+
+  // 6) Animate in
+  const orbitAnimDuration = 0.5;
   const iconsBaseDelayMs = (maxOrbitDelay + orbitAnimDuration) * 1000;
 
-  fetch(scene.iconsJson)
-    .then((response) => response.json())
-    .then((data) => {
-      // Get icons and center offset from new JSON structure
-      const iconData = data.icons;
-      const centerOffset = data.centerOffset || { x: 0, y: 0 };
-      const offsetX = centerOffset.x || 0;
-      const offsetY = centerOffset.y || 0;
+  setTimeout(() => {
+    const icons = container.querySelectorAll(".hero-icon");
+    icons.forEach((ic, i) => setTimeout(() => (ic.style.opacity = "1"), i * 150));
+  }, iconsBaseDelayMs);
 
-      // 3. ORBITS
-      scene.orbits.forEach((orbit) => {
-        const div = document.createElement("div");
-        div.className = "orbit";
-        div.style.width = orbit.radius * 2 + "px";
-        div.style.height = orbit.radius * 2 + "px";
-
-        // delay per orbit
-        div.style.transitionDelay = orbit.delay + "s";
-
-        // center + offset
-        div.style.left = `calc(50% + ${offsetX}px)`;
-        div.style.top = `calc(50% + ${offsetY}px)`;
-
-        // start smaller, will scale up
-        div.style.transform = "translate(-50%, -50%) scale(0.6)";
-
-        container.appendChild(div);
-      });
-
-      // 4. ICONS
-      iconData.forEach((ic) => {
-        const icon = document.createElement("img");
-        icon.src = ic.file;
-        icon.className = "hero-icon";
-        icon.dataset.tooltip = ic.tooltip;
-        icon.dataset.angle = ic.angle;
-
-        const orbitCfg = scene.orbits[ic.orbit] || scene.orbits[0];
-        const radius = orbitCfg.radius;
-
-        const angleRad = (ic.angle * Math.PI) / 180;
-        const x = Math.cos(angleRad) * radius;
-        const y = Math.sin(angleRad) * radius;
-
-        // Position icon using calculated x/y and center offset
-        icon.style.left = `calc(50% + ${offsetX}px + ${x}px)`;
-        icon.style.top = `calc(50% + ${offsetY}px + ${y}px)`;
-
-        // randomised orbit animation
-        const randomDuration = (Math.random() * (5.5 - 3.5) + 3.5).toFixed(2);
-        const randomDelay = (Math.random() * 4).toFixed(2);
-        const randomDirection = Math.random() < 0.5 ? "normal" : "reverse";
-
-        icon.style.animationDuration = `${randomDuration}s`;
-        icon.style.animationDelay = `-${randomDelay}s`;
-        icon.style.animationDirection = randomDirection;
-
-        container.appendChild(icon);
-      });
-
-      setupTooltip(container);
-
-      // reveal icons strictly after orbits complete, one after another
-      setTimeout(() => {
-        const icons = container.querySelectorAll(".hero-icon");
-
-        icons.forEach((ic, i) => {
-          setTimeout(() => {
-            ic.style.opacity = 1;
-          }, i * 150); // 150ms stagger between icons
-        });
-      }, iconsBaseDelayMs);
-
-      requestAnimationFrame(() => startAnimation(container));
-    })
-    .catch((err) => {
-      console.error("Error loading icon JSON:", err);
-      // Ensure animation still runs if JSON load fails
-      requestAnimationFrame(() => startAnimation(container));
-    });
+  requestAnimationFrame(() => startAnimation(container));
 }
 
 function startAnimation(container) {
   const img = container.querySelector(".hero-img");
   if (img) {
-    img.style.opacity = 1;
+    img.style.opacity = "1";
     img.style.transform = "translateY(0)";
   }
 
-  const particles = container.querySelector(".hero-particles");
-  if (particles) {
-    particles.style.opacity = 1;
-  }
-
   container.querySelectorAll(".orbit").forEach((o) => {
-    // Force a reflow before triggering the transition
     void o.offsetHeight;
-
-    o.style.opacity = 1;
+    o.style.opacity = "1";
     o.style.transform = "translate(-50%, -50%) scale(1)";
   });
 }
 
 function setupTooltip(container) {
+  // Ensure only one tooltip exists
+  const existing = container.querySelector(".tooltip");
+  if (existing) existing.remove();
+
   const tooltip = document.createElement("div");
   tooltip.className = "tooltip";
   container.appendChild(tooltip);
@@ -147,38 +155,33 @@ function setupTooltip(container) {
   container.querySelectorAll(".hero-icon").forEach((icon) => {
     icon.addEventListener("mouseenter", () => {
       const angle = parseFloat(icon.dataset.angle || "0");
-      let finalTransform = "";
-      let startTransform = "";
 
       tooltip.innerText = icon.dataset.tooltip || "";
       tooltip.style.left = icon.style.left;
       tooltip.style.top = icon.style.top;
 
-      // Right side: slide in from the right
-      if (angle > 270) {
-        finalTransform = "translate(40px, -50%)";
-        startTransform = "translate(55px, -50%)";
-        tooltip.style.textAlign = "left";
-      } else {
-        // Left side: slide in from the left
-        finalTransform = "translate(calc(-100% - 40px), -50%)";
-        startTransform = "translate(calc(-100% - 55px), -50%)";
-        tooltip.style.textAlign = "right";
-      }
+      const rightSide = angle > 270;
+      tooltip.style.textAlign = rightSide ? "left" : "right";
+
+      const finalTransform = rightSide
+        ? "translate(40px, -50%)"
+        : "translate(calc(-100% - 40px), -50%)";
+      const startTransform = rightSide
+        ? "translate(55px, -50%)"
+        : "translate(calc(-100% - 55px), -50%)";
 
       tooltip.style.transform = startTransform;
-      tooltip.style.opacity = 0;
+      tooltip.style.opacity = "0";
 
-      setTimeout(() => {
-        tooltip.style.opacity = 1;
+      requestAnimationFrame(() => {
+        tooltip.style.opacity = "1";
         tooltip.style.transform = finalTransform;
-      }, 0);
+      });
     });
 
     icon.addEventListener("mouseleave", () => {
-      tooltip.style.opacity = 0;
+      tooltip.style.opacity = "0";
       tooltip.style.transform = "translate(-50%, -50%)";
     });
   });
 }
-

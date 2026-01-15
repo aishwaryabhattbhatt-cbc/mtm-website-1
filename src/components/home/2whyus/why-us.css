@@ -50,7 +50,7 @@
     will-change: transform, border-radius;
     transform-origin: center;
     overflow: hidden;
-    z-index: 1;
+    z-index: 2;
   }
 
 /* FORCE the image to fill the entire why-us-image box */
@@ -111,13 +111,52 @@
     width: 65%;
     max-width: none;
     transform: translate(-50%, -50%);
-    z-index: 0;        /* Above image but below anything else */
+    z-index: 1;        /* Above image but below anything else */
     display: flex;
     flex-direction: column;
     gap: 16px;         /* spacing between h2 and body */
     text-align: center;
   }
   
+  
+
+  /* why-us.css */
+
+.why-us-content-block {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+  width: fit-content;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Individual Row Alignment */
+.content-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-medium);
+}
+
+/* Left Panel: Align everything to the right (towards the center image) */
+.panel-left {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* Right Panel: Align everything to the left (towards the center image) */
+.panel-right {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.content-icon {
+  width: var(--icon-size-xl);
+  height: var(--icon-size-xl);
+}
+
 
   
   

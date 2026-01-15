@@ -1,39 +1,45 @@
 ---
 // src/components/home/WhyUs/WhyUs.astro
-
-// 1. DATA: Edit your text here
-const heading = "Why Leading Organizations Trust Us";
-const description = "We deliver strategic advantages with our data-driven insights into Canadian media habits. Our detailed reports, powered by cutting-edge tools, are known for their actionable intelligence, ensuring leaders remain at the forefront of industry trends.";
+const { heading, description, panelPositions, content } = Astro.props;
 
 // 2. STYLES: Import the local CSS
 import './why-us.css';
+
 ---
 
 <section class="why-us">
   <div class="why-us-inner">
-    <div class="why-us-stage">
+    <div class="why-us-stage" data-whyus-scene={JSON.stringify(panelPositions)}>
       
       <div class="why-us-image">
-        <img
-          src="/mtm-website-1/Home-WhyUsImage.png"
-          alt="Why MTM helps you make better decisions"
-          class="why-us-image-img"
-        />
+        <img src={content.mainImage} alt="" class="why-us-image-img" />
       </div>
 
       <div class="why-us-text panel-top">
         <h2 class="h2">{heading}</h2>
-        <p class="body-m">
-          {description}
-        </p>
+        <p class="subtitle body-m">{description}</p>
       </div>
+
+
       
-      <div class="why-us-imagebox panel-left">
-        <img src="/mtm-website-1/left-whyus.svg" alt="" class="whyus-side-img" />
+      <div class="why-us-content-block panel-left">
+        <span class="subtitle h5">{content.problemTitle}</span>
+        {content.problems.map(p => (
+          <div class="content-row">
+            <span class="body-l">{p.text}</span>
+            <img src={p.icon} alt="" class="content-icon" />
+          </div>
+        ))}
       </div>
-      
-      <div class="why-us-imagebox panel-right">
-        <img src="/mtm-website-1/right-whyus.svg" alt="" class="whyus-side-img" />
+
+      <div class="why-us-content-block panel-right">
+        <span class="subtitle h5">{content.solutionTitle}</span>
+        {content.solutions.map(s => (
+          <div class="content-row">
+            <img src={s.icon} alt="" class="content-icon" />
+            <span class="body-l">{s.text}</span>
+          </div>
+        ))}
       </div>
       
     </div>
