@@ -23,7 +23,13 @@ import "./product-toggle.css";
   ))}
 </div>
 
-<script type="module">
-    import { initProductToggles } from '/src/components/ui/ProductToggle/product-toggle.js';
-    initProductToggles(document);
-  </script>
+<script>
+  // Astro will bundle this correctly regardless of whether you are on local or GitHub
+  import { initProductToggles } from './product-toggle.js';
+  
+  // Initialize on first load
+  initProductToggles(document);
+
+  // If using View Transitions, also initialize on swap
+  document.addEventListener('astro:after-swap', () => initProductToggles(document));
+</script>
