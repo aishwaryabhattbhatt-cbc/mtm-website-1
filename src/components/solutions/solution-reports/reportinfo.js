@@ -10,7 +10,7 @@ export const reportInfoData = [
         percentage: 25,
         percentSize: 60,
         percentStroke: 6,
-      iconPath: "/mtm-website-1/icons/Reports/latest-report.svg",
+      iconPath: "/mtm-website-1/icons/Reports/latest-reports.svg",
       columns: [
         { title: "Broad Reach", desc: "MTM 18+ covers 95% of UK households with comprehensive media data." },
         { title: "Strategic", desc: "Ready-to-use frameworks for understanding nationwide behavior." }

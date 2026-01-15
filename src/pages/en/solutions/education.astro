@@ -13,6 +13,89 @@ import Percentage from "../../../components/ui/Percentage/percentage.astro";
 import Benefits from "../../../components/solutions/benefits/benefits.astro";
 import Reports from "../../../components/solutions/solution-reports/reports.astro";
 import Hero from "../../../components/solutions/hero/Hero.astro";
+import Papa from 'papaparse';
+
+// 1. Replace this with your "Published to Web" CSV URL
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rIvS3zuXP7if7TPShcpPwWU9Hn7ROXTRo9L47iZ0ezoLg8H-GYZTveEw7fAHDMn5A0iT/pub?gid=423293011&single=true&output=csv";
+
+const response = await fetch(SHEET_URL);
+const csvData = await response.text();
+
+// 2. Parsing logic [cite: 6, 7, 24]
+const parsed = Papa.parse(csvData, { 
+  header: false, 
+  skipEmptyLines: true 
+});
+
+const rawData = Object.fromEntries(
+  parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
+);
+
+// 3. Mapping Content using rawData [cite: 8, 24]
+const heroContent = {
+  solution: rawData["solution"], 
+  titleHighlight: rawData["titlehighlight"], 
+  titleBase: rawData["titlebase"],           
+  subtitle: rawData["subtitle"],             
+};
+
+const benefitItems: any[] = []; 
+for (let i = 1; i <= 5; i++) {
+  if (rawData[`benefit_${i}_title`]) {
+    benefitItems.push({
+      icon: rawData[`benefit_${i}_icon`] || `/mtm-website-1/icons/Industry/benefit-${i}.svg`,
+      title: rawData[`benefit_${i}_title`],
+      description: rawData[`benefit_${i}_desc`],
+    });
+  }
+}
+
+
+const dynamicChartsContent = {
+  title: rawData["charts_title"],
+  
+  // Pull from CSV with a hardcoded fallback path
+  leftImage: rawData["charts_img_left"] || "/mtm-website-1/images/solutions/industry/dynamic-charts-left.png",
+  rightImage: rawData["charts_img_right"] || "/mtm-website-1/images/solutions/industry/dynamic-charts-right.png",
+
+  metrics: [
+    {
+      type: "component",
+      component: Percentage,
+      componentProps: { 
+        percent: parseInt(rawData["metric_1_val"]) || 0 
+      },
+      text: rawData["metric_1_txt"]
+    },
+    {
+      type: "icon",
+      icon: rawData["metric_2_icon"] || "/mtm-website-1/images/solutions/industry/icon.svg",
+      text: rawData["metric_2_txt"]
+    }
+  ]
+};
+
+const testimonialItems: any[] = []; 
+if (rawData["testimonial_quote"]) {
+  testimonialItems.push({
+    quote: rawData["testimonial_quote"],
+    role: rawData["testimonial_role"] || "Representative"
+  });
+}
+const clientLogos = [
+  rawData["testimonial_logo"] || "/mtm-website-1/client-logos/media.svg"
+];
+
+const faqs: any[] = [];
+for (let i = 1; i <= 5; i++) {
+  if (rawData[`faq_${i}_q`]) {
+    faqs.push({
+      question: rawData[`faq_${i}_q`],
+      answer: rawData[`faq_${i}_a`],
+    });
+  }
+}
+
 
 const heroScene = {
   orbits: [
@@ -46,113 +129,7 @@ const heroScene = {
   ]
 };
 
-const heroContent = {
-solution: "Education",
-titleHighlight: "Empower",
-titleBase: "students with real media insights",
-subtitle:
-  "MTM gives universities and students access to Canada’s most comprehensive media datasets, helping them explore audience behaviour, build research projects, and apply real data to classroom learning.",
-};
 
-const benefitsContent = {
-  title: "Benefits of MTM",
-  items: [
-    {
-      icon: "/mtm-website-1/icons/Industry/benefit-1.svg",
-      title: "Anticipate Shifts",
-      description:
-        "Anticipate shifts in consumer behavior like tracking how streaming adoption is accelerating compared to TV across different age groups.",
-    },
-    {
-      icon: "/mtm-website-1/icons/Industry/benefit-2.svg",
-      title: "Monitor Tech Adoption",
-      description: "Stay ahead by monitoring how quickly Canadians adopt emerging tech, from 5G smartphones to VR headsets, using MTM 18+ insights.",
-    },
-    {
-      icon: "/mtm-website-1/icons/Industry/benefit-3.svg",
-      title: "Tailor Campaigns",
-      description: " Tailor campaigns more effectively by analyzing newcomer data, such as WhatsApp and TikTok usage among recent immigrants.",
-    },
-    {
-      icon: "/mtm-website-1/icons/Industry/benefit-4.svg",
-      title: "Back Major Decisions",
-      description: "Use MTM data to back major decisions, for example comparing rural vs. urban broadband adoption through the Census Tool.",
-    },
-    {
-      icon: "/mtm-website-1/icons/Industry/benefit-5.svg",
-      title: "Shape Strategies",
-      description: "Shape strategies using MTM Junior findings, like children’s streaming preferences and device usage patterns.",
-    },
-  ],
-};
-
-const dynamicChartsContent = {
-  title: "Shifts that Shape the Industry",
-
-  leftImage: "/mtm-website-1/images/solutions/industry/dynamic-charts-left.png",
-  rightImage: "/mtm-website-1/images/solutions/industry/dynamic-charts-right.png",
-
-  metrics: [
-  {
-    type: "component",
-    component: Percentage, // imported Astro component
-    componentProps: { percent: 75 },
-    text: "Audience adoption of connected platforms is accelerating."
-  },
-    {
-      type: "icon",
-      icon: "/mtm-website-1/images/solutions/industry/icon.svg",
-      text: "Traditional media still plays a role, but its share is steadily declining."
-    }
-  ]
-};
-
-const testimonials1 = {
-  title: "What students say about us",
-    subtitle: "Faculty and researchers use MTM data to enrich classroom learning, support academic studies.",
-    items: [
-      { quote: "Integrating MTM data into our curriculum has transformed how students approach media research. Instead of analyzing outdated case studies, they now work with current, nationally representative data. It bridges the gap between theory and practice and gives our students a competitive edge.",
-        role: "Role, Org" }
-  ],
-};
-
-const testimonials2 = {
-  title: "What educators say about us",
-    subtitle: "Faculty and researchers use MTM data to enrich classroom learning, support academic studies.",
-    clientLogos: ["/mtm-website-1/client-logos/education.svg"],
-    items: [
-      { quote: "Integrating MTM data into our curriculum has transformed how students approach media research. Instead of analyzing outdated case studies, they now work with current, nationally representative data. It bridges the gap between theory and practice and gives our students a competitive edge.",
-        role: "Role, Org" }
-  ],
-};
-
-const faqs = [
-  {
-    question: "How can MTM data support my next campaign pitch?",
-    answer:
-      "MTM helps you validate audience assumptions with data sourced from over 12,000 Canadians annually. Use insights from our DAT and Trending Tools to strengthen your recommendations and back your media plans with credible, defensible numbers.",
-  },
-  {
-    question: "Can I compare audience behaviour across different age groups or regions?",
-    answer:
-      "Yes. The DAT Tool lets you segment data by age, gender, region, and language. You can quickly visualize patterns across MTM 18+, Junior, and Newcomer datasets to tailor your strategy for each target audience.",
-  },
-  {
-    question: "How often is MTM data updated?",
-    answer:
-      "MTM releases new reports and dataset updates twice a year — with additional insights and trend analyses published regularly. This ensures your campaigns are informed by the most current media consumption data in Canada.",
-  },
-  {
-    question: "Can I export charts or visuals for my client presentations?",
-    answer:
-      "Absolutely. You can download charts, graphs, and visual summaries directly from the DAT Tool to include in your decks, ensuring every recommendation you make is supported by real Canadian data.",
-  },
-  {
-    question: "Do you provide support for custom audience or brand-specific insights?",
-    answer:
-      "Yes. Our team can guide you through advanced queries or customized data views during your demo session. Many agencies use this to tailor MTM data for specific client sectors or campaign objectives.",
-  },
-];
 
 ---
 
@@ -168,15 +145,16 @@ const faqs = [
       titleBase={heroContent.titleBase}
       subtitle={heroContent.subtitle}
       scene={heroScene} />
-    <Benefits
-      title={benefitsContent.title}
-      items={benefitsContent.items}
+    <Benefits 
+      title={rawData["benefits_title"]} 
+      items={benefitItems} 
     />
     <Testimonials
-      title={testimonials1.title}
-      subtitle={testimonials1.subtitle}
-      items={testimonials1.items}
-    />
+    title={rawData["testimonial_title"] || "What media companies say about us"}
+    subtitle={rawData["testimonial_subtitle"]}
+    clientLogos={clientLogos}
+    items={testimonialItems}
+  />
     <Reports />
     <DynamicCharts
       title={dynamicChartsContent.title}
@@ -185,15 +163,12 @@ const faqs = [
       metrics={dynamicChartsContent.metrics}
     />
     <Testimonials
-      title={testimonials2.title}
-      subtitle={testimonials2.subtitle}
-      clientLogos={testimonials2.clientLogos}
-      items={testimonials2.items}
+      title={rawData["testimonial_title"] || "What media companies say about us"}
+      subtitle={rawData["testimonial_subtitle"]}
+      clientLogos={clientLogos}
+      items={testimonialItems}
     />
-    <Faq
-      title="Frequently Asked Questions"
-      items={faqs}
-    />
+    <Faq title="Frequently Asked Questions" items={faqs} />
     <CTA />
     <Subscribe />
     <Footer />
