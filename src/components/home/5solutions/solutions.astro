@@ -4,11 +4,20 @@ import './solutions.css';
 import RoleButton from '../../home/5solutions/RoleButton.astro';
 import { solutionsData } from './solutions.js'; // Import data for HTML
 
-const titleHighlight = "Solutions";
-const titleBase = " for Every Decision Maker";
-const description = "Every role has different priorities. Explore solutions by your role to help you find the MTM insights and products that support your specific decision-making needs.";
+const { content } = Astro.props;
 
-const activeRole = solutionsData.find(role => role.id === "media") || solutionsData[0];
+// Merge CSV text with existing hardcoded asset paths (icons/logos)
+const mergedData = solutionsData.map(hardcoded => {
+  const csvMatch = content.roles.find(r => r.id === hardcoded.id);
+  return {
+    ...hardcoded,
+    description: csvMatch?.desc || hardcoded.description,
+    ctaLabel: csvMatch?.cta || hardcoded.ctaLabel
+  };
+});
+
+const activeRole = mergedData.find(role => role.id === "media") || mergedData[0]; 
+// const activeRole = solutionsData.find(role => role.id === "media") || solutionsData[0];
 
 ---
 
@@ -18,12 +27,10 @@ const activeRole = solutionsData.find(role => role.id === "media") || solutionsD
     {/* Header Block */}
 <div class="solutions-header">
     <h2 class="h2">
-      <span class="hl-text highlight-2">{titleHighlight}</span>{titleBase}
+      <span class="hl-text highlight-2">{content.titleHighlight}</span>{content.titleBase}
     </h2>
     
-    <p class="body-m solutions-desc">
-      {description}
-    </p>
+    <p class="body-m solutions-desc">{content.description}</p>
 </div>
 
     {/* New Solutions Roles Block */}
@@ -43,38 +50,32 @@ const activeRole = solutionsData.find(role => role.id === "media") || solutionsD
             
         {/* 2. Text + Button Block */}
         <div class="board-cta">
-            <p class="body-l role-description"> 
-                {activeRole.description}
-              </p>
-            
-              {/* Tertiary Button: Uses your standardized button component logic */}
-              <a href={activeRole.href} class="btn-tertiary button-l">
-                {activeRole.ctaLabel}
-              </a>
+          <p class="body-l role-description">{activeRole.description}</p>
+          <a href={`/solutions/${activeRole.id}`} class="btn-tertiary button-l">{activeRole.ctaLabel}</a>
         </div>
   </div>
 
   {/* 3. Clients Block */}
   <div class="board-clients">
     <div class="logo-strip">
-        <img 
-        src={activeRole.clientLogos}
-        alt="Trusted Clients" 
-        id="client-logo-image"
-        class="client-image"
-        />
+      <img src={activeRole.clientLogos} alt="Trusted Clients" id="client-logo-image" class="client-image" />
     </div>
-    </div>
+  </div>
 </div>
-
 </section>
 
 
+<script is:inline define:vars={{ mergedData }}>
+  window.solutionsData = mergedData;
+</script>
+
 <script>
-    // Import the starter function
-    import { startSolutions } from './solutions.js';
+    import { initSolutionsBoard } from './rolebutton.js';
     
-    // Run it when the page loads in the browser
-    startSolutions();
-  </script>
-  
+    document.addEventListener('DOMContentLoaded', () => {
+      // Use the CSV-enhanced data from the window 
+      if ((window as any).solutionsData) {
+        initSolutionsBoard((window as any).solutionsData);
+      }
+    });
+</script>

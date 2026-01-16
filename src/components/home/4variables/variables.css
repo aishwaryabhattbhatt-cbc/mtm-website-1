@@ -13,7 +13,7 @@
 
   .variables-hero-image {
     width: 100%;
-    height: 60vh; /* Fixed height as requested */
+    height: auto; /* Fixed height as requested */
     border-radius: var(--radius-16); /* Using your radius token */
     overflow: hidden;
   }

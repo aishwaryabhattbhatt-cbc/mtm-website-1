@@ -2,18 +2,19 @@
 import '../../../styles/typography.css';
 import './variables.css';
 
-const highlightText = "5000+";
-
-// Define the stacked text as variables 
-const stackLine1 = "We could list the topics";
-const stackLine2 = "but frankly there are too";
-const stackLine3 = "many too chose from!";
+// Accept the props passed from index.astro
+const { 
+  highlightText, 
+  stackLine1, 
+  stackLine2, 
+  stackLine3 
+} = Astro.props;
 ---
 
 <section class="section-variables">
   <div class="page-inner variables-container">
     <div class="variables-hero-image">
-      <img src="/mtm-website-1/variables.png" alt="Variables Illustration" />
+      <img src="/mtm-website-1/images/home/variables/variables-vlogging.webp" alt="Variables Illustration" />
     </div>
 
     <div class="variables-content">

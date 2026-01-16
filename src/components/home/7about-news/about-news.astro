@@ -2,20 +2,29 @@
 /* src/components/home/7-about-news/about-news.astro */
 import "./about-news.css";
 
+// Receive props from index.astro
+const { 
+  aboutTitle, 
+  aboutDesc, 
+  aboutCta, 
+  newsTitle, 
+  newsDesc, 
+  newsCta,
+  links // This contains your hardcoded URLs
+} = Astro.props;
+
 const cards = [
   {
-    title: "About the MTM",
-    descLines: [
-      "Learn about Media Technology Monitor, including our mission, team, and values."],
-    ctaLabel: "LEARN MORE",
-    href: "#",
+    title: aboutTitle,
+    description: aboutDesc,
+    ctaLabel: aboutCta,
+    href: links?.aboutHref || "#", // Use link from index.astro
   },
   {
-    title: "In the News Room",
-    descLines: [
-      "Stay informed with press releases, articles, and interviews featuring MTM data."],
-    ctaLabel: "LEARN MORE",
-    href: "#",
+    title: newsTitle,
+    description: newsDesc,
+    ctaLabel: newsCta,
+    href: links?.newsHref || "#", // Use link from index.astro
   },
 ];
 ---
@@ -25,13 +34,9 @@ const cards = [
     {cards.map((card) => (
       <div class="about-news-card">
         <h4 class="h4">{card.title}</h4>
-
         <div class="about-news-body body-m">
-          {card.descLines.map((line) => (
-            <p>{line}</p>
-          ))}
+          <p>{card.description}</p>
         </div>
-
         <a class="btn-tertiary button-l about-news-cta" href={card.href}>
           {card.ctaLabel}
         </a>

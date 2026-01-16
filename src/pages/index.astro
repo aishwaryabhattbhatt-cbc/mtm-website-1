@@ -47,8 +47,20 @@ const parsed = Papa.parse(csvData, {
   skipEmptyLines: true 
 });
 
+// const rawData = Object.fromEntries(
+//   parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
+// );
+
+
+// Improved parsing logic to handle values in different columns
 const rawData = Object.fromEntries(
-  parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
+  parsed.data.map((row) => {
+    const key = row[0]?.toString().trim().toLowerCase();
+    // Filter out empty cells and take the second valid entry as the value
+    const values = row.slice(1).filter(v => v && v.trim() !== "");
+    const value = values[0]?.toString().trim() || ""; 
+    return [key, value];
+  })
 );
 
 // 3. Why us Animation Coordinate Map
@@ -93,6 +105,25 @@ const reportsScene = {
   footerSvg: "/mtm-website-1/report-stats.svg"
 };
 
+const solutionsContent = {
+  titleHighlight: rawData["solutions_title_hl"] || "Solutions",
+  titleBase: rawData["solutions_title_base"] || " for Every Decision Maker",
+  description: rawData["solutions_desc"],
+  roles: [
+    { id: "advertising", label: "Advertising", desc: rawData["sol_advertising_desc"], cta: rawData["sol_advertising_cta"] },
+    { id: "industry", label: "Industry", desc: rawData["sol_industry_desc"], cta: rawData["sol_industry_cta"] },
+    { id: "media", label: "Media", desc: rawData["sol_media_desc"], cta: rawData["sol_media_cta"] },
+    { id: "education", label: "Education", desc: rawData["sol_education_desc"], cta: rawData["sol_education_cta"] },
+    { id: "govn", label: "Govn & NGO", desc: rawData["sol_govn_desc"], cta: rawData["sol_govn_cta"] },
+  ]
+};
+
+
+const aboutNewsLinks = {
+  aboutHref: "/about-mtm",
+  newsHref: "/newsroom"
+};
+
 
 
 ---
@@ -123,10 +154,23 @@ const reportsScene = {
       statLabel={rawData["reports_stat_label"]}
       scene={reportsScene}
     />
-    <Variables />
-    <Solutions />
+    <Variables 
+      highlightText={rawData["variables_highlight"]}
+      stackLine1={rawData["variables_stack1"]}
+      stackLine2={rawData["variables_stack2"]}
+      stackLine3={rawData["variables_stack3"]}
+    />
+    <Solutions content={solutionsContent} />
     <Products />
-    <AboutNews />
+    <AboutNews  
+    aboutTitle={rawData["about_title"]}
+    aboutDesc={rawData["about_desc"]}
+    aboutCta={rawData["about_cta"]}
+    newsTitle={rawData["news_title"]}
+    newsDesc={rawData["news_desc"]}
+    newsCta={rawData["news_cta"]}
+    links={aboutNewsLinks} 
+  />
     <CTA />
     <Subscribe />
     <Footer />
