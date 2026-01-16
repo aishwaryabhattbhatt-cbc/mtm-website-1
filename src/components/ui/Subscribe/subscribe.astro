@@ -2,9 +2,35 @@
 import "./subscribe.css";
 import InputField from "../Input/InputField.astro";
 
-const title = "Subscribe to our Newsletter";
-const desc =
-  "Stay up to date with the latest trends. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed purus eu nibh rhoncus.";
+import Papa from 'papaparse';
+
+// 1. Replace this with your "Published to Web" CSV URL
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rIvS3zuXP7if7TPShcpPwWU9Hn7ROXTRo9L47iZ0ezoLg8H-GYZTveEw7fAHDMn5A0iT/pub?gid=1604665094&single=true&output=csv";
+
+const response = await fetch(SHEET_URL);
+const csvData = await response.text();
+
+// 2. Parsing logic
+const parsed = Papa.parse(csvData, { 
+  header: false, 
+  skipEmptyLines: true 
+});
+
+// Improved parsing logic to handle values in different columns
+const rawData = Object.fromEntries(
+  parsed.data.map((row) => {
+    const key = row[0]?.toString().trim().toLowerCase();
+    // Filter out empty cells and take the second valid entry as the value
+    const values = row.slice(1).filter(v => v && v.trim() !== "");
+    const value = values[0]?.toString().trim() || ""; 
+    return [key, value];
+  })
+);
+
+
+const title = rawData["sub_title"]; 
+const desc = rawData["sub_desc"]; 
+
 ---
 <section class="section-subscribe">
     <div class="page-inner">

@@ -47,11 +47,6 @@ const parsed = Papa.parse(csvData, {
   skipEmptyLines: true 
 });
 
-// const rawData = Object.fromEntries(
-//   parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
-// );
-
-
 // Improved parsing logic to handle values in different columns
 const rawData = Object.fromEntries(
   parsed.data.map((row) => {
@@ -118,6 +113,35 @@ const solutionsContent = {
   ]
 };
 
+const productsContent = {
+  titleHighlight: rawData["products_title_hl"],
+  titleBase: rawData["products_title_base"],
+  description: rawData["products_desc"],
+};
+
+// Map CSV data to your existing product structure
+const dynamicProductData = [
+  { 
+    id: "18", 
+    subtitle: rawData["prod_18_subtitle"], 
+    description: rawData["prod_18_desc"] 
+  },
+  { 
+    id: "Jr", 
+    subtitle: rawData["prod_jr_subtitle"], 
+    description: rawData["prod_jr_desc"] 
+  },
+  { 
+    id: "NC", 
+    subtitle: rawData["prod_nc_subtitle"], 
+    description: rawData["prod_nc_desc"] 
+  },
+  { 
+    id: "Census", 
+    subtitle: rawData["prod_census_subtitle"], 
+    description: rawData["prod_census_desc"] 
+  },
+];
 
 const aboutNewsLinks = {
   aboutHref: "/about-mtm",
@@ -161,7 +185,12 @@ const aboutNewsLinks = {
       stackLine3={rawData["variables_stack3"]}
     />
     <Solutions content={solutionsContent} />
-    <Products />
+    <Products 
+      titleHighlight={productsContent.titleHighlight}
+      titleBase={productsContent.titleBase}
+      description={productsContent.description}
+      dynamicData={dynamicProductData}
+    />
     <AboutNews  
     aboutTitle={rawData["about_title"]}
     aboutDesc={rawData["about_desc"]}

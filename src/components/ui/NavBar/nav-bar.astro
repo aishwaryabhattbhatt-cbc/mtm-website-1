@@ -1,152 +1,71 @@
 ---
 // src/components/ui/NavBar/Navbar.astro
 import './navbar.css';
+import Papa from 'papaparse';
+import { getLangFromUrl, useTranslations } from '../../../i18n/ui.js';
 
-// 1. Import your new i18n tools
-// Check your folder depth: you might need '../../i18n/ui' or '../../../i18n/ui'
-import { getLangFromUrl, useTranslations } from '../../../i18n/ui.js'; 
-
-// 2. Detect the language and setup the translator
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-// 3. Define the base path for GitHub Pages (/mtm-website)
 const base = import.meta.env.BASE_URL;
 
-// 4. Update your menu to use the translator
+// 1. Fetch and Parse CSV Data
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rIvS3zuXP7if7TPShcpPwWU9Hn7ROXTRo9L47iZ0ezoLg8H-GYZTveEw7fAHDMn5A0iT/pub?gid=1604665094&single=true&output=csv";
+const response = await fetch(SHEET_URL);
+const csvData = await response.text();
+
+const parsed = Papa.parse(csvData, { header: false, skipEmptyLines: true });
+const rawData = Object.fromEntries(
+  parsed.data.map((row) => {
+    const key = row[0]?.toString().trim().toLowerCase();
+    const values = row.slice(1).filter(v => v && v.trim() !== "");
+    const value = values[0]?.toString().trim() || ""; 
+    return [key, value];
+  })
+);
+
+// 2. Navigation Items with dynamic descriptions from CSV
+const solutionsItems = [
+  { id: "advertising", label: "Advertising", desc: rawData["nav_sol_adv_desc"], icon: "/mtm-website-1/icons/Solutions/advertising-active.svg", href: `/mtm-website-1/${lang}/solutions/advertising` },
+  { id: "media", label: "Media", desc: rawData["nav_sol_med_desc"], icon: "/mtm-website-1/icons/Solutions/media-active.svg", href: `/mtm-website-1/${lang}/solutions/media` },
+  { id: "industry", label: "Industry", desc: rawData["nav_sol_ind_desc"], icon: "/mtm-website-1/icons/Solutions/industry-active.svg", href: `/mtm-website-1/${lang}/solutions/industry` },
+  { id: "education", label: "Education", desc: rawData["nav_sol_edu_desc"], icon: "/mtm-website-1/icons/Solutions/education-active.svg", href: `/mtm-website-1/${lang}/solutions/education` },
+  { id: "govn-ngo", label: "Govn & NGO", desc: rawData["nav_sol_gov_desc"], icon: "/mtm-website-1/icons/Solutions/govn-active.svg", href: `/mtm-website-1/${lang}/solutions/govn` },
+];
+
+const productsItems = [
+  { id: "mtm-18", label: "MTM 18+", desc: rawData["nav_prod_18_desc"], icon: "/mtm-website-1/icons/Products/18-active.svg", href: `/mtm-website-1/${lang}/products/mtm18` },
+  { id: "juniors", label: "Juniors", desc: rawData["nav_prod_jr_desc"], icon: "/mtm-website-1/icons/Products/Jr-active.svg", href: `/mtm-website-1/${lang}/products/juniors` },
+  { id: "newcomers", label: "Newcomers", desc: rawData["nav_prod_nc_desc"], icon: "/mtm-website-1/icons/Products/NC-active.svg", href: `/mtm-website-1/${lang}/products/newcomers` },
+  { id: "census", label: "Census", desc: rawData["nav_prod_cen_desc"], icon: "/mtm-website-1/icons/Products/Census-active.svg", href: `/mtm-website-1/${lang}/products/census` },
+];
+
+const toolsItems = [
+  { id: "data-analysis", label: "Data Analysis", desc: rawData["nav_tool_da_desc"], icon: "/mtm-website-1/icons/Tools/data-analysis.svg", href: `/mtm-website-1/${lang}/tools/analysis-tools` },
+  { id: "trending", label: "Trending", desc: rawData["nav_tool_tr_desc"], icon: "/mtm-website-1/icons/Tools/trending.svg", href: `/mtm-website-1/${lang}/tools/analysis-tools` },
+  { id: "forecasting", label: "Forecasting", desc: rawData["nav_tool_fc_desc"], icon: "/mtm-website-1/icons/Tools/forecasting.svg", href: `/mtm-website-1/${lang}/tools/analysis-tools` },
+  { id: "census-tools", label: "Census", desc: rawData["nav_tool_cen_desc"], icon: "/mtm-website-1/icons/Tools/explorer.svg", href: `/mtm-website-1/${lang}/tools/census-tools` },
+];
+
 const menuItems = [
   { key: "solutions", label: t("nav.solutions") || "Solutions", hasIcon: true, hasDropdown: true },
   { key: "products",  label: t("nav.products")  || "Products",  hasIcon: true, hasDropdown: true },
   { key: "tools",     label: t("nav.tools")     || "Tools",     hasIcon: true, hasDropdown: true },
   { key: "insights",  label: t("nav.insights")  || "Insights",  hasIcon: false, href: `/mtm-website-1/${lang}/insights`, hasDropdown: false },
 ];
-
-// 5. Translate your CTA buttons
-const primaryCtaLabel = t('nav.demo') || "Request A Demo";
-const secondaryCtaLabel = t('nav.signin') || "Sign In";
-
-const solutionsItems = [
-  {
-    id: "advertising",
-    label: "Advertising",
-    desc: "Plan media with audience, reach, and insights.",
-    icon: "/mtm-website-1/icons/Solutions/advertising-active.svg",
-    href: `/mtm-website-1/${lang}/solutions/advertising`,
-  },
-  {
-    id: "media",
-    label: "Media",
-    desc: "Track platform behavior and content consumption shifts.",
-    icon: "/mtm-website-1/icons/Solutions/media-active.svg",
-    href: `/mtm-website-1/${lang}/solutions/media`,
-  },
-  {
-    id: "industry",
-    label: "Industry",
-    desc: "Benchmark categories and consumer adoption over time.",
-    icon: "/mtm-website-1/icons/Solutions/industry-active.svg",
-    href: `/mtm-website-1/${lang}/solutions/industry`,
-  },
-  {
-    id: "education",
-    label: "Education",
-    desc: "Support research and curriculum with reliable data.",
-    icon: "/mtm-website-1/icons/Solutions/education-active.svg",
-    href: `/mtm-website-1/${lang}/solutions/education`,
-  },
-  {
-    id: "govn-ngo",
-    label: "Govn & NGO",
-    desc: "Inform policy and programs with population-level trends.",
-    icon: "/mtm-website-1/icons/Solutions/govn-active.svg",
-    href: `/mtm-website-1/${lang}/solutions/govn`,
-  },
-];
-
-const productsItems = [
-  {
-    id: "mtm-18",
-    label: "MTM 18+",
-    desc: "Annual survey of Canadians 18+ on media and tech behaviors.",
-    icon: "/mtm-website-1/icons/Products/18-active.svg",
-    href: `/mtm-website-1/${lang}/products/mtm18`,
-  },
-  {
-    id: "juniors",
-    label: "Juniors",
-    desc: "Youth media survey for Canadians ages 2–17.",
-    icon: "/mtm-website-1/icons/Products/Jr-active.svg",
-    href: `/mtm-website-1/${lang}/products/juniors`,
-  },
-  {
-    id: "newcomers",
-    label: "Newcomers",
-    desc: "Media and tech habits of recent arrivals to Canada.",
-    icon: "/mtm-website-1/icons/Products/NC-active.svg",
-    href: `/mtm-website-1/${lang}/products/newcomers`,
-  },
-  {
-    id: "census",
-    label: "Census",
-    desc: "Demographic context to power smarter decisions.",
-    icon: "/mtm-website-1/icons/Products/Census-active.svg",
-    href: `/mtm-website-1/${lang}/products/census`,
-  },
-];
-
-const toolsItems = [
-  {
-    id: "data-analysis",
-    label: "Data Analysis",
-    desc: "Explore datasets with flexible cuts and comparisons.",
-    icon: "/mtm-website-1/icons/Tools/data-analysis.svg",
-    href: `/mtm-website-1/${lang}/tools/analysis-tools`,
-  },
-  {
-    id: "trending",
-    label: "Trending",
-    desc: "See what’s rising, falling, and changing over time.",
-    icon: "/mtm-website-1/icons/Tools/trending.svg",
-    href: `/mtm-website-1/${lang}/tools/analysis-tools`,
-  },
-  {
-    id: "forecasting",
-    label: "Forecasting",
-    desc: "Project outcomes with scenario-based forecasting.",
-    icon: "/mtm-website-1/icons/Tools/forecasting.svg",
-    href: `/mtm-website-1/${lang}/tools/analysis-tools`,
-  },
-  {
-    id: "census-tools",
-    label: "Census",
-    desc: "Use demographic tools to enrich MTM insights.",
-    icon: "/mtm-website-1/icons/Tools/explorer.svg",
-    href: `/mtm-website-1/${lang}/tools/census-tools`,
-  },
-];
 ---
 
 <div class="nav-bar">
   <div class="nav-inner">
     <div class="nav-main">
-      <a
-          href={`/mtm-website-1/`}
-          class="nav-logo"
-          aria-label="Go to home page"
-        >
+      <a href="/mtm-website-1/" class="nav-logo" aria-label="Go to home page">
         <img src="/mtm-website-1/MTM-CLR.svg" alt="MTM Logo" class="nav-logo-img" />
       </a>
       
       <div class="nav-menu">
         {menuItems.map((item) => (
           <div class={`nav-item ${item.hasDropdown ? "has-dropdown" : ""}`}>
-            <a
-              href={item.href}
-              class="btn btn-menu body-m-bold"
-              {...(item.hasDropdown ? { "data-dropdown-trigger": item.key, "aria-expanded": "false" } : {})}
-            >
+            <a href={item.href} class="btn btn-menu body-m-bold" {...(item.hasDropdown ? { "data-dropdown-trigger": item.key, "aria-expanded": "false" } : {})}>
               <span class="btn-text">{item.label}</span>
-
               {item.hasIcon && (
                 <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M6 9l6 6 6-6" />
@@ -157,13 +76,23 @@ const toolsItems = [
         ))}
       </div>
     </div>
+
+    <div class="nav-actions">
+      <div class="lang-toggle-group">
+        <a href={`${base}/fr/`} class={`lang-toggle body-m ${lang === 'fr' ? 'is-active' : ''}`} aria-pressed={lang === 'fr'}>
+          <span class="lang-label">FR</span>
+        </a>
+        <a href={`${base}/`} class={`lang-toggle body-m ${lang === 'en' || !lang ? 'is-active' : ''}`} aria-pressed={lang === 'en' || !lang}>
+          <span class="lang-label">EN</span>
+        </a>
+      </div>
+      <button class="btn btn-secondary button-l">{t('nav.signin') || 'Sign In'}</button>
+      <button class="btn btn-primary button-l">{t('nav.demo') || 'Request A Demo'}</button>
+    </div>
   </div>
 
-  {/* ONE shared mega dropdown */}
   <div id="navDropdown" class="nav-dropdown" aria-hidden="true">
     <div class="nav-dropdown-inner">
-  
-      {/* SOLUTIONS PANEL */}
       <div class="nav-panel" data-panel="solutions" hidden>
         <div class="nav-cards nav-cards--5">
           {solutionsItems.map((item) => (
@@ -175,8 +104,6 @@ const toolsItems = [
           ))}
         </div>
       </div>
-  
-      {/* PRODUCTS PANEL */}
       <div class="nav-panel" data-panel="products" hidden>
         <div class="nav-cards nav-cards--4">
           {productsItems.map((item) => (
@@ -188,8 +115,6 @@ const toolsItems = [
           ))}
         </div>
       </div>
-  
-      {/* TOOLS PANEL */}
       <div class="nav-panel" data-panel="tools" hidden>
         <div class="nav-cards nav-cards--4">
           {toolsItems.map((item) => (
@@ -201,42 +126,9 @@ const toolsItems = [
           ))}
         </div>
       </div>
-  
-  
-    </div>
-      
-      
-
-    </div>
-
-    <div class="nav-actions">
-      <div class="lang-toggle-group">
-        <a href={`${base}/fr/`} 
-           class={`lang-toggle body-m ${lang === 'fr' ? 'is-active' : ''}`} 
-           aria-pressed={lang === 'fr'}>
-          <span class="lang-icon"></span>
-          <span class="lang-label">FR</span>
-        </a>
-      
-        <a href={`${base}/`} 
-           class={`lang-toggle body-m ${lang === 'en' || !lang ? 'is-active' : ''}`} 
-           aria-pressed={lang === 'en' || !lang}>
-          <span class="lang-icon"></span>
-          <span class="lang-label">EN</span>
-        </a>
-      </div>
-
-      <button class="btn btn-secondary button-l">{t('nav.signin') || 'Sign In'}</button>
-      <button class="btn btn-primary button-l">{t('nav.demo') || 'Request A Demo'}</button>
     </div>
   </div>
 </div>
-</div>
-
 
 <script src="./lang-toggle.js"></script>
-
-<script>
-  import "./nav-dropdown.js";
-</script>
-
+<script>import "./nav-dropdown.js";</script>

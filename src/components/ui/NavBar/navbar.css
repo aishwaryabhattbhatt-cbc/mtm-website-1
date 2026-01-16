@@ -21,7 +21,7 @@
   
   /* Inner container aligned to page margin */
   .nav-inner {
-    width: calc(100% - (2 * var(--page-margin))); /* uses your 48px side margins */
+    width: 100%; /* uses your 48px side margins */
     margin: 0 auto;
     height: 100%;
   
