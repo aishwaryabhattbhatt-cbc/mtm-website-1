@@ -65,7 +65,7 @@ h5, .h5, .subtitle-text {
   font-family: var(--font-family-highlight);
   font-weight: var(--weight-regular);
   line-height: var(--lh-heading);
-  font-style: italic;
+  font-style: normal;
 }
 
 /* Specific Sizes */

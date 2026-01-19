@@ -5,7 +5,7 @@
 
 .hl-text {
 
-  --highlight-color: #E4F4C8; /* default */
+  --highlight-color: #EEF5CC; /* default */
   --highlight-angle: -12deg; /* highlight slant */
   --highlight-height: 1.3em; /* thickness */
   --highlight-delay: 0.75s;
@@ -13,7 +13,7 @@
   position: relative;
   display: inline-block;
   font-family: "DM Serif Display", serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 100;
   line-height: 1.1;
 
@@ -32,7 +32,8 @@
   width: 0%;
   height: var(--highlight-height);
   background: var(--highlight-color);
-  transform: skew(var(--highlight-angle));
+  /*transform: skew(var(--highlight-angle));*/
+  border-radius: 4px;
   
   transform-origin: left;
   transition: width 1000ms ease-out;
