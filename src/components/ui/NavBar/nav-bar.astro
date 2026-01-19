@@ -80,9 +80,11 @@ const menuItems = [
     <div class="nav-actions">
       <div class="lang-toggle-group">
         <a href={`${base}/fr/`} class={`lang-toggle body-m ${lang === 'fr' ? 'is-active' : ''}`} aria-pressed={lang === 'fr'}>
+          <span class="lang-icon"></span>
           <span class="lang-label">FR</span>
         </a>
         <a href={`${base}/`} class={`lang-toggle body-m ${lang === 'en' || !lang ? 'is-active' : ''}`} aria-pressed={lang === 'en' || !lang}>
+          <span class="lang-icon"></span>
           <span class="lang-label">EN</span>
         </a>
       </div>
