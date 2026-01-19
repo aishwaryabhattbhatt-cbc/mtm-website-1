@@ -1,0 +1,154 @@
+.section-tools {
+    z-index: var(--z-section);
+    padding-block: var(--section-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+  }
+
+.header-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+    width: 50%;
+}
+
+.tools-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-large);
+    display: contents; /* So that children use the main grid */
+}
+
+.dat-tool {
+    display: flex;
+    align-items: stretch; /* Makes both sides equal height */
+    overflow: hidden;
+    gap: var(--gap-medium);
+  }
+  
+  /* Left side (Visuals) */
+  .feature-visual {
+    grid-column: span 7;   
+     position: relative;
+    display: flex;
+    align-items: flex-end; /* Aligns image to bottom */
+    
+  }
+  
+  .main-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-20);
+  }
+  
+  
+  /* Right side (Text Content) */
+  .feature-info {
+    grid-column: span 5;   
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    gap: var(--gap-small);
+    position: relative;
+  }
+  
+    /* Floating Tip Box */
+    .feature-tip {
+        position: absolute;
+        width: 100%; /* Matches the width of feature-info */
+        
+        /* Shifts the box to the left to create the overlap seen in your mockup */
+        left: -8%; 
+        bottom: 8%; 
+        
+        /* Visual Styles */
+        background: white;
+        padding: 24px;
+        border-radius: var(--radius-12);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        z-index: 10;
+      
+        /* Height expands vertically for long text */
+        height: auto;        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .tip-content {
+        display: flex;
+        flex-direction: row; /* Horizontal layout for desktop */
+        align-items: top; /* Vertically center chevron with text */
+        gap: var(--gap-small);
+    }
+    
+    .tip-chevron {
+        width: 10px; /* Adjust size as needed */
+        height: 14px;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+        /* Default: pointing left */
+        transform: rotate(0deg); 
+        margin-top: 2px;
+    }
+  
+      @media (max-width: 1200px) {
+        .tool-feature-block.page-inner {
+          /* Stack the blocks vertically */
+          grid-template-columns: 1fr; 
+          /* Add stack gap between visual and info blocks */
+          gap: var(--stack-gap); 
+          overflow: visible;
+        }
+      
+        .feature-visual {
+          grid-column: span 12;
+          /* Force image container to 40% of viewport height */ 
+          width: 100%;
+          height: 50vh;
+          justify-content: left;
+          align-items: flex-end;
+          padding-left: 0;
+        }
+      
+        .main-image {
+          height: 100%;
+          width: auto; /* Prevent stretching */
+          object-fit: contain;
+        }
+      
+        .feature-info {
+          grid-column: span 12;
+          position: relative;
+          padding-top: 80px; /* Space for the tooltip at the top */
+        }
+      
+        .feature-tip {
+          /* Position to top right of the feature-info block */
+          top: -60px; 
+          right: 5%;
+          left: auto;
+          bottom: auto;
+          
+          /* Keep width consistent with the parent */
+          width: 60%; 
+          margin: 0 auto;
+          
+          /* Center it if desired, or keep it right-aligned */
+          transform: none;
+        }
+
+            /* Chevron points to the top at 1200px */
+        .tip-chevron {
+            transform: rotate(90deg); 
+        }
+        
+        /* Optional: Change layout to stack if preferred on small screens */
+        .tip-content {
+            flex-direction: column; 
+            align-items: flex-start;
+            gap: var(--gap-small);
+        }
+      }

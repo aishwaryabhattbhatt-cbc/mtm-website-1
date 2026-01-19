@@ -84,7 +84,7 @@
 .orbit {
   position: absolute;
   border-radius: 50%;
-  border: 2px solid var(--primary);
+  border: 1.5px solid var(--primary);
   /* transform: scale(0.6); */
   opacity: 0;
   transition: transform .5s ease, opacity .5s ease;

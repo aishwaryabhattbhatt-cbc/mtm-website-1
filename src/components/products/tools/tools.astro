@@ -1,0 +1,33 @@
+---
+import "./tools.css";
+const { header, datTool } = Astro.props;
+---
+
+<section class="section-tools">
+    <div class="header-block">
+        <h2 class="tools-title">{header.title}</h2>
+        <p class="tools-subtitle">{header.subtitle}</p>
+    </div>
+    <div class="tools-block">
+        <div class="dat-tool ">
+              <div class="page-inner">
+            <div class="feature-visual">
+                <img src={datTool.image} alt={datTool.title} class="main-image" />
+            
+              </div>
+            
+            <div class="feature-info">
+                <h3 class="h3">{datTool.title}</h3>
+                <p class="body-m">{datTool.description}</p>
+                <a class="btn btn-tertiary button-l" href="#" role="button">Learn More</a>
+                <div class="feature-tip">
+                    <div class="tip-content">
+                        <img src="/mtm-website-1/icons/tooltip-arrow.svg" alt="" class="tip-chevron" />
+                        <p class="body-s">{datTool.tipText}
+                        </p>
+                  </div>
+              </div>
+                </div>
+    </div>
+        
+</section>

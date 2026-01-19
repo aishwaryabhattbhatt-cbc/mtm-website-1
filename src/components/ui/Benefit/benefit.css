@@ -4,6 +4,8 @@
   align-items: center;
   text-align: center;
   gap: var(--gap-small);
+
+  height: 100%; 
 }
 
   
@@ -21,4 +23,16 @@
 
   .description-text {
     text-align: center;
+    margin: 0;
+  /* Optional: Ensures the description starts immediately after the title block */
+  display: block;
+  }
+
+  .benefit .body-m-bold {
+    min-height: 3.5rem; /* Adjust based on your longest title (approx 2-3 lines) */
+    display: flex;
+    align-items: top; /* Vertically centers short titles within the reserved space */
+    justify-content: center;
+    margin: 0;
+    width: 100%;
   }

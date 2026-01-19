@@ -41,7 +41,7 @@ const mergedProducts = productData.map(staticProd => {
     <div class="products-stage">
        {/* Product Image Block */}
       <div class="products-hero-image">
-        <img id="products-hero-img" src="/mtm-website-1/images/products/18-hero.png" alt="" />
+        <img id="products-hero-img" src="/mtm-website-1/images/home/products/segments-18.webp" alt="" />
       </div>
 
       <div class="product-types">
@@ -49,7 +49,7 @@ const mergedProducts = productData.map(staticProd => {
           <ProductCards
             {...role}
             isActive={role.id === "18"}
-            heroImage={`/mtm-website-1/images/products/${role.id}-hero.png`}
+            heroImage={`/mtm-website-1/images/home/products/segments-${role.id}.webp`}
             tools={role.tools}
           />
         ))}

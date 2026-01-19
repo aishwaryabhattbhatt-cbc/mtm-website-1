@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Navbar from "../../../components/ui/NavBar/nav-bar.astro";
+import Grid from '../../../components/ui/Grid/grid.astro';
+import HighlightText from '../../../components/ui/HighlightText/highlight-text.astro';
+import Footer from "../../../components/ui/Footer/footer.astro";
+import Subscribe from '../../../components/ui/Subscribe/subscribe.astro';
+import CTA from "../../../components/ui/CTA/CTA.astro";
+import Percentage from "../../../components/ui/Percentage/percentage.astro";
+import Benefits from "../../../components/products/benefits/benefits.astro";
+import Hero from "../../../components/products/hero/Hero.astro";
+import Tools from "../../../components/products/tools/tools.astro";
+import Papa from 'papaparse';
+
+// 1. Replace this with your "Published to Web" CSV URL
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rIvS3zuXP7if7TPShcpPwWU9Hn7ROXTRo9L47iZ0ezoLg8H-GYZTveEw7fAHDMn5A0iT/pub?gid=170388883&single=true&output=csv";
+
+const response = await fetch(SHEET_URL);
+const csvData = await response.text();
+
+// 2. Parsing logic [cite: 6, 7, 24]
+const parsed = Papa.parse(csvData, { 
+  header: false, 
+  skipEmptyLines: true 
+});
+
+const rawData = Object.fromEntries(
+  parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
+);
+
+
+const heroScene = {
+  orbits: [
+    { radius: 190, delay: 1 },
+    { radius: 260, delay: 1.5 },
+    { radius: 330, delay: 2 },
+  ],
+  image: "/mtm-website-1/images/products/18.webp",
+  maskImage: "/mtm-website-1/images/products/18-mask.webp",
+  orbitBlocker: "/mtm-website-1/images/products/hero-blocker.png",
+
+  // New grouped structure for side-by-side sets
+  groups: [
+    {
+      centerOffset: { x: -150, y: -75 }, // Left set 
+      orbits: [
+        { radius: 140, delay: 1 },
+        { radius: 200, delay: 1.5 },
+        
+      ],
+      icons: [
+        { file: "/mtm-website-1/icons/Artboard 1.svg", orbit: 0, angle: 310, tooltip: "Audio Behavior" },
+        { file: "/mtm-website-1/icons/Artboard 2.svg", orbit: 1, angle: 180, tooltip: "Video Viewing" },
+      ]
+    },
+    {
+      centerOffset: { x: 150, y: -75 }, // Right set 
+      orbits: [
+      { radius: 140, delay: 2 },
+      { radius: 200, delay: 2.5 },
+      ],
+      icons: [
+        { file: "/mtm-website-1/icons/Artboard 3.svg", orbit: 0, angle: 310, tooltip: "Analytics" },
+        { file: "/mtm-website-1/icons/Artboard 4.svg", orbit: 1, angle: 0, tooltip: "Mobile Usage" }
+      ]
+    }
+  ]
+};
+
+// 3. Mapping Content using rawData [cite: 8, 24]
+const heroContent = {
+  solution: rawData["solution"], 
+  titleBase: rawData["titlebase"],           
+  subtitle: rawData["subtitle"],             
+};
+
+const benefitItems: any[] = []; 
+for (let i = 1; i <= 5; i++) {
+  if (rawData[`benefit_${i}_title`]) {
+    benefitItems.push({
+      icon: rawData[`benefit_${i}_icon`] || `/mtm-website-1/icons/Industry/benefit-${i}.svg`,
+      title: rawData[`benefit_${i}_title`],
+      description: rawData[`benefit_${i}_desc`],
+    });
+  }
+}
+
+// 1. Tools Header Content 
+const toolsHeader = {
+  title: rawData["tools_header_title"],
+  subtitle: rawData["tools_header_subtitle"]
+};
+
+// 2. DAT Tool Content 
+const datToolContent = {
+  title: rawData["dat_tool_title"],
+  description: rawData["dat_tool_description"],
+  tipText: rawData["dat_tool_tip_text"],
+  image: "/mtm-website-1/images/products/products-dat-tool-18.webp",
+  link: "#",
+  
+};
+
+---
+
+<BaseLayout title="MTM | MTM 18+">
+  <HighlightText />
+  <Grid />
+  <Navbar />
+
+  <main class="page">
+    <Hero 
+      solution={heroContent.solution}
+      titleBase={heroContent.titleBase}
+      subtitle={heroContent.subtitle}
+      scene={heroScene} />
+    <Benefits 
+      items={benefitItems} 
+    />
+    <Tools 
+      header={toolsHeader}
+      datTool={datToolContent}
+    />
+
+    <CTA />
+    <Subscribe />
+    <Footer />
+  </main>
+
+
+  
+</BaseLayout>
