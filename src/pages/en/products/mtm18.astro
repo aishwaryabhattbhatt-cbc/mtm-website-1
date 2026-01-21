@@ -6,10 +6,12 @@ import HighlightText from '../../../components/ui/HighlightText/highlight-text.a
 import Footer from "../../../components/ui/Footer/footer.astro";
 import Subscribe from '../../../components/ui/Subscribe/subscribe.astro';
 import CTA from "../../../components/ui/CTA/CTA.astro";
-import Percentage from "../../../components/ui/Percentage/percentage.astro";
 import Benefits from "../../../components/products/benefits/benefits.astro";
 import Hero from "../../../components/products/hero/Hero.astro";
 import Tools from "../../../components/products/tools/tools.astro";
+import Reports from "../../../components/products/reports/reports.astro";
+import Methodology from "../../../components/products/methodology/methodology.astro";
+import Other from "../../../components/products/other-products/other.astro";
 import Papa from 'papaparse';
 
 // 1. Replace this with your "Published to Web" CSV URL
@@ -67,13 +69,6 @@ const heroScene = {
   ]
 };
 
-// 3. Mapping Content using rawData [cite: 8, 24]
-const heroContent = {
-  solution: rawData["solution"], 
-  titleBase: rawData["titlebase"],           
-  subtitle: rawData["subtitle"],             
-};
-
 const benefitItems: any[] = []; 
 for (let i = 1; i <= 5; i++) {
   if (rawData[`benefit_${i}_title`]) {
@@ -85,21 +80,6 @@ for (let i = 1; i <= 5; i++) {
   }
 }
 
-// 1. Tools Header Content 
-const toolsHeader = {
-  title: rawData["tools_header_title"],
-  subtitle: rawData["tools_header_subtitle"]
-};
-
-// 2. DAT Tool Content 
-const datToolContent = {
-  title: rawData["dat_tool_title"],
-  description: rawData["dat_tool_description"],
-  tipText: rawData["dat_tool_tip_text"],
-  image: "/mtm-website-1/images/products/products-dat-tool-18.webp",
-  link: "#",
-  
-};
 
 ---
 
@@ -110,19 +90,104 @@ const datToolContent = {
 
   <main class="page">
     <Hero 
-      solution={heroContent.solution}
-      titleBase={heroContent.titleBase}
-      subtitle={heroContent.subtitle}
-      scene={heroScene} />
+    solution={rawData["solution"]}
+    titleBase={rawData["titlebase"]}
+    subtitle={rawData["subtitle"]}
+    scene={heroScene} 
+    />
     <Benefits 
       items={benefitItems} 
     />
     <Tools 
-      header={toolsHeader}
-      datTool={datToolContent}
-    />
+    header={{
+      title: rawData["tools_header_title"],
+      subtitle: rawData["tools_header_subtitle"]
+    }}
+    datTool={{
+      title: rawData["dat_tool_title"],
+      description: rawData["dat_tool_description"],
+      tipText: rawData["dat_tool_tip_text"],
+      image: "/mtm-website-1/images/products/products-dat-tool-18.webp"
+    }}
+    trendingTool={{
+      title: rawData["trending_tool_title"],
+      description: rawData["trending_tool_description"],
+      tipText: rawData["trending_tool_tip_text"],
+      image: "/mtm-website-1/images/products/tools-18-trending.webp"
+    }}
+    forecastingTool={{
+      title: rawData["forecasting_tool_title"],
+      description: rawData["forecasting_tool_description"],
+      tipText: rawData["forecasting_tool_tip_text"],
+      image: "/mtm-website-1/images/products/tools-18-forecast.webp"
+    }}
+  />
 
+  <Reports 
+    content={{
+      title: rawData["reports_title"],
+      subtitle: rawData["reports_subtitle"],
+      primaryBtnText: rawData["reports_primary_btn_text"],
+      secondaryBtnText: rawData["reports_secondary_btn_text"],
+      leftImage: "/mtm-website-1/images/products/graphs/left-image.png",
+      rightImage: "/mtm-website-1/images/products/graphs/right-graph.svg"
+    }}
+    benefit1={{
+      icon: "/mtm-website-1/icons/Products/report-info/benefit-1.svg",
+      title: rawData["report_benefit_1_title"],
+      description: rawData["report_benefit_1_desc"]
+    }}
+    benefit2={{
+      icon: "/mtm-website-1/icons/Products/report-info/benefit-2.svg",
+      title: rawData["report_benefit_2_title"],
+      description: rawData["report_benefit_2_desc"]
+    }}
+  />
+
+  <Methodology 
+    content={{
+      title: rawData["methodology_title"],
+      subtitle: rawData["methodology_subtitle"],
+      image: "/mtm-website-1/images/products/methodology-18.webp",
+      // Left Pillar
+      leftStat1Title: rawData["left_stat1_title"],
+      leftStat1Desc: rawData["left_stat1_desc"],
+      leftStat2Title: rawData["left_stat2_title"],
+      leftStat2Value: parseInt(rawData["left_stat2_value"]),
+      leftStat2Desc: rawData["left_stat2_desc"],
+      leftStat3Title: rawData["left_stat3_title"],
+      leftStat3Desc: rawData["left_stat3_desc"],
+      leftStat4Title: rawData["left_stat3_title"],
+      leftStat4Desc: rawData["left_stat3_desc"],
+
+      // Right Pillar
+      rightStat1Title: rawData["right_stat1_title"],
+      rightStat1Desc: rawData["right_stat1_desc"],
+      rightStat2Title: rawData["right_stat2_title"],
+      rightStat2Value: parseInt(rawData["right-stat2_value"]),
+      rightStat2Desc: rawData["right_stat2_desc"],
+      rightStat3Title: rawData["right_stat3_title"],
+      rightStat3Desc: rawData["right_stat3_desc"],
+      rightStat4Title: rawData["right_stat4_title"],
+      rightStat4Desc: rawData["right_stat4_desc"],
+      //Button
+      btnText: rawData["btn_text"]
+    }} 
+  />
     <CTA />
+    <Other 
+      title={rawData["other_title"]}
+      card1={{
+        title: rawData["card1_title"],
+        subtitle: rawData["card1_subtitle"],
+        image: "/mtm-website-1/images/home/products/segments-Jr.webp"
+      }}
+      card2={{
+        title: rawData["card2_title"],
+        subtitle: rawData["card2_subtitle"],
+        image: "/mtm-website-1/images/home/products/segments-NC.webp"
+      }}
+    />
     <Subscribe />
     <Footer />
   </main>

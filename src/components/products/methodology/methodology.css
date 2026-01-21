@@ -1,0 +1,95 @@
+.section-methodology {
+    z-index: var(--z-section);
+    padding-block: var(--section-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+}
+
+.m-header-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: var(--gap-small);
+}
+.m-footer-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.m-content-block {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-56);
+    height: fit-content;
+}
+
+.m-subtitle {
+    margin: 0;
+    width: 50%;
+    text-align: center;
+}
+
+.m-image {
+    /* Set the width and force a vertical aspect ratio */
+    width: 380px; /* Fixed width to ensure it looks vertical compared to side content */
+    aspect-ratio: 3 / 4; /* Standard vertical portrait ratio */
+    height: 70vh; /* Adjust height based on your design preference */
+    
+    flex-shrink: 0;
+    overflow: hidden; /* Important for the crop */
+    border-radius: var(--radius-20);
+}
+
+.m-content-block img {
+    width: 100%;
+    height: 100%;
+    /* This is what performs the crop - it fills the vertical box and crops the sides */
+    object-fit: cover; 
+    object-position: center; /* Ensures the middle of the image stays visible */
+    display: block;
+    gap: var(--gap-medium);
+}
+.m-content {
+    display: flex;
+    flex-direction: column;
+    /* This ensures the column itself is centered relative to its flex-item slot */
+    align-items: center; 
+    gap: var(--stack-gap);
+    
+    width: 200px;
+
+}
+
+.m-content.left, 
+.m-content.right {
+    text-align: center;
+    align-items: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.chart-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.color-primary {
+    color: var(--primary); /* Ensure this variable exists */
+}
+

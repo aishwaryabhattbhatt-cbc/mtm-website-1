@@ -1,0 +1,132 @@
+.section-reports {
+    z-index: var(--z-section);
+    padding-block: var(--section-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+}
+
+/* Header block: Text on the left, buttons on the right */
+.header-block {
+    width: 100%;
+}
+
+/* Activate the grid for the side-by-side layout */
+.header-block .page-inner {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* Aligns both the text and the button container to the bottom */
+    align-items: end; 
+    gap: var(--gap-medium);
+}
+
+.header-text {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+    /* Reset any default margins that might interfere */
+    margin-bottom: 0; 
+}
+
+.header-buttons {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-medium);
+    /* Ensures buttons themselves are aligned within their 5-column box */
+    align-items: end; 
+    justify-content: flex-end;
+}
+
+.report-subtitle {
+    margin-bottom: 0px; 
+}
+
+/* Specifically remove the bottom margin from the subtitle */
+.header-text .reports-subtitle {
+    margin-bottom: 0 !important; 
+    padding-bottom: 0;
+}
+
+.image-block {
+    width: 100%;
+}
+
+/* Visual and Graph Block*/
+.image-block .page-inner {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* Aligns both the text and the button container to the bottom */
+    align-items: end; 
+}
+
+.image-left {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0; 
+    gap: var(--stack-gap);
+}
+
+.image-right {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0; 
+    gap: var(--stack-gap);
+}
+
+.image-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-20);
+}
+
+/* reports.css */
+
+/* Target the benefit container specifically within the Reports visual block */
+.image-block .benefit {
+    height: auto !important; /* Removes height: 100% from main benefit class */
+}
+
+/* Update the Title: Bigger font and remove the reserved space */
+.image-block .benefit-title {
+    font-size: var(--font-size-h3) !important; /* Increase text size */
+    min-height: 0 !important; /* Remove the 3.5rem reserved space */
+    height: auto !important;
+    
+
+}
+
+
+
+
+/* Responsive: Stack them on mobile */
+@media (max-width: 1024px) {
+    .header-block .page-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--gap-large);
+    }
+    
+    .header-buttons {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .image-block .page-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--gap-small);
+        margin: 0px;
+    }
+
+    .image-left, .image-right {
+        grid-column: span 12;
+        width: 100%;
+    }
+}

@@ -3,14 +3,15 @@
     padding-block: var(--section-padding);
     display: flex;
     flex-direction: column;
-    gap: var(--stack-gap);
+    gap: var(--section-padding);
   }
 
 .header-block {
     display: flex;
     flex-direction: column;
     gap: var(--gap-small);
-    width: 50%;
+    width: 60%;
+
 }
 
 .tools-block {
@@ -20,6 +21,12 @@
     display: contents; /* So that children use the main grid */
 }
 
+.tools-subtitle {
+    margin-bottom: 0;
+    width: 60%;
+}
+
+
 .dat-tool {
     display: flex;
     align-items: stretch; /* Makes both sides equal height */
@@ -27,8 +34,8 @@
     gap: var(--gap-medium);
   }
   
-  /* Left side (Visuals) */
-  .feature-visual {
+/* Left side (Visuals) */
+.feature-visual {
     grid-column: span 7;   
      position: relative;
     display: flex;
@@ -36,7 +43,7 @@
     
   }
   
-  .main-image {
+.main-image {
     width: 100%;
     height: auto;
     display: block;
@@ -44,8 +51,8 @@
   }
   
   
-  /* Right side (Text Content) */
-  .feature-info {
+/* Right side (Text Content) */
+.feature-info {
     grid-column: span 5;   
     display: flex;
     flex-direction: column;
@@ -54,8 +61,8 @@
     position: relative;
   }
   
-    /* Floating Tip Box */
-    .feature-tip {
+/* Floating Tip Box */
+.feature-tip {
         position: absolute;
         width: 100%; /* Matches the width of feature-info */
         
@@ -77,14 +84,14 @@
         justify-content: center;
       }
 
-      .tip-content {
+.tip-content {
         display: flex;
         flex-direction: row; /* Horizontal layout for desktop */
         align-items: top; /* Vertically center chevron with text */
         gap: var(--gap-small);
     }
     
-    .tip-chevron {
+.tip-chevron {
         width: 10px; /* Adjust size as needed */
         height: 14px;
         flex-shrink: 0;
@@ -92,63 +99,146 @@
         /* Default: pointing left */
         transform: rotate(0deg); 
         margin-top: 2px;
+}
+  
+/* Tools 2nd row */
+.tools-split-row {
+    display: contents;
+    gap: var(--stack-gap);
+    margin-top: var(--gap-large);
+    align-items: stretch;
+}
+
+.split-tool {
+    grid-column: span 6; /* Each tool takes half the 12-column grid */
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Specific Layout for Trending Tool (Text on top, Image bottom) */
+.split-tool.trending {
+    display: flex;
+    flex-direction: column;
+}
+
+.split-tool.forecasting {
+    display: flex;
+    flex-direction: column;
+    gap: auto;
+}
+
+.split-tool .feature-visual {
+    width: 100%;
+    position: relative;
+    border-radius: var(--radius-20);
+    overflow: visible; /* Allows tooltip to hang off */
+}
+
+.split-tool .feature-info {
+    padding: 0; /* No grey background for these sub-tools based on image */
+    background: transparent;
+}
+
+/* Adjusting tooltip for the smaller split width */
+.split-tool .feature-tip {
+    width: 80%;
+    /* Centers the element horizontally */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    
+    /* Responsive height for long text */
+    height: auto;
+    max-height: fit-content;
+    bottom: -10%; /* Hangs off the bottom edge as seen in reference */
+}
+
+.split-tool .tip-chevron {
+    transform: rotate(90deg);
+  }
+
+@media (max-width: 1200px) {
+    /* 1. Reset Grid containers inside page-inner */
+    .dat-tool .page-inner,
+    .tools-split-row .page-inner {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 80px !important;
+    }
+
+    .tools-subtitle {
+
+        width: 100%;
     }
   
-      @media (max-width: 1200px) {
-        .tool-feature-block.page-inner {
-          /* Stack the blocks vertically */
-          grid-template-columns: 1fr; 
-          /* Add stack gap between visual and info blocks */
-          gap: var(--stack-gap); 
-          overflow: visible;
-        }
-      
-        .feature-visual {
-          grid-column: span 12;
-          /* Force image container to 40% of viewport height */ 
-          width: 100%;
-          height: 50vh;
-          justify-content: left;
-          align-items: flex-end;
-          padding-left: 0;
-        }
-      
-        .main-image {
-          height: 100%;
-          width: auto; /* Prevent stretching */
-          object-fit: contain;
-        }
-      
-        .feature-info {
-          grid-column: span 12;
-          position: relative;
-          padding-top: 80px; /* Space for the tooltip at the top */
-        }
-      
-        .feature-tip {
-          /* Position to top right of the feature-info block */
-          top: -60px; 
-          right: 5%;
-          left: auto;
-          bottom: auto;
-          
-          /* Keep width consistent with the parent */
-          width: 60%; 
-          margin: 0 auto;
-          
-          /* Center it if desired, or keep it right-aligned */
-          transform: none;
-        }
+    /* 2. Force all blocks to full width */
+    .feature-visual,
+    .feature-info,
+    .split-tool {
+      grid-column: span 12 !important;
+      width: 100% !important;
+      gap: 0px !important;
+    }
+  
+    /* 3. Standardize Layout (Text on Top, Image on Bottom) */
+    .feature-info {
+      order: 1; /* Puts text first */
+      padding: 0 !important;
+      background: transparent !important;
+      gap: var(--gap-small) !important;
+    }
+  
+    .feature-visual {
+      order: 2; /* Puts image second */
+      position: relative;
+      height: auto;
+    }
+  
+    /* 4. Unified Tooltip Placement */
+    .feature-tip {
+      position: absolute !important;
+      width: 80% !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      bottom: -10% !important; /* Hangs off the bottom of the image */
+      top: auto !important;
+      z-index: 20;
+    }
+  
+    /* 5. Rotate Chevron to point UP toward the image */
+    .tip-chevron {
+      transform: rotate(90deg) !important;
+      margin-top: 0;
+      margin-bottom: 2px;
+    }
+  
+    /* 6. Add spacing to prevent tooltips overlapping the next section */
+    .dat-tool, 
+    .split-tool {
+      padding-bottom: var(--stack-gap);
+    }
 
-            /* Chevron points to the top at 1200px */
-        .tip-chevron {
-            transform: rotate(90deg); 
-        }
-        
-        /* Optional: Change layout to stack if preferred on small screens */
-        .tip-content {
-            flex-direction: column; 
-            align-items: flex-start;
-            gap: var(--gap-small);
-        }
-      }
+    .dat-tool .feature-info {
+        padding-bottom: 40px !important;
+    }
+
+  /* DAT tooltip */
+  .dat-tool .feature-tip {
+    /* Resets the desktop absolute positioning [cite: 30] */
+    top: auto !important;
+    /* Anchors it to the bottom of the visual */
+    bottom: -50% !important; 
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  
+  }
+
+  /* DAT tooltip arrow */
+  .dat-tool .tip-chevron {
+    transform: rotate(270deg) !important;
+  }
+}
+
+

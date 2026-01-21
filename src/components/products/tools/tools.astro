@@ -1,33 +1,78 @@
 ---
 import "./tools.css";
-const { header, datTool } = Astro.props;
+const { header, datTool, trendingTool, forecastingTool } = Astro.props;
 ---
 
 <section class="section-tools">
     <div class="header-block">
         <h2 class="tools-title">{header.title}</h2>
-        <p class="tools-subtitle">{header.subtitle}</p>
+        <p class="tools-subtitle subtitle">{header.subtitle}</p>
     </div>
     <div class="tools-block">
-        <div class="dat-tool ">
-              <div class="page-inner">
-            <div class="feature-visual">
-                <img src={datTool.image} alt={datTool.title} class="main-image" />
-            
-              </div>
-            
-            <div class="feature-info">
-                <h3 class="h3">{datTool.title}</h3>
-                <p class="body-m">{datTool.description}</p>
-                <a class="btn btn-tertiary button-l" href="#" role="button">Learn More</a>
-                <div class="feature-tip">
-                    <div class="tip-content">
-                        <img src="/mtm-website-1/icons/tooltip-arrow.svg" alt="" class="tip-chevron" />
-                        <p class="body-s">{datTool.tipText}
-                        </p>
-                  </div>
-              </div>
+        <div class="dat-tool">
+            <div class="page-inner">
+                <div class="feature-visual">
+                    <img src={datTool.image} alt={datTool.title} class="main-image" />
+                
                 </div>
-    </div>
+            
+                <div class="feature-info">
+                    <h3 class="h3">{datTool.title}</h3>
+                    <p class="body-m">{datTool.description}</p>
+                    <a class="btn btn-tertiary button-l" href="#" role="button">Learn More</a>
+                    <div class="feature-tip">
+                        <div class="tip-content">
+                            <img src="/mtm-website-1/icons/tooltip-arrow.svg" alt="" class="tip-chevron" />
+                            <p class="body-s">{datTool.tipText}
+                            </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+      
+        <div class="tools-split-row">
+
+            <div class="page-inner">
+
+                <div class="split-tool trending">
+                    <div class="feature-info">
+                        <h3 class="h3">{trendingTool.title}</h3>
+                        <p class="body-m">{trendingTool.description}</p>
+                        <a class="btn btn-tertiary button-l" href="#" role="button">Learn More</a>
+                    </div>
+
+                    <div class="feature-visual">
+                        <img src={trendingTool.image} alt={trendingTool.title} class="main-image" />
+                        <div class="feature-tip">
+                            <div class="tip-content">
+                                <img src="/mtm-website-1/icons/tooltip-arrow.svg" alt="" class="tip-chevron" />
+                                <p class="body-s">{trendingTool.tipText}</p>
+                            </div>
+            
+                    </div>
+                    </div>
+                </div>
         
+                <div class="split-tool forecasting">
+                    <div class="feature-info">
+                        <h3 class="h3">{forecastingTool.title}</h3>
+                        <p class="body-m">{forecastingTool.description}</p>
+                        <a class="btn btn-tertiary button-l" href="#" role="button">Learn More</a>
+                    </div>
+                
+                    <div class="feature-visual">
+                        <img src={forecastingTool.image} alt={forecastingTool.title} class="main-image" />
+                        <div class="feature-tip">
+                            <div class="tip-content">
+                                <img src="/mtm-website-1/icons/tooltip-arrow.svg" alt="" class="tip-chevron" />
+                                <p class="body-s">{forecastingTool.tipText}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
 </section>

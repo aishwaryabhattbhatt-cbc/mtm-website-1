@@ -1,0 +1,71 @@
+---
+import "./methodology.css";
+import Percentage from "../../ui/Percentage/percentage.astro";
+const { content } = Astro.props;
+
+---
+<section class="section-methodology">
+    <div class="m-header-block">
+        <h2 class="methodology-title">{content.title}</h2>
+        <p class="m-subtitle subtitle">{content.subtitle}</p>
+    </div>
+
+    <div class="m-content-block">
+        <div class="m-content left">
+            <div class="stat-item">
+                <h3 class="h2 color-primary">{content.leftStat1Title}</h3>
+                <p class="body-s">{content.leftStat1Desc}</p>
+            </div>
+
+            <div class="stat-item chart-item">
+                <p class="body-s">{content.leftStat2Title}</p>
+                <div class="chart-wrapper">
+                     <Percentage percent={content.leftStat2Value} size={120} stroke={5} />
+                </div>
+                <p class="body-s">{content.leftStat2Desc}</p>
+            </div>
+
+            <div class="stat-item">
+                <h3 class="h3">{content.leftStat3Title}</h3>
+                <p class="body-s">{content.leftStat3Desc}</p>
+            </div>
+
+            <div class="stat-item">
+                <h3 class="h3">{content.leftStat4Title}</h3>
+                <p class="body-s">{content.leftStat4Desc}</p>
+            </div>
+        </div>
+        <div class="m-image">
+        <img src={content.image} alt="Methodology" />
+        </div>
+        <div class="m-content right">
+            <div class="stat-item">
+                <h3 class="h2 color-primary">{content.rightStat1Title}</h3>
+                <p class="body-s">{content.rightStat1Desc}</p>
+            </div>
+
+            <div class="stat-item chart-item">
+                <p class="body-s">{content.rightStat2Title}</p>
+                <div class="chart-wrapper">
+                     <Percentage percent={content.rightStat2Value} size={120} stroke={5} />
+                </div>
+                <p class="body-s">{content.rightStat2Desc}</p>
+            </div>
+
+            <div class="stat-item">
+                <h3 class="h3">{content.rightStat3Title}</h3>
+                <p class="body-s">{content.rightStat3Desc}</p>
+            </div>
+
+            <div class="stat-item">
+                <h3 class="h3">{content.rightStat4Title}</h3>
+                <p class="body-s">{content.rightStat4Desc}</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="m-footer-block">
+        <button class="btn btn-secondary button-l">{content.btnText}</button>
+    </div>
+</section>

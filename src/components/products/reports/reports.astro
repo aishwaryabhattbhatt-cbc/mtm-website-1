@@ -1,0 +1,46 @@
+---
+import Benefit from "../../ui/Benefit/benefit.astro";
+import "./reports.css";
+
+const { content, benefit1, benefit2 } = Astro.props;
+---
+
+<section class="section-reports">
+    <div class="reports-header">
+        <div class="page-inner"> 
+            <div class="header-text"> 
+            <h2 class="reports-title">{content.title}</h2>
+            <p class="reports-subtitle subtitle">{content.subtitle}</p>
+            </div>
+
+            <div class="header-buttons"> <button class="btn btn-secondary button-l">{content.secondaryBtnText}</button>
+                <button class="btn btn-primary button-l">{content.primaryBtnText}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-block">
+        <div class="page-inner"> 
+            <div class="image-left"> 
+                <img src={content.leftImage} alt="Report Graphic" />
+                <Benefit
+                    class="report-benefit"
+                    icon={benefit1.icon}
+                    title={benefit1.title}
+                    description={benefit1.description}
+                />
+            </div>
+
+            <div class="image-right"> 
+                <img src={content.rightImage} alt="Report Graphic" />
+                <Benefit
+                    class="report-benefit"
+                    icon={benefit2.icon}
+                    title={benefit2.title}
+                    description={benefit2.description}
+                />
+        </div>
+    </div>
+    
+</section>
+

@@ -1,0 +1,41 @@
+---
+import "./other.css";
+const { title, card1, card2 } = Astro.props;
+---
+
+<section class="section-other">  
+    <div class="other-header">
+        <h2 class="other-title">{title}</h2>
+    </div>  
+    <div class="page-inner"> 
+        <div class="product-grid">
+            <button class="nav-arrow left" aria-label="Previous">
+                <img src="/mtm-website-1/icons/tooltip-arrow.svg" alt="" />
+            </button>
+
+            <div class="product-card">
+                <div class="card-image">
+                    <img src={card1.image} alt="MTM 18+" />
+                </div>
+                <div class="card-content">
+                    <h4 class="h4">{card1.title}</h4>
+                    <p class="body-m">{card1.subtitle}</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-image">
+                    <img src={card2.image} alt="Newcomers" />
+                </div>
+                <div class="card-content">
+                    <h4 class="h4">{card2.title}</h4>
+                    <p class="body-m">{card2.subtitle}</p>
+                </div>
+            </div>
+
+            <button class="nav-arrow right" aria-label="Next">
+                <img src="/mtm-website-1/icons/tooltip-arrow.svg" alt="" />
+            </button>
+        </div>
+    </div>
+</section>

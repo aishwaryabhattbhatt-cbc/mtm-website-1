@@ -28,7 +28,11 @@
   display: block;
   }
 
-  .benefit .body-m-bold {
+  .benefit-title {
+    font-family: var(--font-family-body);
+    font-weight: var(--weight-semibold);
+    line-height: var(--lh-body);
+    font-size: var(--font-size-body-m);
     min-height: 3.5rem; /* Adjust based on your longest title (approx 2-3 lines) */
     display: flex;
     align-items: top; /* Vertically centers short titles within the reserved space */
