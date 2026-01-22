@@ -1,0 +1,66 @@
+/* ============================
+   HERO SECTION
+   ============================ */
+
+  .hero {
+    position: relative;                     /* Overrides global relative */
+    display: flex;
+    align-items: center;
+    z-index: var(--z-hero);                   /* below everything */
+  }
+  
+
+  /* Grid fills the sticky area */
+  .hero-grid {
+    display: flex;
+    flex-direction: column; /* Stacks visual on top of text */
+    align-items: center;
+    width: 100%;
+    padding-bottom: var(--gap-large);
+    gap: var(--stack-gap);
+    padding-top: 20vh;
+    
+  }
+
+  /* Desktop layout */
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+    align-items: center;    
+    text-align: center;
+  
+}
+
+.subtitle {
+  color: var(--color-grey-2);
+  margin-bottom: 12px;
+}
+  
+.hero-right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  min-height: 50vh; /* Maintains presence even if image is slow to load */
+  max-width: 1200px;
+}
+  
+  .hero-actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: var(--gap-medium);
+  }
+  
+  .hero-subtitle {
+    width: 60%;
+  }
+  
+  /* canvas should fill the visual container */
+  #mtm-hero-scene {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }

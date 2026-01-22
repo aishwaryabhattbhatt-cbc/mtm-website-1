@@ -1,0 +1,201 @@
+.section-highlights {
+    z-index: var(--z-section);
+    padding-block: var(--section-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+}
+
+/* Header stays left-aligned by default */
+.highlights-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+    width: 100%;
+}
+
+.highlights-grid {
+    display: grid;
+    /* Remove span 3/9 and use proportional tracks */
+    grid-template-columns: 1fr 3fr; 
+    gap: 64px; /* Increased gap to match mockup spacing */
+    width: 100%;
+    align-items: start;
+}
+
+
+
+/* Left Block */
+.highlights-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-large);
+    width: 100%;
+}
+
+.filter-block {
+    cursor: pointer; /* Indicates interactivity */
+    transition: all 0.3s ease; /* Smooth color transition */
+    display: grid;
+    grid-template-columns: 8px 60px 1fr;
+    align-items: start;
+    gap: var(--gap-medium);
+    padding-block: var(--gap-small);
+}
+
+.filter-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+
+
+.filter-desc {
+    font-size: var(--font-size-body-m);
+    line-height: 1.5;
+}
+
+/* ACTIVE STATE (Blue) */
+.filter-block.is-active .filter-accent {
+    background-color: var(--color-blue-main);
+    height: 100%;
+    width: 6px;
+}
+
+.filter-block.is-active .filter-number,
+.filter-block.is-active .filter-label {
+    color: var(--color-blue-main);
+}
+
+.filter-block.is-active .filter-desc {
+    color: var(--color-black);
+}
+
+/* INACTIVE STATE (Grey) */
+.filter-block.is-inactive .filter-accent {
+    background-color: var(--color-grey-3);
+    height: 100%;
+    width: 6px;
+}
+
+.filter-block.is-inactive .filter-number,
+.filter-block.is-inactive .filter-label {
+    color: var(--color-grey-3);
+}
+
+.filter-block.is-inactive .filter-desc {
+    color: var(--color-grey-3);
+}
+
+
+/* Right Block */
+.highlights-right {
+    width: 100%;
+    background: white;
+    border-radius: var(--radius-20);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); /* Softer shadow like image_543c28.png */
+    padding: var(--section-padding);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.icon-grid {
+    display: grid;
+    /* Create 3 equal columns as seen in the image */
+    grid-template-columns: repeat(3, 1fr); 
+    /* Create 3 rows */
+    grid-template-rows: repeat(3, auto);
+    gap: var(--stack-gap) var(--gap-medium);
+    width: 100%;
+}
+
+.icon-cell {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-small);
+    padding-block: 12px;
+}
+
+.cell-icon {
+    width: 32px; /* Standard icon size for this grid */
+    height: 32px;
+    flex-shrink: 0;
+}
+
+/* census-highlights.css */
+
+.content-view {
+    width: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.content-view.is-hidden {
+    display: none; /* Removes inactive content from the layout */
+    opacity: 0;
+}
+
+.content-view.is-active {
+    display: block;
+    opacity: 1;
+}
+
+/* census-highlights.css */
+
+.content-view {
+    grid-area: 1 / 1; /* Both views occupy the same grid cell (stacked) */
+    width: 100%;
+    opacity: 0;
+    pointer-events: none; /* Inactive view can't be clicked */
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.content-view.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Staggered Icon Entrance */
+.is-active .icon-cell {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add delays to the icons for the "pop" effect */
+.is-active .icon-cell:nth-child(1) { animation-delay: 0.1s; }
+.is-active .icon-cell:nth-child(2) { animation-delay: 0.15s; }
+.is-active .icon-cell:nth-child(3) { animation-delay: 0.2s; }
+.is-active .icon-cell:nth-child(4) { animation-delay: 0.25s; }
+.is-active .icon-cell:nth-child(5) { animation-delay: 0.3s; }
+.is-active .icon-cell:nth-child(6) { animation-delay: 0.35s; }
+.is-active .icon-cell:nth-child(7) { animation-delay: 0.4s; }
+.is-active .icon-cell:nth-child(8) { animation-delay: 0.45s; }
+.is-active .icon-cell:nth-child(9) { animation-delay: 0.5s; }
+
+/* Responsive: Stack on mobile and tablet */
+@media (max-width: 1200px) {
+    .highlights-grid {
+        /* Switch to a single column for smaller screens */
+        grid-template-columns: 1fr;
+        gap: var(--gap-large);
+    }
+    
+    .highlights-right {
+        padding: var(--section-padding);
+        min-height: fit-content;
+    }
+    
+}

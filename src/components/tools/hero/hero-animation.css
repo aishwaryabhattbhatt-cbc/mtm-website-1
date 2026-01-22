@@ -1,0 +1,198 @@
+
+
+  /* =========================
+   HERO VISUAL LAYERS
+   Order (bottom → top):
+   1) Orbits
+   2) White blocker
+   3) Hero image
+   4) Icons
+   5) Tooltip
+   ========================= */
+
+
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    max-width: 1800px;
+    height: auto;
+    overflow: hidden;       /* hide anything that spills out */
+  }
+
+ /* 3) HERO IMAGE (above blocker) */
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 5;
+  
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .hero-img.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+  /* Phones */
+@media (max-width: 599px) {
+  .hero-visual {
+    height: 360px;       /* pick a value that looks good */
+  }
+}
+
+/* Tablets */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .hero-visual {
+    height: 360px;       /* taller on tablet */
+  }
+}
+  
+  /* 1) ORBITS (masked) */
+
+  .hero-orbits {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    -webkit-mask-image: linear-gradient(#fff 0 0);
+    mask-image: linear-gradient(#fff 0 0);
+
+
+    -webkit-mask-repeat: no-repeat, no-repeat;
+    mask-repeat: no-repeat, no-repeat;
+
+    -webkit-mask-position: 0 0, center;
+    mask-position: 0 0, center;
+
+    -webkit-mask-size: 100% 100%, cover;
+    mask-size: 100% 100%, cover;
+
+    /* Exclude the silhouette (so it becomes a “hole”) */
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    /* Ensure we use the mask’s luminance/alpha consistently */
+    -webkit-mask-mode: match-source;
+    mask-mode: match-source;
+
+  }
+
+  .hero-orbits .hero-orbit-blocker {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: block !important;
+  }
+  
+  .hero-orbits .orbit {
+    z-index: 1;
+  }
+
+  /* ORBITS */
+  .orbit {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--primary);
+    /* transform: scale(0.6); */
+    opacity: 0;
+    transition: transform .5s ease, opacity .5s ease;
+  }
+
+
+
+   /* 4) ICONS (top) */
+  .hero-icons {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+  }
+  
+    /* Individual icon */
+   .hero-icon {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+  
+    opacity: 0;
+    pointer-events: auto; /* allow hover */
+    z-index: 1; /* within hero-icons layer */
+  
+    --icon-scale: 0.9;
+    transform: translate(-50%, -50%) scale(var(--icon-scale));
+  
+    transition:
+      opacity 0.35s ease,
+      --icon-scale 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  
+    animation-name: float;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  
+    /* SVG sharpness */
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  
+  .hero-icon:hover {
+    --icon-scale: 1.5;
+  }
+
+
+  
+/* CIRCULAR ORBIT ANIMATION (Rotation Method) */
+@keyframes float {
+    from {
+      /* Combines centering, scale (for hover), and rotation */
+      transform: translate(-50%, -50%) 
+                 scale(var(--icon-scale)) 
+                 rotate(0deg) translateY(-8px) rotate(0deg);
+    }
+    to {
+      /* Note: rotation order is important. The inner rotation is backwards to keep icon upright. */
+      transform: translate(-50%, -50%) 
+                 scale(var(--icon-scale)) 
+                 rotate(360deg) translateY(-8px) rotate(-360deg);
+    }
+  }
+
+ /* 5) TOOLTIP (highest) */
+  .tooltip {
+    position: absolute;
+    z-index: 5;
+    background: white;
+    color: #0E6AFF; /* Changed from white to blue text color */
+    border: 1px solid #0E6AFF; /* Added blue border */
+    padding: 8px 12px;
+  
+    /* NEW: Inter font */
+    font-family: 'Inter', sans-serif;
+  
+    /* NEW: Larger font size */
+    font-size: 14px;         /* increase or set 15px if you want bigger */
+    font-weight: 400;
+    line-height: 1.4;
+  
+    border-radius: 6px;
+    pointer-events: none;
+    opacity: 0;
+  
+    /* neutral default transform — overwritten on hover */
+    transform: translate(-50%, -50%);
+    transition: opacity .25s ease, transform .25s ease;
+    white-space: nowrap;      /* prevent wrapping */
+  }
+  
+  
+
+  

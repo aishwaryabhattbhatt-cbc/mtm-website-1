@@ -1,0 +1,106 @@
+---
+import "./census-highlights.css";
+interface Props {
+  content: any;
+  geoItems: { icon?: string; label: string }[];
+  demoItems: { icon?: string; label: string; isTextOnly?: boolean }[];
+}
+
+const { content, geoItems, demoItems } = Astro.props;
+
+
+const filters = [
+  {
+    number: "01",
+    label: content.filter1Label,
+    description: content.filter1Desc,
+    isActive: true // Geographic is active by default as requested
+  },
+  {
+    number: "02",
+    label: content.filter2Label,
+    description: content.filter2Desc,
+    isActive: false 
+  }
+];
+
+
+---
+
+<section class="section-highlights">  
+    <div class="highlights-header">
+        <h2 class="highlights-title">{content.title}</h2>
+    </div>  
+    <div class="highlights-grid"> 
+        <div class="highlights-left">
+            {filters.map((filter) => (
+              <div class={`filter-block ${filter.isActive ? 'is-active' : 'is-inactive'}`} data-filter={filter.number}>
+                <div class="filter-accent"></div>
+                <div class="filter-number h3">{filter.number}</div>
+                <div class="filter-content">
+                  <p class="filter-label h5">{filter.label}</p>
+                  <p class="filter-desc body-s" set:html={filter.description}></p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+
+          <div class="highlights-right">
+            <div class="content-view is-active" data-content="01">
+                <div class="icon-grid">
+                    {geoItems.map(item => (
+                        <div class="icon-cell">
+                            <img src={item.icon} alt="" class="cell-icon" />
+                            <span class="body-m">{item.label}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+    
+            <div class="content-view is-hidden" data-content="02">
+                <div class="icon-grid">
+                    {demoItems.map(item => (
+                        <div class="icon-cell">
+                            {item.icon && <img src={item.icon} alt="" class="cell-icon" />}
+                            <span class="body-m">{item.label}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+                
+            
+        </div>
+    </div>
+</section>
+
+<script>
+    const filterBlocks = document.querySelectorAll('[data-filter]');
+    const contentViews = document.querySelectorAll('[data-content]');
+  
+    filterBlocks.forEach(block => {
+      block.addEventListener('click', () => {
+        const targetId = block.getAttribute('data-filter');
+  
+        // 1. Update Filters
+        filterBlocks.forEach(b => {
+          b.classList.remove('is-active');
+          b.classList.add('is-inactive');
+        });
+        block.classList.add('is-active');
+        block.classList.remove('is-inactive');
+  
+        // 2. Update Right Content View
+        contentViews.forEach(view => {
+          if (view.getAttribute('data-content') === targetId) {
+            view.classList.remove('is-hidden');
+            view.classList.add('is-active');
+          } else {
+            view.classList.add('is-hidden');
+            view.classList.remove('is-active');
+          }
+        });
+      });
+    });
+  </script>

@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Navbar from "../../../components/ui/NavBar/nav-bar.astro";
+import Grid from '../../../components/ui/Grid/grid.astro';
+import HighlightText from '../../../components/ui/HighlightText/highlight-text.astro';
+import Footer from "../../../components/ui/Footer/footer.astro";
+import Subscribe from '../../../components/ui/Subscribe/subscribe.astro';
+import CTA from "../../../components/ui/CTA/CTA.astro";
+
+import Hero from "../../../components/tools/hero/Hero.astro"; 
+import CensusHighlights from "../../../components/tools/census-highlights/census-highlights.astro";
+
+import Papa from 'papaparse';
+
+// 1. Replace this with your "Published to Web" CSV URL
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEomf-ND9rIvS3zuXP7if7TPShcpPwWU9Hn7ROXTRo9L47iZ0ezoLg8H-GYZTveEw7fAHDMn5A0iT/pub?gid=1530223522&single=true&output=csv";
+
+const response = await fetch(SHEET_URL);
+const csvData = await response.text();
+
+// 2. Parsing logic [cite: 6, 7, 24]
+const parsed = Papa.parse(csvData, { 
+  header: false, 
+  skipEmptyLines: true 
+});
+
+const rawData = Object.fromEntries(
+  parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
+);
+
+
+const heroScene = {
+  image: "/mtm-website-1/images/tools/census/hero.png",
+  maskImage: "",
+  orbitBlocker: "",
+
+  // New grouped structure for side-by-side sets
+  groups: [
+    {
+      centerOffset: { x: -320, y:30 }, // Left set 
+      orbits: [
+        { radius: 200, delay: 1 },
+        { radius: 250, delay: 1.5 },
+        
+      ],
+      icons: [
+        { file: "/mtm-website-1/icons/Artboard 1.svg", orbit: 0, angle: 200, tooltip: "Audio Behavior" },
+        { file: "/mtm-website-1/icons/Artboard 2.svg", orbit: 1, angle: 150, tooltip: "Video Viewing" },
+      ]
+    },
+    {
+      centerOffset: { x: 320, y: 30 }, // Right set 
+      orbits: [
+      { radius: 200, delay: 1 },
+      { radius: 250, delay: 1.5 },
+      ],
+      icons: [
+        { file: "/mtm-website-1/icons/Artboard 3.svg", orbit: 0, angle: 310, tooltip: "Analytics" },
+        { file: "/mtm-website-1/icons/Artboard 4.svg", orbit: 1, angle: 0, tooltip: "Mobile Usage" }
+      ]
+    }
+  ]
+};
+
+
+const highlightsContent = {
+  title: rawData["highlights_title"],
+  filter1Label: rawData["highlights_f1_label"],
+  filter1Desc: rawData["highlights_f1_desc"],
+  filter2Label: rawData["highlights_f2_label"],
+  filter2Desc: rawData["highlights_f2_desc"],
+};
+
+// 1. Define a type for your highlight items
+interface HighlightItem {
+  icon?: string;
+  label: string;
+  isTextOnly?: boolean;
+}
+
+// 2. Map Geographic Icons with the explicit type 
+const geoItems: HighlightItem[] = []; 
+for (let i = 1; i <= 9; i++) {
+  if (rawData[`geo_item_${i}_label`]) {
+    geoItems.push({
+      icon: rawData[`geo_item_${i}_icon`] || `/mtm-website-1/icons/tools/highlights/geo-${i}.svg`,
+      label: rawData[`geo_item_${i}_label`],
+    });
+  }
+}
+
+// 3. Map Demographic Icons with the explicit type 
+const demoItems: HighlightItem[] = []; 
+for (let i = 1; i <= 9; i++) {
+  if (rawData[`demo_item_${i}_label`]) {
+    demoItems.push({
+      icon: rawData[`demo_item_${i}_icon`] || `/mtm-website-1/icons/tools/highlights/demo-${i}.svg`,
+      label: rawData[`demo_item_${i}_label`],
+      isTextOnly: rawData[`demo_item_${i}_type`] === 'text'
+    });
+  }
+}
+
+---
+
+<BaseLayout title="MTM | MTM 18+">
+  <HighlightText />
+  <Grid />
+  <Navbar />
+
+  <main class="page">
+    <Hero 
+    solution={rawData["solution"]}
+    titleBase={rawData["titlebase"]}
+    subtitle={rawData["subtitle"]}
+    scene={heroScene} 
+    />
+    <CensusHighlights 
+      content={highlightsContent} 
+      geoItems={geoItems} 
+      demoItems={demoItems} 
+    />
+    
+    <CTA />
+    
+    <Subscribe />
+    <Footer />
+  </main>
+
+
+  
+</BaseLayout>
