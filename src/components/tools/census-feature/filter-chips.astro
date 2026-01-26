@@ -1,0 +1,75 @@
+---
+import "./filter-chips.css";
+
+interface Chip {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  chips?: Chip[];
+  activeId?: string;
+}
+
+const { 
+  chips = [
+    { id: "all", label: "ALL" },
+    { id: "use-case-1", label: "USE CASE 1" },
+    { id: "use-case-2", label: "USE CASE 2" },
+    { id: "use-case-3", label: "USE CASE 3" }
+  ],
+  activeId = "all"
+} = Astro.props;
+---
+
+<div class="filter-chips">
+  {chips.map((chip) => (
+    <button 
+      class={`filter-chip h5 ${chip.id === activeId ? 'is-active' : ''}`}
+      data-chip-id={chip.id}
+    >
+      {chip.label}
+    </button>
+  ))}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const chips = document.querySelectorAll('.filter-chip');
+    
+    // Set the first chip (ALL) as active by default and show all cards
+    if (chips.length > 0) {
+      chips[0].classList.add('is-active');
+      const featureCards = document.querySelectorAll('.feature-card');
+      featureCards.forEach((card) => {
+        card.classList.remove('is-hidden');
+      });
+    }
+    
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const filterId = chip.getAttribute('data-chip-id') || '';
+        
+        // Update active state
+        chips.forEach((c) => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        
+        // Filter feature cards
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach((card) => {
+          const cardFiltersStr = (card.getAttribute('data-filters') || '').trim();
+          const cardFilters = cardFiltersStr ? cardFiltersStr.split(',').map((f) => f.trim()) : [];
+          
+          // Debug logging
+          console.log('Chip ID:', filterId, 'Card Filters:', cardFilters);
+          
+          if (filterId === 'all' || cardFilters.includes(filterId)) {
+            card.classList.remove('is-hidden');
+          } else {
+            card.classList.add('is-hidden');
+          }
+        });
+      });
+    });
+  });
+</script>

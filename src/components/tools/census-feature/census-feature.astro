@@ -1,0 +1,63 @@
+---
+import "./census-feature.css";
+import FilterChips from "./filter-chips.astro";
+import FeatureCard from "./feature-card.astro";
+
+interface FeatureCardData {
+  icon: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  benefits: string[];
+  filters: string[];
+}
+
+interface FilterChip {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  usecasesTitle?: string;
+  usecasesDesc?: string;
+  chips?: FilterChip[];
+  featureCards?: FeatureCardData[];
+}
+
+const { 
+  title = "Explore Census Tool Features",
+  subtitle = "Find the right features based on what you're trying to accomplish.",
+  usecasesTitle = "Use Cases",
+  usecasesDesc = "Select a use case to discover the features that best fit your needs.",
+  chips = [],
+  featureCards = []
+} = Astro.props;
+---
+
+<section class="section-census-feature">
+  <div class="census-feature-header">
+    <h3 class="h3">{title}</h3>
+    <p class="subtitle body-m">{subtitle}</p>
+  </div>
+
+  <div class="use-cases">
+    <h5 class="h5">{usecasesTitle}</h5>
+    <p class="subtitle body-m">{usecasesDesc}</p>
+    <FilterChips chips={chips} />
+  </div>
+
+  <div class="feature-cards-container">
+    {featureCards.map((card) => (
+      <FeatureCard 
+        icon={card.icon}
+        title={card.title}
+        subtitle={card.subtitle}
+        image={card.image}
+        benefits={card.benefits}
+        filters={card.filters}
+      />
+    ))}
+  </div>
+</section>

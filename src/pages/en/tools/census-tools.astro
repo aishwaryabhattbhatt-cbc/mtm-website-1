@@ -9,6 +9,7 @@ import CTA from "../../../components/ui/CTA/CTA.astro";
 
 import Hero from "../../../components/tools/hero/Hero.astro"; 
 import CensusHighlights from "../../../components/tools/census-highlights/census-highlights.astro";
+import CensusFeature from "../../../components/tools/census-feature/census-feature.astro";
 
 import Papa from 'papaparse';
 
@@ -27,6 +28,11 @@ const parsed = Papa.parse(csvData, {
 const rawData = Object.fromEntries(
   parsed.data.map(([k, v]) => [k?.toString().trim().toLowerCase(), v?.toString().trim()])
 );
+
+// Log all keys that contain "feature" to see what we actually have
+const featureKeys = Object.keys(rawData).filter(k => k.includes('feature'));
+console.log("Feature keys in CSV:", featureKeys);
+console.log("Full rawData:", rawData);;
 
 
 const heroScene = {
@@ -70,6 +76,50 @@ const highlightsContent = {
   filter2Label: rawData["highlights_f2_label"],
   filter2Desc: rawData["highlights_f2_desc"],
 };
+
+// Census Feature Content
+// Build chips from CSV with ID and label
+const censusFeatureChips = [
+  { id: "all", label: rawData["feature_chip_all"] || "ALL" },
+  { id: rawData["feature_chip_1_id"] || "use-case-1", label: rawData["feature_chip_1_label"] || "USE CASE 1" },
+  { id: rawData["feature_chip_2_id"] || "use-case-2", label: rawData["feature_chip_2_label"] || "USE CASE 2" },
+  { id: rawData["feature_chip_3_id"] || "use-case-3", label: rawData["feature_chip_3_label"] || "USE CASE 3" },
+];
+
+console.log("Debug - Chips:", censusFeatureChips);
+
+interface FeatureCardData {
+  icon: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  benefits: string[];
+  filters: string[];
+}
+
+const censusFeatureCards: FeatureCardData[] = [];
+for (let i = 1; i <= 10; i++) {
+  const titleKey = `feature_${i}_title`;
+  if (rawData[titleKey]) {
+    const benefitsStr = rawData[`feature_${i}_benefits`] || "";
+    const benefits = benefitsStr.split("|").map((b) => b.trim()).filter((b) => b);
+    
+    // Parse filters: just use the IDs directly (e.g., "use-case-1,use-case-2")
+    const filtersStr = rawData[`feature_${i}_filters`] || "";
+    const filters = filtersStr.split(",").map((f) => f.trim()).filter((f) => f);
+    
+    console.log(`Card ${i} - filters: ${JSON.stringify(filters)}`);
+    
+    censusFeatureCards.push({
+      icon: rawData[`feature_${i}_icon`] || "/mtm-website-1/icons/feature-icon.svg",
+      title: rawData[titleKey],
+      subtitle: rawData[`feature_${i}_subtitle`] || "",
+      image: rawData[`feature_${i}_image`] || "/mtm-website-1/images/tools/census/feature.png",
+      benefits: benefits,
+      filters: filters,
+    });
+  }
+}
 
 // 1. Define a type for your highlight items
 interface HighlightItem {
@@ -119,6 +169,14 @@ for (let i = 1; i <= 9; i++) {
       content={highlightsContent} 
       geoItems={geoItems} 
       demoItems={demoItems} 
+    />
+    <CensusFeature 
+      title={rawData["feature_title"]}
+      subtitle={rawData["feature_subtitle"]}
+      usecasesTitle={rawData["feature_usecases_title"]}
+      usecasesDesc={rawData["feature_usecases_desc"]}
+      chips={censusFeatureChips}
+      featureCards={censusFeatureCards}
     />
     
     <CTA />

@@ -1,0 +1,141 @@
+.feature-card {
+  width: 100%;
+  border-radius: var(--radius-16);
+  background-color: var(--color-white);
+  box-shadow: 0 8px 24px rgba(27, 28, 29, 0.08);
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.feature-card.is-hidden {
+  display: none;
+}
+
+.feature-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-small);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-12);
+  overflow: hidden;
+}
+
+.feature-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.feature-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.feature-title-block .h4 {
+  margin: 0;
+}
+
+.feature-title-block .body-m {
+  margin: 0;
+  color: var(--color-grey-2);
+}
+
+.feature-benefits {
+  padding: var(--space-16) 0;
+  border-top: 1px solid var(--color-grey-4);
+  border-bottom: 1px solid var(--color-grey-4);
+}
+
+.benefits-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.benefits-toggle span {
+  font-weight: var(--weight-regular);
+}
+
+.benefits-toggle svg {
+  color: var(--color-grey-2);
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.benefits-toggle:hover svg {
+  color: var(--color-blue-main);
+}
+
+.benefits-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.benefits-content > ul {
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease 0.05s,
+              transform 0.35s cubic-bezier(0.65, 0, 0.35, 1) 0.05s;
+}
+
+.feature-benefits.is-expanded .benefits-content {
+  grid-template-rows: 1fr;
+  margin-top: var(--gap-small);
+}
+
+.feature-benefits.is-expanded .benefits-content > ul {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-benefits.is-expanded .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.benefits-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.benefits-content li {
+  padding: var(--space-8) var(--space-16);
+  background-color: var(--color-blue-light-4);
+  color: var(--color-grey-1);
+  border-radius: var(--radius-8);
+  font-size: var(--font-size-body-s);
+  white-space: nowrap;
+}
+
+.feature-image {
+  width: 100%;
+  border-radius: var(--radius-8);
+  overflow: hidden;
+  padding: var(--space-4);
+  background-color: var(--color-blue-light-4);
+}
+
+.feature-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

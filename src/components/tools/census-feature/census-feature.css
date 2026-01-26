@@ -1,0 +1,51 @@
+.section-census-feature {
+  z-index: var(--z-section);
+  padding-block: var(--section-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap);
+}
+
+.census-feature-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.use-cases {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+  position: sticky;
+  top: 72px;
+  background-color: var(--color-white);
+  padding-block: var(--gap-medium);
+  padding-inline: var(--page-margin);
+  margin-inline: calc(-1 * var(--page-margin));
+  z-index: var(--z-nav);
+  width: 100vw;
+  max-width: 100%;
+}
+
+.use-cases .h5 {
+  margin: 0;
+}
+
+.feature-cards-container {
+  display: flex;
+  gap: var(--stack-gap);
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.feature-cards-container > * {
+  flex: 0 1 calc(50% - var(--stack-gap) / 2);
+  min-width: 400px;
+}
+
+@media (max-width: 900px) {
+  .feature-cards-container > * {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
+}

@@ -1,0 +1,78 @@
+---
+import "./feature-card.css";
+
+interface Props {
+  icon?: string;
+  title?: string;
+  subtitle?: string;
+  image?: string;
+  benefits?: string[];
+  filters?: string[];
+}
+
+const { 
+  icon = "/mtm-website-1/icons/default-icon.svg",
+  title = "Feature Title",
+  subtitle = "Feature description text",
+  image = "/mtm-website-1/images/default-feature.png",
+  benefits = [],
+  filters = []
+} = Astro.props;
+---
+
+<div class="feature-card" data-filters={filters.join(',')}>
+  <div class="feature-card-header">
+    <div class="feature-icon">
+      <img src={icon} alt={title} />
+    </div>
+    <div class="feature-title-block">
+      <h4 class="h4">{title}</h4>
+      <p class="body-m">{subtitle}</p>
+    </div>
+  </div>
+
+  {benefits.length > 0 && (
+    <div class="feature-benefits">
+      <div class="benefits-toggle">
+        <span class="body-l">Benefits</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="toggle-icon">
+          <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="benefits-content">
+        <ul>
+          {benefits.map((benefit) => (
+            <li class="body-m">{benefit}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )}
+
+  <div class="feature-image">
+    <img src={image} alt={`${title} preview`} />
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggles = document.querySelectorAll('.benefits-toggle');
+    
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const benefitsSection = toggle.parentElement;
+        const isCurrentlyExpanded = benefitsSection?.classList.contains('is-expanded');
+        
+        // Close all accordions first
+        document.querySelectorAll('.feature-benefits').forEach((section) => {
+          section.classList.remove('is-expanded');
+        });
+        
+        // If the clicked one wasn't expanded, expand it
+        if (benefitsSection && !isCurrentlyExpanded) {
+          benefitsSection.classList.add('is-expanded');
+        }
+      });
+    });
+  });
+</script>
